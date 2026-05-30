@@ -9,7 +9,7 @@
  *    the strip list if any annotation geometry survives.
  */
 
-import { Suspense, useMemo, useRef, type MutableRefObject } from "react";
+import { Suspense, useEffect, useMemo, useRef, type MutableRefObject } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, ContactShadows } from "@react-three/drei";
 import { Box3, Group, Vector3 } from "three";
@@ -44,9 +44,21 @@ function shouldStrip(name: string): boolean {
   return STRIP_PATTERNS.some((p) => p.test(name));
 }
 
-function SpineModel({ rotationRef }: { rotationRef: RotationRef }) {
+function SpineModel({
+  rotationRef,
+  onReady,
+}: {
+  rotationRef: RotationRef;
+  onReady?: () => void;
+}) {
   const groupRef = useRef<Group>(null);
   const { scene } = useGLTF("/models/spine.glb");
+
+  // Suspense has resolved by the time this component mounts; flip the
+  // parent's "ready" flag so the canvas wrapper can fade in.
+  useEffect(() => {
+    onReady?.();
+  }, [onReady]);
 
   const cleanedScene = useMemo(() => {
     const clone = scene.clone(true);
@@ -93,8 +105,10 @@ useGLTF.preload("/models/spine.glb");
 
 export default function SpineScene({
   rotationRef,
+  onReady,
 }: {
   rotationRef: RotationRef;
+  onReady?: () => void;
 }) {
   return (
     <Canvas
@@ -108,7 +122,7 @@ export default function SpineScene({
         <directionalLight position={[5, 8, 6]} intensity={1.6} />
         <directionalLight position={[-5, 2, -3]} intensity={0.5} />
         <hemisphereLight args={["#FFFFFF", "#9DB6D4", 0.4]} />
-        <SpineModel rotationRef={rotationRef} />
+        <SpineModel rotationRef={rotationRef} onReady={onReady} />
         <ContactShadows
           position={[0, -3, 0]}
           opacity={0.18}

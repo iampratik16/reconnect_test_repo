@@ -19,7 +19,7 @@
  *    mounted via IntersectionObserver — zero 3D cost above the fold.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
   motion,
@@ -30,6 +30,13 @@ import {
   AnimatePresence,
 } from "framer-motion";
 
+/**
+ * Dynamic-import the WebGL scene with ssr:false so three.js never lands
+ * in the server bundle, but DON'T gate it behind IntersectionObserver —
+ * we want the canvas to start mounting and parsing the GLB the moment
+ * the home page hydrates. The preload <link> in the home page head
+ * means the GLB is usually already cached by the time this resolves.
+ */
 const SpineScene = dynamic(() => import("./SpineScene"), {
   ssr: false,
   loading: () => <SceneFallback />,
@@ -88,22 +95,11 @@ export default function SpineConnects() {
   // Live target rotation (radians) for the WebGL model.
   const rotationRef = useRef(0);
 
-  // Lazy-mount the WebGL scene when near viewport.
-  const [sceneVisible, setSceneVisible] = useState(false);
-  useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setSceneVisible(true);
-          obs.disconnect();
-        }
-      },
-      { rootMargin: "200px 0px" }
-    );
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
+  // Flips true the moment the GLB has parsed + the model has mounted
+  // inside the WebGL scene. Drives the canvas's fade-in so the spine
+  // doesn't "pop" — it crossfades into existence.
+  const [sceneReady, setSceneReady] = useState(false);
+  const handleReady = useCallback(() => setSceneReady(true), []);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -204,14 +200,20 @@ export default function SpineConnects() {
                 />
 
                 {/* WebGL canvas — stays flat in DOM, the model inside it
-                    rotates in 3D. Fills the stage. */}
-                <div className="absolute inset-0">
-                  {sceneVisible ? (
-                    <SpineScene rotationRef={rotationRef} />
-                  ) : (
-                    <SceneFallback />
-                  )}
-                </div>
+                    rotates in 3D. Mounts eagerly so it's parsing the
+                    (preloaded) GLB while the user is still above the fold.
+                    Fades from opacity 0 → 1 the moment the model is
+                    actually visible, so there's no pop. A soft placeholder
+                    sits underneath until the canvas reveals. */}
+                <SceneFallback active={!sceneReady} />
+                <motion.div
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: sceneReady ? 1 : 0 }}
+                  transition={{ duration: 0.55, ease: EASE }}
+                >
+                  <SpineScene rotationRef={rotationRef} onReady={handleReady} />
+                </motion.div>
 
                 {/* Helical CSS-3D ring of pillar pills, overlaid on the canvas */}
                 <motion.div
@@ -280,12 +282,16 @@ export default function SpineConnects() {
   );
 }
 
-function SceneFallback() {
+function SceneFallback({ active = true }: { active?: boolean }) {
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="flex flex-col items-center gap-3 text-ink-soft/60">
+    <div
+      aria-hidden="true"
+      className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-500 ${
+        active ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div className="flex flex-col items-center gap-3 text-ink-soft/40">
         <div className="w-1 h-40 rounded-full bg-line animate-pulse" />
-        <p className="text-caption uppercase tracking-widest">Loading model…</p>
       </div>
     </div>
   );

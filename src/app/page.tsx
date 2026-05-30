@@ -115,6 +115,20 @@ const darkPoints = [
 export default function HomePage() {
   return (
     <>
+      {/* ── Resource hints for the 3D spine in section (05) ────────
+         These get hoisted to <head> by React 19 / Next 15 so the
+         browser starts the GLB download in parallel with HTML parse,
+         and the DRACO decoder CDN is already warmed up by the time
+         three.js asks for it. Eliminates the cold-start wait. */}
+      <link
+        rel="preload"
+        as="fetch"
+        href="/models/spine.glb"
+        type="model/gltf-binary"
+        crossOrigin="anonymous"
+      />
+      <link rel="preconnect" href="https://www.gstatic.com" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="https://www.gstatic.com" />
       {/* ════════════════════════════════════════════════════════
           1) HERO — full-bleed video, bottom-anchored editorial copy,
                     floating glass credibility chip, scroll indicator.
