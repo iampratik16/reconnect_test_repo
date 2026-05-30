@@ -85,8 +85,10 @@ export default function BodyRegionDiagram() {
   const region = REGIONS.find((r) => r.id === active)!;
 
   return (
-    <div className="flex flex-col gap-7 md:gap-8 min-w-0">
-      {/* ═══ Skeleton silhouette — centred at the top of the card ═ */}
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,420px)_1fr] gap-8 lg:gap-10 items-start min-w-0">
+      {/* ═══ LEFT column: Skeleton + region pills ═══════════════════ */}
+      <div className="flex flex-col gap-6 min-w-0">
+      {/* ═══ Skeleton silhouette ════════════════════════════════════ */}
       <div className="relative mx-auto w-full max-w-[360px] aspect-square">
         {/* Soft brand-blue radial backdrop */}
         <div
@@ -192,10 +194,8 @@ export default function BodyRegionDiagram() {
         </p>
       </div>
 
-      {/* ═══ Selectable region pills + active focus card ═══════════ */}
-      <div className="flex flex-col gap-6">
-        {/* Region pills — flex-wrap so labels never truncate */}
-        <div className="flex flex-wrap gap-2">
+        {/* Region pills — stay under the skeleton in the left column */}
+        <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
           {REGIONS.map((r) => {
             const isActive = r.id === active;
             return (
@@ -205,7 +205,7 @@ export default function BodyRegionDiagram() {
                 onMouseEnter={() => setHovered(r.id)}
                 onMouseLeave={() => setHovered(null)}
                 aria-pressed={isActive}
-                className={`group relative overflow-hidden rounded-pill px-5 py-2.5 text-body-sm font-medium whitespace-nowrap transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] border ${
+                className={`group relative overflow-hidden rounded-pill px-4 py-2 text-body-sm font-medium whitespace-nowrap transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] border ${
                   isActive
                     ? "bg-clay text-calcium border-clay shadow-soft"
                     : "bg-calcium text-ink-soft border-line hover:text-ink hover:border-clay/50 hover:bg-clay-soft/40"
@@ -226,68 +226,68 @@ export default function BodyRegionDiagram() {
             );
           })}
         </div>
+      </div>
 
-        {/* Active region card — bigger, more prominent */}
-        <div className="relative glow-card glow-card-static bg-calcium rounded-[20px] p-7 md:p-9 overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={region.id}
-              initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={prefersReduced ? { opacity: 0 } : { opacity: 0, y: -10 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-5"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-eyebrow text-clay">Focus area</p>
-                <span className="text-caption font-medium text-sage bg-sage-tint rounded-pill px-3 py-1 whitespace-nowrap">
-                  Track · {region.trackName}
-                </span>
-              </div>
+      {/* ═══ RIGHT column: Active focus card ═══════════════════════ */}
+      <div className="relative glow-card glow-card-static bg-calcium rounded-[20px] p-7 md:p-9 overflow-hidden lg:sticky lg:top-28 self-start w-full">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={region.id}
+            initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReduced ? { opacity: 0 } : { opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col gap-5"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <p className="text-eyebrow text-clay">Focus area</p>
+              <span className="text-caption font-medium text-sage bg-sage-tint rounded-pill px-3 py-1 whitespace-nowrap">
+                Track · {region.trackName}
+              </span>
+            </div>
 
-              <div>
-                <h4 className="text-h2 font-display text-ink leading-tight">
-                  {region.label}
-                </h4>
-                <p className="text-body-lg text-ink-soft mt-3">{region.blurb}</p>
-              </div>
+            <div>
+              <h4 className="text-h2 font-display text-ink leading-tight">
+                {region.label}
+              </h4>
+              <p className="text-body-lg text-ink-soft mt-3">{region.blurb}</p>
+            </div>
 
-              <ul className="flex flex-wrap gap-2">
-                {region.conditions.map((c) => (
-                  <li
-                    key={c}
-                    className="text-body-sm font-medium text-ink bg-bone-deep rounded-pill px-4 py-1.5"
-                  >
-                    {c}
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href={region.track}
-                className="group inline-flex items-center gap-2 text-body font-medium text-clay hover:text-clay-dark transition-colors duration-200 mt-1"
-              >
-                Explore the {region.trackName} track
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
+            <ul className="flex flex-wrap gap-2">
+              {region.conditions.map((c) => (
+                <li
+                  key={c}
+                  className="text-body-sm font-medium text-ink bg-bone-deep rounded-pill px-4 py-1.5"
                 >
-                  <path
-                    d="M3 8h10m0 0L9 4m4 4L9 12"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+                  {c}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={region.track}
+              className="group inline-flex items-center gap-2 text-body font-medium text-clay hover:text-clay-dark transition-colors duration-200 mt-1"
+            >
+              Explore the {region.trackName} track
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path
+                  d="M3 8h10m0 0L9 4m4 4L9 12"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

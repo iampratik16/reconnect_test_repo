@@ -14,6 +14,9 @@ const variants = {
   "sage-outline":
     "border border-sage text-sage hover:bg-sage/5",
   ghost: "text-ink-soft hover:text-ink",
+  /** Outline-on-dark — secondary action on sage-deep / clay CTA bands. */
+  "bone-outline":
+    "border border-bone/30 text-bone bg-bone/[0.04] backdrop-blur-sm hover:bg-bone/10 hover:border-bone/60 shadow-[0_1px_0_0_rgba(255,255,255,0.06)_inset]",
 } as const;
 
 const sizes = {

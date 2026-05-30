@@ -233,7 +233,6 @@ export default function ProgramsPage() {
 
         <div className="container-site flex flex-col gap-24 md:gap-32">
           {tracks.map((track, i) => {
-            const Icon = track.icon;
             const reverse = i % 2 === 1;
             return (
               <Reveal key={track.slug}>
@@ -252,11 +251,6 @@ export default function ProgramsPage() {
                           alt={track.imageAlt}
                           loading="lazy"
                           className="w-full h-[360px] md:h-[460px] object-cover"
-                        />
-                        <Icon
-                          className={`absolute ${
-                            reverse ? "left-6" : "right-6"
-                          } top-6 w-20 text-bone/40 pointer-events-none`}
                         />
                       </div>
                     </div>
@@ -351,79 +345,14 @@ export default function ProgramsPage() {
 
         <JourneyStepper className="mb-20" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
-          {/* Body region diagram */}
-          <Card padding="lg" className="bg-calcium">
-            <Eyebrow>Where does it hurt?</Eyebrow>
-            <h3 className="text-h3 font-display text-ink mt-4 mb-6">
-              Exercise starts where the problem is.
-            </h3>
-            <BodyRegionDiagram />
-          </Card>
-
-          {/* Method copy — exercise split, nutrition, psychology */}
-          <div className="flex flex-col gap-8">
-            <Reveal>
-              <div className="flex gap-5">
-                <span className="text-eyebrow text-clay shrink-0 pt-1">01</span>
-                <div>
-                  <h4 className="text-h4 font-display text-ink mb-2">Medical assessment first.</h4>
-                  <p className="text-body text-ink-soft">
-                    Every program begins with a rheumatologist-led intake — history, imaging, current
-                    medication, pain map. Nothing else starts until this is done.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.05}>
-              <div className="flex gap-5">
-                <span className="text-eyebrow text-clay shrink-0 pt-1">02</span>
-                <div>
-                  <h4 className="text-h4 font-display text-ink mb-2">Exercise, split by region.</h4>
-                  <p className="text-body text-ink-soft">
-                    Upper body, lower body, back, and the specific joints we’re protecting — sequenced
-                    so we start where the problem is, and scaled for your age and severity.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="flex gap-5">
-                <span className="text-eyebrow text-clay shrink-0 pt-1">03</span>
-                <div>
-                  <h4 className="text-h4 font-display text-ink mb-2">Nutrition, built to your plate.</h4>
-                  <p className="text-body text-ink-soft">
-                    A short veg / non-veg pre-questionnaire shapes a plan that fits how you actually eat —
-                    anti-inflammatory, protein-led, and realistic.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.15}>
-              <div className="flex gap-5">
-                <span className="text-eyebrow text-clay shrink-0 pt-1">04</span>
-                <div>
-                  <h4 className="text-h4 font-display text-ink mb-2">
-                    Psychology — only when needed.
-                  </h4>
-                  <p className="text-body text-ink-soft">
-                    Pain has a mental load. If we detect a block — fear of movement, low adherence,
-                    burnout — we refer in a clinical psychologist. Never reflexive, always considered.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <div className="pt-2">
-              <Button variant="sage-outline" href="/how-it-works" arrow>
-                See the full method
-              </Button>
-            </div>
-          </div>
-        </div>
+        {/* Body region diagram — skeleton + focus card sit side-by-side inside */}
+        <Card padding="lg" className="bg-calcium">
+          <Eyebrow>Where does it hurt?</Eyebrow>
+          <h3 className="text-h3 font-display text-ink mt-4 mb-6">
+            Exercise starts where the problem is.
+          </h3>
+          <BodyRegionDiagram />
+        </Card>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════

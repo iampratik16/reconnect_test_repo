@@ -35,7 +35,8 @@ export default function CTASection({
   const descClass = isSage ? "text-sage-tint" : "text-clay-soft";
 
   const primaryVariant = isSage ? "clay" : "sage-outline";
-  const secondaryVariant = "ghost";
+  // bone-outline reads well on both sage-deep and clay backgrounds.
+  const secondaryVariant = "bone-outline" as const;
 
   return (
     <Section bg={bgClass}>
@@ -53,12 +54,22 @@ export default function CTASection({
             </Button>
 
             {secondaryHref && secondaryLabel && (
-              <Button
-                variant={secondaryVariant}
-                size="lg"
-                href={secondaryHref}
-                className={isSage ? "text-bone/70 hover:text-bone" : "text-calcium/70 hover:text-calcium"}
-              >
+              <Button variant={secondaryVariant} size="lg" href={secondaryHref}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  className="-ml-0.5"
+                >
+                  <rect x="3" y="5" width="14" height="12" rx="2" />
+                  <path d="M3 9h14M7 3v4M13 3v4" />
+                </svg>
                 {secondaryLabel}
               </Button>
             )}

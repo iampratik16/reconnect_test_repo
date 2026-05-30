@@ -9,6 +9,7 @@ import Card from "@/components/Card";
 import CTASection from "@/components/CTASection";
 import { SkeletonSvg, SpineSvg } from "@/components/AnatomicalArt";
 import StickyJourneySequence from "./_components/StickyJourneySequence";
+import WhyNotYouTube from "./_components/WhyNotYouTube";
 
 export const metadata: Metadata = {
   title: "How It Works",
@@ -124,53 +125,7 @@ export default function HowItWorksPage() {
       {/* ═══════════════════════════════════════════════════════
           3) "WHY NOT JUST YOUTUBE?" CALLOUT
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-bone section-py overflow-hidden">
-        <SpineSvg className="watermark text-ink left-[-100px] top-[40px] w-[420px] hidden md:block" />
-
-        <div className="container-site relative">
-          <Reveal>
-            <div className="max-w-3xl">
-              <Eyebrow number="(02)">A fair question</Eyebrow>
-              <h2 className="text-h2 font-display text-ink mt-6 leading-tight">
-                <span className="serif-italic">“Why not just</span>{" "}
-                <span className="serif-italic text-clay">YouTube?”</span>
-              </h2>
-
-              <blockquote className="text-h4 font-display text-ink-soft mt-10 border-l-2 border-clay pl-6 max-w-2xl">
-                YouTube has endless exercises — but no motivation, and no direction for
-                where <em className="serif-italic text-ink">your</em> body is at. We give
-                you the roadmap.
-              </blockquote>
-              <p className="text-caption text-ink-soft mt-4 pl-6">
-                — Dr. Shruthi Desai, Rheumatologist
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-                {[
-                  {
-                    label: "Endless videos",
-                    body: "Plenty of exercises. Zero idea which ones apply to your knee, your spine, or your age.",
-                  },
-                  {
-                    label: "No accountability",
-                    body: "Nobody’s watching. Adherence drops within weeks. Pain doesn’t.",
-                  },
-                  {
-                    label: "No roadmap",
-                    body: "Random workouts don’t add up to a 12-week plan with milestones and medical oversight.",
-                  },
-                ].map((item, i) => (
-                  <div key={item.label} className="flex flex-col gap-2">
-                    <span className="text-eyebrow text-ink-soft">0{i + 1}</span>
-                    <p className="text-body font-medium text-ink">{item.label}</p>
-                    <p className="text-body-sm text-ink-soft">{item.body}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <WhyNotYouTube />
 
       {/* ═══════════════════════════════════════════════════════
           4) RECONNECT vs GENERIC APPS COMPARISON

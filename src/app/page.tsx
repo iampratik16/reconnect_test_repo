@@ -27,6 +27,7 @@ import { sciencePoints } from "@/lib/content/science";
 import { plans } from "@/lib/content/pricing";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
+import SpineConnects from "./_components/SpineConnects";
 
 export const metadata: Metadata = {
   title: "Reconnect Wellness — Doctor-Led Strength Training for Bones & Joints",
@@ -373,6 +374,11 @@ export default function HomePage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════
+          5b) CONNECTED BY DESIGN — scroll-rotating spine
+          ════════════════════════════════════════════════════════ */}
+      <SpineConnects />
+
+      {/* ════════════════════════════════════════════════════════
           6) THE JOURNEY — JourneyStepper
           ════════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep">
@@ -429,7 +435,6 @@ export default function HomePage() {
                     }}
                     aria-hidden="true"
                   />
-                  <t.Icon className="absolute right-5 top-5 w-16 text-bone/70 pointer-events-none drop-shadow-md" />
                 </div>
 
                 <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
@@ -617,11 +622,53 @@ export default function HomePage() {
                     </span>
                   </p>
                 </div>
-                <ul className={`flex flex-col gap-2 text-body-sm flex-1 ${isPopular ? "text-bone/80" : "text-ink-soft"}`}>
-                  {p.features.slice(0, 4).map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <span className={`mt-1.5 inline-block w-1 h-1 rounded-full ${isPopular ? "bg-clay-soft" : "bg-clay"} shrink-0`} />
-                      {f}
+                <ul className="flex flex-col gap-2.5 text-body-sm flex-1">
+                  {p.features.map((f) => (
+                    <li key={f.label} className="flex items-start gap-2.5">
+                      {f.included ? (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className={`shrink-0 mt-0.5 ${isPopular ? "text-clay-soft" : "text-clay"}`}
+                          aria-label="Included"
+                        >
+                          <path d="M4 10l4 4 8-8" />
+                        </svg>
+                      ) : (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className={`shrink-0 mt-0.5 ${isPopular ? "text-bone/30" : "text-ink-soft/40"}`}
+                          aria-label="Not included"
+                        >
+                          <path d="M6 6l8 8M14 6l-8 8" />
+                        </svg>
+                      )}
+                      <span
+                        className={
+                          f.included
+                            ? isPopular
+                              ? "text-bone"
+                              : "text-ink"
+                            : isPopular
+                              ? "text-bone/40 line-through"
+                              : "text-ink-soft/50 line-through"
+                        }
+                      >
+                        {f.label}
+                      </span>
                     </li>
                   ))}
                 </ul>

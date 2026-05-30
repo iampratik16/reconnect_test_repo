@@ -1,15 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type ComponentType, type SVGProps } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import {
-  KneeSvg,
-  SpineSvg,
-  HandSvg,
-  SkeletonSvg,
-} from "@/components/AnatomicalArt";
-
-type SvgComponent = ComponentType<{ className?: string } & SVGProps<SVGSVGElement>>;
 
 export type JourneyStep = {
   number: string;
@@ -18,7 +10,8 @@ export type JourneyStep = {
   body: string;
   bullets: string[];
   artLabel: string;
-  art: SvgComponent;
+  image: string;
+  imageAlt: string;
 };
 
 const STEPS: JourneyStep[] = [
@@ -34,7 +27,8 @@ const STEPS: JourneyStep[] = [
       "Pain mapping by joint and region",
     ],
     artLabel: "Step 01 — Assessment",
-    art: SkeletonSvg,
+    image: "/journey-assessment.jpg",
+    imageAlt: "Clinical evaluation with stethoscope and notes",
   },
   {
     number: "02",
@@ -48,7 +42,8 @@ const STEPS: JourneyStep[] = [
       "Pain-respecting progression",
     ],
     artLabel: "Step 02 — Exercise",
-    art: KneeSvg,
+    image: "/journey-exercise.jpg",
+    imageAlt: "Women practicing guided mat-based mobility work",
   },
   {
     number: "03",
@@ -62,7 +57,8 @@ const STEPS: JourneyStep[] = [
       "Calcium, Vit D, protein audit",
     ],
     artLabel: "Step 03 — Nutrition",
-    art: HandSvg,
+    image: "/journey-nutrition.jpg",
+    imageAlt: "Nourishing bowl of greens, avocado and fresh produce",
   },
   {
     number: "04",
@@ -76,7 +72,8 @@ const STEPS: JourneyStep[] = [
       "Treated as load-bearing",
     ],
     artLabel: "Step 04 — Psychology",
-    art: SpineSvg,
+    image: "/journey-psychology.jpg",
+    imageAlt: "Person meditating in lotus pose at sunrise",
   },
 ];
 
@@ -108,14 +105,7 @@ export default function StickyJourneySequence() {
 }
 
 /* ────────────────────────────────────────────────────────────
-   Animated pinned sequence (revised):
-   - Wrapper height is determined by the step copy blocks (each is
-     min-h-[80vh]), so the section's total height matches its
-     content. No dead trailing space.
-   - Each step's block uses IntersectionObserver to set itself as
-     the active step when ~50% in view.
-   - Sticky panel shows the active step's art via AnimatePresence
-     so exactly one is visible at a time (no opacity puzzles).
+   Animated pinned sequence
    ──────────────────────────────────────────────────────────── */
 
 function SequenceAnimated() {
@@ -128,7 +118,6 @@ function SequenceAnimated() {
 
     const obs = new IntersectionObserver(
       (entries) => {
-        // Pick the entry closest to the centre of the viewport
         const visible = entries
           .filter((e) => e.isIntersecting)
           .map((e) => ({
@@ -136,12 +125,10 @@ function SequenceAnimated() {
             top: e.boundingClientRect.top,
           }));
         if (!visible.length) return;
-        // Find the one whose top is just past 0 (i.e. centred in viewport)
         visible.sort((a, b) => Math.abs(a.top - window.innerHeight * 0.4) - Math.abs(b.top - window.innerHeight * 0.4));
         if (visible[0]) setActive(visible[0].idx);
       },
       {
-        // The "active" band sits around 40% of viewport height
         rootMargin: "-40% 0px -40% 0px",
         threshold: 0,
       }
@@ -159,30 +146,39 @@ function SequenceAnimated() {
         {/* ── Sticky visual panel ─────────────────────────────── */}
         <aside className="lg:col-span-5">
           <div className="sticky top-32">
-            <div className="relative aspect-square rounded-[20px] overflow-hidden bg-bone-deep hairline">
-              {/* x-ray glow background */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(60% 60% at 50% 55%, rgba(0,100,224,0.10) 0%, transparent 70%)",
-                }}
-                aria-hidden="true"
-              />
-
-              <AnimatePresence mode="wait">
+            <div className="relative aspect-square rounded-[20px] overflow-hidden bg-bone-deep hairline shadow-lg">
+              {/* No `mode` on AnimatePresence so the outgoing and incoming
+                  panels overlap and crossfade — otherwise the empty card
+                  background flashes between steps. */}
+              <AnimatePresence initial={false}>
                 <motion.div
                   key={activeStep.number}
-                  initial={{ opacity: 0, scale: 0.96 }}
+                  initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.04 }}
+                  exit={{ opacity: 0, scale: 1, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 flex flex-col items-center justify-center p-10"
+                  className="absolute inset-0"
                 >
-                  <activeStep.art className="w-60 sm:w-72 md:w-80 text-sage opacity-80" />
-                  <div className="relative mt-6 text-center">
-                    <p className="text-eyebrow text-clay mb-2">{activeStep.number}</p>
-                    <p className="text-h4 font-display text-ink">{activeStep.artLabel}</p>
+                  <img
+                    src={activeStep.image}
+                    alt={activeStep.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {/* Bottom-up gradient for label legibility */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%)",
+                    }}
+                    aria-hidden="true"
+                  />
+                  {/* Label */}
+                  <div className="absolute bottom-0 inset-x-0 p-6 sm:p-8 text-white">
+                    <p className="text-eyebrow text-white/80 mb-1">{activeStep.number}</p>
+                    <p className="text-h4 font-display">{activeStep.artLabel}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -195,10 +191,10 @@ function SequenceAnimated() {
                     aria-hidden="true"
                     className={`block w-2 h-2 rounded-full transition-all duration-500 ${
                       i === active
-                        ? "bg-clay scale-150"
+                        ? "bg-white scale-150 shadow"
                         : i < active
-                        ? "bg-clay/40"
-                        : "bg-clay/20"
+                        ? "bg-white/60"
+                        : "bg-white/30"
                     }`}
                   />
                 ))}
@@ -207,8 +203,7 @@ function SequenceAnimated() {
           </div>
         </aside>
 
-        {/* ── Step copy column — each block is min-h-[80vh] so the
-              sticky panel has enough scroll range to stick ──── */}
+        {/* ── Step copy column ───────────────────────────────── */}
         <div className="lg:col-span-7 flex flex-col">
           {STEPS.map((step, i) => (
             <div
@@ -263,12 +258,27 @@ function StepCopy({ step }: { step: JourneyStep }) {
 /* ── Static art panel for the reduced-motion fallback ─────── */
 
 function StaticArtPanel({ step }: { step: JourneyStep }) {
-  const Art = step.art;
   return (
-    <div className="relative aspect-square rounded-[20px] overflow-hidden bg-bone-deep hairline flex flex-col items-center justify-center p-10">
-      <Art className="w-60 text-sage opacity-80" />
-      <p className="text-eyebrow text-clay mt-6">{step.number}</p>
-      <p className="text-h4 font-display text-ink mt-1">{step.artLabel}</p>
+    <div className="relative aspect-square rounded-[20px] overflow-hidden bg-bone-deep hairline shadow-lg">
+      <img
+        src={step.image}
+        alt={step.imageAlt}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%)",
+        }}
+        aria-hidden="true"
+      />
+      <div className="absolute bottom-0 inset-x-0 p-6 sm:p-8 text-white">
+        <p className="text-eyebrow text-white/80 mb-1">{step.number}</p>
+        <p className="text-h4 font-display">{step.artLabel}</p>
+      </div>
     </div>
   );
 }

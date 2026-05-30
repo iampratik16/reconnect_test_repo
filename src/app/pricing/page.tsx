@@ -28,7 +28,7 @@ import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
 import CTASection from "@/components/CTASection";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
-import { plans } from "@/lib/content/pricing";
+import { plans, PLAN_FEATURES } from "@/lib/content/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -38,17 +38,14 @@ export const metadata: Metadata = {
 
 /* ── Data ──────────────────────────────────────────────────── */
 
-const allFeatures = [
-  { label: "Medical assessment",          essential: true,  care: true,  elite: true  },
-  { label: "Personalised strength plan",  essential: true,  care: true,  elite: true  },
-  { label: "Monthly check-in",            essential: true,  care: true,  elite: true  },
-  { label: "Nutrition guidance",          essential: false, care: true,  elite: true  },
-  { label: "Weekly coaching calls",       essential: false, care: true,  elite: true  },
-  { label: "Progress tracking",           essential: false, care: true,  elite: true  },
-  { label: "Psychology support",          essential: false, care: false, elite: true  },
-  { label: "Priority access to Dr. Shruthi", essential: false, care: false, elite: true  },
-  { label: "Daily coach check-ins",       essential: false, care: false, elite: true  },
-] as const;
+/**
+ * Comparison table rows — derived from the canonical PLAN_FEATURES list +
+ * each plan's `included` flags so the matrix stays in sync with the cards.
+ */
+const allFeatures = PLAN_FEATURES.map((label) => ({
+  label,
+  byPlan: plans.map((p) => p.features.find((f) => f.label === label)?.included ?? false),
+}));
 
 const pricingFaqs = [
   {
@@ -264,9 +261,11 @@ export default function PricingPage() {
                       className={ri !== allFeatures.length - 1 ? "border-b border-line" : ""}
                     >
                       <td className="p-5 lg:p-7 text-body-sm text-ink">{row.label}</td>
-                      <td className="p-5 lg:p-7"><Check on={row.essential} /></td>
-                      <td className="p-5 lg:p-7"><Check on={row.care} /></td>
-                      <td className="p-5 lg:p-7"><Check on={row.elite} /></td>
+                      {row.byPlan.map((on, ci) => (
+                        <td key={ci} className="p-5 lg:p-7">
+                          <Check on={on} />
+                        </td>
+                      ))}
                     </tr>
                   ))}
                   <tr className="border-t border-line bg-bone/40">
@@ -305,15 +304,14 @@ export default function PricingPage() {
                     </span>
                   )}
                   <ul className="flex flex-col gap-2 pt-2">
-                    {allFeatures.map((row) => {
-                      const on = p.name === "Essential" ? row.essential : p.name === "Care" ? row.care : row.elite;
-                      return (
-                        <li key={row.label} className="flex items-start gap-3 text-body-sm">
-                          <Check on={on} />
-                          <span className={on ? "text-ink" : "text-ink-soft/50 line-through"}>{row.label}</span>
-                        </li>
-                      );
-                    })}
+                    {p.features.map((f) => (
+                      <li key={f.label} className="flex items-start gap-3 text-body-sm">
+                        <Check on={f.included} />
+                        <span className={f.included ? "text-ink" : "text-ink-soft/50 line-through"}>
+                          {f.label}
+                        </span>
+                      </li>
+                    ))}
                   </ul>
                   <div className="pt-2">
                     <Button
@@ -431,9 +429,21 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <ul className="relative flex flex-col gap-3 flex-1">
         {plan.features.map((f) => (
-          <li key={f} className="flex items-start gap-3 text-body-sm">
-            <Check on={true} variant={isPopular ? "dark" : "light"} />
-            <span className={isPopular ? "text-bone" : "text-ink"}>{f}</span>
+          <li key={f.label} className="flex items-start gap-3 text-body-sm">
+            <Check on={f.included} variant={isPopular ? "dark" : "light"} />
+            <span
+              className={
+                f.included
+                  ? isPopular
+                    ? "text-bone"
+                    : "text-ink"
+                  : isPopular
+                    ? "text-bone/40 line-through"
+                    : "text-ink-soft/50 line-through"
+              }
+            >
+              {f.label}
+            </span>
           </li>
         ))}
       </ul>
@@ -454,12 +464,22 @@ function PlanCard({ plan }: { plan: Plan }) {
 }
 
 function Check({ on, variant = "light" }: { on: boolean; variant?: "light" | "dark" }) {
-  if (!on) {
+  if (on) {
     return (
-      <span
-        className={`inline-block w-4 h-px ${variant === "dark" ? "bg-bone/30" : "bg-line"} mt-2.5`}
-        aria-label="Not included"
-      />
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`shrink-0 mt-0.5 ${variant === "dark" ? "text-clay-soft" : "text-clay"}`}
+        aria-label="Included"
+      >
+        <path d="M4 10l4 4 8-8" />
+      </svg>
     );
   }
   return (
@@ -472,10 +492,12 @@ function Check({ on, variant = "light" }: { on: boolean; variant?: "light" | "da
       strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`shrink-0 mt-0.5 ${variant === "dark" ? "text-clay-soft" : "text-clay"}`}
-      aria-hidden="true"
+      className={`shrink-0 mt-0.5 ${
+        variant === "dark" ? "text-bone/30" : "text-ink-soft/40"
+      }`}
+      aria-label="Not included"
     >
-      <path d="M4 10l4 4 8-8" />
+      <path d="M6 6l8 8M14 6l-8 8" />
     </svg>
   );
 }

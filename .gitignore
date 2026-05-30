@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 3D model source archive (raw FBX + textures, ~63 MB)
+# We ship the compressed GLB build artifact from public/models/ instead.
+/the-human-spinal-column/

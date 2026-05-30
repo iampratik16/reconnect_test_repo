@@ -1,52 +1,64 @@
+export type PlanFeature = {
+  label: string;
+  included: boolean;
+};
+
 export type Plan = {
   name: string;
   price: number;
   period: string;
-  features: string[];
+  features: PlanFeature[];
   popular: boolean;
   description: string;
 };
 
+/**
+ * The seven features shown on every plan card, in display order.
+ * Each plan declares how many of these are included (from the top).
+ */
+export const PLAN_FEATURES = [
+  "Medical Consultation",
+  "Personalized Health Plan",
+  "Fitness & Nutrition Guidance",
+  "Progress Tracking Tools",
+  "Mental Health Support",
+  "Deep Psychological Input",
+  "Exclusive 1-on-1 Sessions",
+] as const;
+
+function buildFeatures(includedCount: number): PlanFeature[] {
+  return PLAN_FEATURES.map((label, i) => ({
+    label,
+    included: i < includedCount,
+  }));
+}
+
 export const plans: Plan[] = [
   {
-    name: "Essential",
-    price: 2499,
-    period: "/month",
-    features: [
-      "Medical assessment",
-      "Personalised strength plan",
-      "Monthly check-in",
-    ],
+    name: "Standard",
+    price: 20000,
+    period: "",
+    features: buildFeatures(4),
     popular: false,
     description:
-      "A solid foundation for anyone starting their strength journey with medical guidance and a tailored exercise plan.",
+      "Medical consultation, a personalised plan, and the fitness and nutrition guidance to start strong.",
   },
   {
-    name: "Care",
-    price: 4999,
-    period: "/month",
-    features: [
-      "Everything in Essential",
-      "Nutrition guidance",
-      "Weekly coaching calls",
-      "Progress tracking",
-    ],
+    name: "Basic",
+    price: 30000,
+    period: "",
+    features: buildFeatures(5),
     popular: true,
     description:
-      "Our most popular plan combining strength training with nutrition support and regular coaching to keep you on track.",
+      "Everything in Standard, plus mental-health support so the work is sustainable beyond week three.",
   },
   {
-    name: "Elite",
-    price: 8999,
-    period: "/month",
-    features: [
-      "Everything in Care",
-      "Psychology support",
-      "Priority doctor access",
-      "Daily coach check-ins",
-    ],
+    name: "Premium",
+    price: 40000,
+    period: "",
+    features: buildFeatures(7),
     popular: false,
     description:
-      "The complete Reconnect experience with dedicated psychology support, priority access to Dr. Shruthi, and daily accountability.",
+      "The full Reconnect experience — deep psychology input and exclusive 1-on-1 sessions on top of everything else.",
   },
 ];

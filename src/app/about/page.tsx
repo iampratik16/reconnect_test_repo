@@ -246,7 +246,7 @@ export default function AboutPage() {
           <SectionHeader
             eyebrowNumber="(04)"
             eyebrow="Why bones & joints"
-            title="The one thing we do — for every age."
+            title="The one thing we do, for every age."
             description="Bone and joint health is not just a problem for the elderly. It is a 40-year arc — and the early years are when you have the most leverage."
             align="left"
             className="mb-12 max-w-3xl"

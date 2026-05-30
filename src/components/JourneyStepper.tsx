@@ -11,7 +11,8 @@ interface Step {
   number: string;
   title: string;
   description: string;
-  icon: React.ReactNode;
+  image: string;
+  imageAlt: string;
 }
 
 const steps: Step[] = [
@@ -19,50 +20,29 @@ const steps: Step[] = [
     number: "01",
     title: "Assessment",
     description: "Comprehensive biomechanical and lifestyle evaluation to map your starting point.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1">
-        <circle cx="14" cy="14" r="10" />
-        <path d="M14 8v6l4 3" />
-        <circle cx="14" cy="14" r="2" />
-      </svg>
-    ),
+    image: "/journey-assessment.jpg",
+    imageAlt: "Clinical evaluation with stethoscope and notes",
   },
   {
     number: "02",
     title: "Exercise",
     description: "Targeted movement protocols designed around your body's unique mechanics.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1">
-        <path d="M6 14h4m8 0h4" />
-        <rect x="10" y="10" width="8" height="8" rx="1" />
-        <path d="M4 12v4M24 12v4" strokeLinecap="round" />
-      </svg>
-    ),
+    image: "/journey-exercise.jpg",
+    imageAlt: "Women practicing guided mat-based mobility work",
   },
   {
     number: "03",
     title: "Nutrition",
     description: "Anti-inflammatory nutrition plans that fuel recovery from within.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1">
-        <path d="M14 4v8" strokeLinecap="round" />
-        <path d="M10 4c0 4 0 8 4 8s4-4 4-8" />
-        <path d="M14 12v12" strokeLinecap="round" />
-        <ellipse cx="14" cy="24" rx="4" ry="1" />
-      </svg>
-    ),
+    image: "/journey-nutrition.jpg",
+    imageAlt: "Nourishing bowl of greens, avocado and fresh produce",
   },
   {
     number: "04",
     title: "Psychology",
     description: "Mental resilience training to sustain long-term wellness habits.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1">
-        <path d="M14 24c-5 0-8-4-8-8 0-5 4-12 8-12s8 7 8 12c0 4-3 8-8 8z" />
-        <path d="M14 12c1.5 0 3 1.5 3 4" />
-        <circle cx="12" cy="14" r="1" fill="currentColor" />
-      </svg>
-    ),
+    image: "/journey-psychology.jpg",
+    imageAlt: "Person meditating in lotus pose at sunrise",
   },
 ];
 
@@ -73,11 +53,11 @@ interface JourneyStepperProps {
 export default function JourneyStepper({ className = "" }: JourneyStepperProps) {
   return (
     <div
-      className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 relative ${className}`}
+      className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6 relative ${className}`}
     >
-      {/* Connecting line — desktop only */}
+      {/* Connecting line — desktop only, passes behind the photo circles */}
       <div
-        className="hidden lg:block absolute top-[52px] left-[10%] right-[10%] h-px bg-line"
+        className="hidden lg:block absolute top-[140px] left-[10%] right-[10%] h-px bg-line"
         aria-hidden="true"
       />
 
@@ -85,11 +65,17 @@ export default function JourneyStepper({ className = "" }: JourneyStepperProps) 
         <Reveal key={step.number} delay={i * 0.1}>
           <div className="flex flex-col items-center text-center relative px-4">
             {/* Number */}
-            <span className="text-eyebrow text-clay mb-3">{step.number}</span>
+            <span className="text-eyebrow text-clay mb-4">{step.number}</span>
 
-            {/* Icon circle */}
-            <div className="w-16 h-16 rounded-full bg-sage-tint flex items-center justify-center text-sage mb-5 relative z-10">
-              {step.icon}
+            {/* Photo — replaces the abstract icon with a real image */}
+            <div className="w-28 h-28 rounded-full overflow-hidden ring-1 ring-line shadow-sm mb-6 relative z-10 bg-sage-tint">
+              <img
+                src={step.image}
+                alt={step.imageAlt}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Title */}
