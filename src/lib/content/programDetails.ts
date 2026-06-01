@@ -25,7 +25,7 @@ export type RoadmapPhase = {
 };
 
 export type PillarAdaptation = {
-  name: "Medical" | "Exercise" | "Nutrition" | "Psychology";
+  name: "Medical" | "Exercise" | "Nutrition" | "Mind Coaching";
   body: string;
 };
 
@@ -143,7 +143,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
         body: "Protein-led plan tuned to your veg / non-veg preference, calcium and Vitamin D adequacy reviewed, anti-inflammatory food patterns built in.",
       },
       {
-        name: "Psychology",
+        name: "Mind Coaching",
         body: "Referral only if we detect a block — typically adherence dips or post-menopausal mood shifts. Never reflexive.",
       },
     ],
@@ -260,7 +260,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
         body: "Anti-inflammatory pattern, protein adequacy, weight-management support where it eases joint load. Veg / non-veg adapted.",
       },
       {
-        name: "Psychology",
+        name: "Mind Coaching",
         body: "Many members carry fear of movement or pain catastrophising. If we detect it, we refer in a clinical psychologist — it’s as load-bearing as the exercise.",
       },
     ],
@@ -377,7 +377,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
         body: "Protein optimisation for tissue recovery, anti-inflammatory support, calcium and Vitamin D for bone. Veg / non-veg adapted.",
       },
       {
-        name: "Psychology",
+        name: "Mind Coaching",
         body: "Surgery and severe degeneration carry real psychological weight. If fear of re-injury or low mood is holding back recovery, we refer in a clinical psychologist.",
       },
     ],

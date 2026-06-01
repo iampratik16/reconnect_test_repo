@@ -78,7 +78,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${geist.variable} ${inter.variable} ${libreFranklin.variable}`}
     >
-      <body className="min-h-dvh flex flex-col bg-bone text-ink antialiased">
+      <body className="min-h-dvh flex flex-col bg-bone text-ink antialiased overflow-x-hidden">
         <SmoothScroll>
           <Nav />
           <main className="flex-1">{children}</main>

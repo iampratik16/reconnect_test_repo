@@ -183,7 +183,7 @@ export default function ProgramsPage() {
             <Reveal delay={0.2}>
               <p className="text-body-lg text-ink-soft mt-8 max-w-2xl">
                 Every member begins with a medical assessment. From there, every track runs the
-                same connected journey — Assessment → Exercise → Nutrition → Psychology — tuned
+                same connected journey — Assessment → Exercise → Nutrition → Mind Coaching — tuned
                 to your exact condition, age, and severity.
               </p>
             </Reveal>

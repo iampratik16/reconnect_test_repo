@@ -7,7 +7,6 @@ import Reveal from "@/components/Reveal";
 import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import Pill from "@/components/Pill";
 import SplitReveal from "@/components/SplitReveal";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import ScrollMarquee from "@/components/ScrollMarquee";
@@ -15,7 +14,6 @@ import BentoGrid, { BentoItem } from "@/components/BentoGrid";
 import JourneyStepper from "@/components/JourneyStepper";
 import CTASection from "@/components/CTASection";
 import SpotlightCard from "@/components/SpotlightCard";
-import TiltCard from "@/components/TiltCard";
 import {
   HandSvg,
   HipSvg,
@@ -28,6 +26,11 @@ import { plans } from "@/lib/content/pricing";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
 import SpineConnects from "./_components/SpineConnects";
+import WhyReconnectSection from "./_components/WhyReconnectSection";
+import ScienceSection from "./_components/ScienceSection";
+import ConditionsGrid from "./_components/ConditionsGrid";
+import MethodSection from "./_components/MethodSection";
+import ChooseYourPath from "./_components/ChooseYourPath";
 
 export const metadata: Metadata = {
   title: "Reconnect Wellness — Doctor-Led Strength Training for Bones & Joints",
@@ -74,33 +77,6 @@ const conditions = [
   { name: "Post-menopausal Bone Loss",   note: "Density support after menopause",       href: "/programs/prevent", Icon: SkeletonSvg },
   { name: "Joint Stiffness",             note: "Morning stiffness, reduced mobility",   href: "/programs/manage",  Icon: HipSvg },
   { name: "Hip Pain",                    note: "Hip OA, post-replacement, instability", href: "/programs/recover", Icon: HipSvg },
-];
-
-const tracks = [
-  {
-    slug: "prevent",
-    name: "Prevent",
-    tagline: "Stay ahead of joint and bone problems.",
-    tags: ["Early arthritis", "Bone health", "40+"],
-    image: "/kettlebell-squat.jpg",
-    Icon: SkeletonSvg,
-  },
-  {
-    slug: "manage",
-    name: "Manage",
-    tagline: "Reduce flare-ups and rebuild resilience.",
-    tags: ["Active arthritis", "Joint pain", "Back pain"],
-    image: "/mat-stretching.jpg",
-    Icon: SpineSvg,
-  },
-  {
-    slug: "recover",
-    name: "Recover",
-    tagline: "Rebuild safely under close medical guidance.",
-    tags: ["Post-surgery", "Severe OA", "Rehab"],
-    image: "/trainer-guided-exercise.jpg",
-    Icon: KneeSvg,
-  },
 ];
 
 const darkPoints = [
@@ -252,140 +228,17 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════
           3) THE DIFFERENTIATOR — (01) Why Reconnect
           ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <SectionHeader
-          title="Not random workouts. A program designed for your body."
-          description="Most fitness apps give you the same plan as the next person. Reconnect doesn’t."
-          align="left"
-          className="mb-14 max-w-4xl"
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* Proof cards */}
-          <div className="lg:col-span-7">
-            <Stagger className="grid grid-cols-1 sm:grid-cols-2 gap-5" staggerDelay={0.08}>
-              {proofCards.map((c, i) => (
-                <Card key={c.title} padding="md" className="glow-card bg-calcium flex flex-col gap-3 h-full">
-                  <span className="text-eyebrow text-clay">0{i + 1}</span>
-                  <h3 className="text-h4 font-display text-ink">{c.title}</h3>
-                  <p className="text-body-sm text-ink-soft">{c.body}</p>
-                </Card>
-              ))}
-            </Stagger>
-          </div>
-
-          {/* Founder pull-quote */}
-          <div className="lg:col-span-5">
-            <Reveal>
-              <blockquote className="border-l-2 border-clay pl-6">
-                <p className="serif-italic text-h3 text-ink leading-snug">
-                  YouTube has endless exercises — but no motivation, and no direction for
-                  where <em className="not-italic font-display">your</em> body is at. We give
-                  you the roadmap.
-                </p>
-                <footer className="text-caption text-ink-soft mt-4">
-                  — Dr.&nbsp;Shruthi Desai
-                </footer>
-              </blockquote>
-            </Reveal>
-          </div>
-        </div>
-      </Section>
+      <WhyReconnectSection />
 
       {/* ════════════════════════════════════════════════════════
-          4) THE SCIENCE — (02) BentoGrid 4 cards
+          4) THE SCIENCE — (02) Cinematic image bento
           ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          title="Why strength training changes everything."
-          description="The evidence behind every program we design — measurable improvements across pain, bone, muscle, and degeneration."
-          align="left"
-          className="mb-12 max-w-3xl"
-        />
-
-        <BentoGrid>
-          {/* Card 1 — larger */}
-          <BentoItem colSpan={2} className="p-0">
-            <SpotlightCard className="h-full p-8 md:p-10 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Less pain</p>
-                <KneeSvg className="w-16 text-sage opacity-50" />
-              </div>
-              <p className="text-h3 font-display text-ink mb-3">
-                {sciencePoints[0].description}
-              </p>
-              {sciencePoints[0].stat && (
-                <p className="text-caption text-ink-soft">
-                  Typical reduction in chronic pain scores reported across our 12-week cycles.
-                </p>
-              )}
-            </SpotlightCard>
-          </BentoItem>
-
-          {/* Card 2 */}
-          <BentoItem className="p-0">
-            <SpotlightCard className="h-full p-8 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Denser bones</p>
-                <SkeletonSvg className="w-14 text-sage opacity-50" />
-              </div>
-              <h3 className="text-h4 font-display text-ink mb-2">Bone formation</h3>
-              <p className="text-body-sm text-ink-soft">{sciencePoints[1].description}</p>
-            </SpotlightCard>
-          </BentoItem>
-
-          {/* Card 3 */}
-          <BentoItem className="p-0">
-            <SpotlightCard className="h-full p-8 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Retained muscle</p>
-                <HandSvg className="w-14 text-sage opacity-50" />
-              </div>
-              <h3 className="text-h4 font-display text-ink mb-2">Reverse sarcopenia</h3>
-              <p className="text-body-sm text-ink-soft">{sciencePoints[2].description}</p>
-            </SpotlightCard>
-          </BentoItem>
-
-          {/* Card 4 — wider */}
-          <BentoItem colSpan={2} className="p-0">
-            <SpotlightCard className="h-full p-8 md:p-10 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Prevent degeneration</p>
-                <HipSvg className="w-16 text-sage opacity-50" />
-              </div>
-              <h3 className="text-h3 font-display text-ink mb-3">Joint protection</h3>
-              <p className="text-body text-ink-soft">{sciencePoints[3].description}</p>
-            </SpotlightCard>
-          </BentoItem>
-        </BentoGrid>
-      </Section>
+      <ScienceSection />
 
       {/* ════════════════════════════════════════════════════════
-          5) CONDITIONS MARQUEE — signature scrolling cards
+          5) CONDITIONS — editorial masonry grid
           ════════════════════════════════════════════════════════ */}
-      <section className="bg-bone py-20 md:py-28 overflow-hidden">
-        <div className="container-site mb-12">
-          <SectionHeader
-            title="Built for the conditions you actually live with."
-            description="Find what you’re dealing with — each card links to the right track."
-            align="left"
-          />
-        </div>
-
-        <div className="flex flex-col gap-6">
-          <ScrollMarquee speed={45} direction="left">
-            {conditions.slice(0, 5).map((c) => (
-              <ConditionCard key={c.name} {...c} />
-            ))}
-          </ScrollMarquee>
-
-          <ScrollMarquee speed={45} direction="right">
-            {conditions.slice(5).map((c) => (
-              <ConditionCard key={c.name} {...c} />
-            ))}
-          </ScrollMarquee>
-        </div>
-      </section>
+      <ConditionsGrid />
 
       {/* ════════════════════════════════════════════════════════
           5b) CONNECTED BY DESIGN — scroll-rotating spine
@@ -393,86 +246,14 @@ export default function HomePage() {
       <SpineConnects />
 
       {/* ════════════════════════════════════════════════════════
-          6) THE JOURNEY — JourneyStepper
+          6) THE METHOD — morphing body silhouette
           ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          title="One connected method — always in this order."
-          description="The four pillars are integrated, not bolted on. Assessment always comes first."
-          align="center"
-          className="mb-16"
-        />
-
-        <JourneyStepper />
-
-        <div className="mt-12 flex justify-center">
-          <Button variant="sage-outline" href="/how-it-works" arrow>
-            See how it works
-          </Button>
-        </div>
-      </Section>
+      <MethodSection />
 
       {/* ════════════════════════════════════════════════════════
-          7) PROGRAMS — (03) three image cards
+          7) PROGRAMS — (03) the joint-health spectrum
           ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <SectionHeader
-          title="Choose your path."
-          description="Three tracks for where you are today. Each is personalised after your medical assessment."
-          align="left"
-          className="mb-14"
-        />
-
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
-          {tracks.map((t) => (
-            <TiltCard key={t.slug} className="h-full rounded-[20px]" maxTilt={7} scale={1.025}>
-              <Link
-                href={`/programs/${t.slug}`}
-                className="group glow-card relative rounded-[20px] overflow-hidden bg-calcium flex flex-col h-full"
-              >
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  {/* TODO: replace with consented track photo */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={t.image}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-                  />
-                  {/* Brand wash on hover */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, transparent 40%, rgba(0,41,92,0.55) 100%)",
-                    }}
-                    aria-hidden="true"
-                  />
-                </div>
-
-                <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
-                  <h3 className="text-h3 font-display text-ink">{t.name}</h3>
-                  <p className="text-body text-ink-soft">{t.tagline}</p>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {t.tags.map((tag) => (
-                      <Pill key={tag} variant="sage">
-                        {tag}
-                      </Pill>
-                    ))}
-                  </div>
-                  <span className="text-body-sm font-medium text-clay mt-auto inline-flex items-center gap-2">
-                    Explore {t.name}
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
-                      <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
-            </TiltCard>
-          ))}
-        </Stagger>
-      </Section>
+      <ChooseYourPath />
 
       {/* ════════════════════════════════════════════════════════
           8) WHAT MAKES US DIFFERENT — DARK contrast moment

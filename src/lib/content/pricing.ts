@@ -59,6 +59,6 @@ export const plans: Plan[] = [
     features: buildFeatures(7),
     popular: false,
     description:
-      "The full Reconnect experience — deep psychology input and exclusive 1-on-1 sessions on top of everything else.",
+      "The full Reconnect experience — dedicated mind coaching sessions and exclusive 1-on-1 support on top of everything else.",
   },
 ];

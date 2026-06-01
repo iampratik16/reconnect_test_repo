@@ -39,8 +39,8 @@ const steps: Step[] = [
   },
   {
     number: "04",
-    title: "Psychology",
-    description: "Mental resilience training to sustain long-term wellness habits.",
+    title: "Mind Coaching",
+    description: "Mind coaching to break fear patterns and keep movement going long-term.",
     image: "/journey-psychology.jpg",
     imageAlt: "Person meditating in lotus pose at sunrise",
   },
