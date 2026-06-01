@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 /* ── Tokens ──────────────────────────────────────────────────── */
 const EASE  = [0.16, 1, 0.3, 1] as const;
@@ -772,8 +773,8 @@ function NutritionArt({ animate }: { animate: boolean }) {
 
   // One full Imagen plate per diet (4 quadrants of real food baked into the photo)
   const plateImg = isVeg
-    ? "/images/nutrition/plate-veg.png"
-    : "/images/nutrition/plate-nonveg.png";
+    ? asset("/images/nutrition/plate-veg.png")
+    : asset("/images/nutrition/plate-nonveg.png");
 
   // Nutrient callouts — each points to one quadrant of the plate
   type Callout = { nutrient: string; veg: string; nonveg: string; pos: React.CSSProperties };
