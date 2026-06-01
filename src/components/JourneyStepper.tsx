@@ -6,6 +6,7 @@
  */
 
 import Reveal from "./Reveal";
+import { asset } from "@/lib/asset";
 
 interface Step {
   number: string;
@@ -70,7 +71,7 @@ export default function JourneyStepper({ className = "" }: JourneyStepperProps) 
             {/* Photo — replaces the abstract icon with a real image */}
             <div className="w-28 h-28 rounded-full overflow-hidden ring-1 ring-line shadow-sm mb-6 relative z-10 bg-sage-tint">
               <img
-                src={step.image}
+                src={asset(step.image)}
                 alt={step.imageAlt}
                 loading="lazy"
                 decoding="async"

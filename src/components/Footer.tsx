@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
+import { asset } from "@/lib/asset";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
 
 /* ── Data ──────────────────────────────────────────────────── */
@@ -123,7 +124,7 @@ export default function Footer() {
             <div className="sm:col-span-2 lg:col-span-1">
               <Link href="/" className="flex items-center gap-2.5 mb-4" aria-label="Reconnect home">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/logo-white.png" alt="" aria-hidden="true" className="h-10 w-10 object-contain" />
+                <img src={asset("/brand/logo-white.png")} alt="" aria-hidden="true" className="h-10 w-10 object-contain" />
                 <span
                   className="text-[1.2rem] font-semibold tracking-[0.04em] text-bone leading-none"
                   style={{ fontFamily: "var(--font-brand)" }}

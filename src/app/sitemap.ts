@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
 
+// Required for `output: export` (static build / GitHub Pages demo).
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://reconnectwellness.in";
 

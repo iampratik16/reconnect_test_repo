@@ -10,6 +10,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -428,8 +429,8 @@ export default function MethodSection() {
                   >
                     {"video" in s && s.video ? (
                       <video
-                        src={s.video}
-                        poster={s.image}
+                        src={asset(s.video)}
+                        poster={asset(s.image)}
                         autoPlay
                         muted
                         loop

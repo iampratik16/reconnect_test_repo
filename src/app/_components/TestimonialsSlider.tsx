@@ -10,6 +10,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { testimonials, type Testimonial } from "@/lib/content/testimonials";
+import { asset } from "@/lib/asset";
 
 /* ─── Animated number that counts up on scroll-in ─────────── */
 function AnimatingNumber({
@@ -88,7 +89,7 @@ function OutcomeCard({
         <div className="flex items-center gap-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={t.image}
+            src={asset(t.image)}
             alt={t.imageAlt}
             loading="lazy"
             className="w-14 h-14 rounded-full object-cover ring-2 ring-line shrink-0"

@@ -23,6 +23,7 @@ import {
 } from "@/components/AnatomicalArt";
 import { sciencePoints } from "@/lib/content/science";
 import { plans } from "@/lib/content/pricing";
+import { asset } from "@/lib/asset";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
 import SpineConnects from "./_components/SpineConnects";
@@ -99,7 +100,7 @@ export default function HomePage() {
       <link
         rel="preload"
         as="fetch"
-        href="/models/spine.glb"
+        href={asset("/models/spine.glb")}
         type="model/gltf-binary"
         crossOrigin="anonymous"
       />
@@ -296,7 +297,7 @@ export default function HomePage() {
                 {/* TODO: replace with Dr. Shruthi's editorial portrait */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/dr-shruthi.jpg"
+                  src={asset("/dr-shruthi.jpg")}
                   alt="Dr. Shruthi Desai, Rheumatologist"
                   loading="lazy"
                   className="w-full h-[440px] md:h-[560px] object-cover"

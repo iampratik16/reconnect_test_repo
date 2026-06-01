@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useCallback, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -45,7 +46,7 @@ function ConditionTile({
   const onEnter = useCallback(() => {
     const v = videoRef.current;
     if (!v || prefersReduced || !condition.video) return;
-    if (!v.src) v.src = condition.video; // lazy-load src only on first hover
+    if (!v.src) v.src = asset(condition.video); // lazy-load src only on first hover
     v.currentTime = 0;
     v.play().catch(() => {});
   }, [condition.video, prefersReduced]);

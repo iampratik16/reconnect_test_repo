@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 type RegionId = "neck" | "shoulder" | "back" | "hip" | "knee";
 
@@ -103,7 +104,7 @@ export default function BodyRegionDiagram() {
         {/* Anatomical skeleton image (sits behind the SVG dots) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/skeleton.png"
+          src={asset("/skeleton.png")}
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-contain select-none pointer-events-none"

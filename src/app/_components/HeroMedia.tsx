@@ -11,6 +11,7 @@
  */
 
 import { useReducedMotion } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 export default function HeroMedia() {
   const prefersReduced = useReducedMotion();
@@ -19,7 +20,7 @@ export default function HeroMedia() {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src="/hero-poster.jpg"
+        src={asset("/hero-poster.jpg")}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover object-center"
@@ -30,8 +31,8 @@ export default function HeroMedia() {
 
   return (
     <video
-      src="/hero-loop.mp4"
-      poster="/hero-poster.jpg"
+      src={asset("/hero-loop.mp4")}
+      poster={asset("/hero-poster.jpg")}
       autoPlay
       muted
       loop

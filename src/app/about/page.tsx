@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
@@ -99,7 +100,7 @@ export default function AboutPage() {
                   <div className="relative rounded-[20px] overflow-hidden shadow-lifted xray-glow">
                     {/* TODO: replace with Dr. Shruthi's preferred high-resolution editorial portrait */}
                     <img
-                      src="/dr-shruthi.jpg"
+                      src={asset("/dr-shruthi.jpg")}
                       alt="Dr. Shruthi Desai, Rheumatologist and founder of Reconnect Wellness"
                       loading="eager"
                       className="w-full h-[420px] md:h-[520px] object-cover"

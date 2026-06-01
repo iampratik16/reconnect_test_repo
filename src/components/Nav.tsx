@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Button from "@/components/Button";
+import { asset } from "@/lib/asset";
 import { SpineSvg } from "@/components/AnatomicalArt";
 
 /* ── Data ──────────────────────────────────────────────────── */
@@ -93,7 +94,7 @@ export default function Nav() {
           {/* ── Logo ──────────────────────────────────────── */}
           <Link href="/" className="flex items-center gap-2.5 group" aria-label="Reconnect home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo.png" alt="" aria-hidden="true" className="h-9 w-9 object-contain" />
+            <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-9 w-9 object-contain" />
             <span
               className="text-[1.05rem] font-semibold tracking-[0.04em] text-ink leading-none"
               style={{ fontFamily: "var(--font-brand)" }}

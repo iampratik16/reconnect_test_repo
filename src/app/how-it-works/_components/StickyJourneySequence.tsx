@@ -8,8 +8,14 @@ const EASE  = [0.16, 1, 0.3, 1] as const;
 const BLUE  = "#0064E0";
 const CLAY  = "#C26B54";
 const SAGE  = "#4D7B68";
-const GREEN  = "#2E7D52";   // Exercise — positive, solution
+const GREEN  = "#2E7D52";   // (legacy) green
+const TERRA  = "#C4612F";   // (legacy) terracotta
+const CORAL  = "#34D399";   // Exercise — fresh mint-green hero accent on deep forest panel
+const SALMON = "#6EE7B7";   // Exercise — lighter mint secondary accent
+const PEACHTX = "rgba(255,255,255,0.92)"; // Exercise — light body text on dark forest
+const PEACHMU = "rgba(200,230,214,0.62)"; // Exercise — muted minty text
 const VEGGIE = "#4E7A3A";   // Nutrition — earthy, olive, vegetables
+const AMBER  = "#D08B14";   // Nutrition accent — saffron/turmeric, food-editorial
 const DARK   = "#0B2D3D";
 
 /* ── Count-up hook ───────────────────────────────────────────── */
@@ -39,7 +45,7 @@ function useCountUp(target: number, inView: boolean, delay = 0) {
    STEP DATA
    ═══════════════════════════════════════════════════════════ */
 
-type StepAccent = typeof BLUE | typeof CLAY | typeof SAGE | typeof GREEN | typeof VEGGIE | typeof DARK;
+type StepAccent = typeof BLUE | typeof CLAY | typeof SAGE | typeof GREEN | typeof TERRA | typeof CORAL | typeof VEGGIE | typeof AMBER | typeof DARK;
 
 type StatItem = { value: number; suffix: string; label: string };
 
@@ -99,11 +105,11 @@ const STEPS: Step[] = [
       { value: 0,  suffix: "",  label: "Generic programs issued" },
       { value: 82, suffix: "%", label: "Report pain reduction by week 6" },
     ],
-    accent: GREEN,
+    accent: CORAL,
     driver: "Driven by: pain map, imaging, joint assessment.",
-    panelBg: "linear-gradient(145deg, #14472E 0%, #0C3320 100%)",
-    sectionBg: "linear-gradient(145deg, #14472E 0%, #0C3320 100%)",
-    scheme: { body: "rgba(255,255,255,0.88)", muted: "rgba(255,255,255,0.55)", ghostNum: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.1)" },
+    panelBg: "linear-gradient(155deg, #123528 0%, #0C2419 100%)",
+    sectionBg: "linear-gradient(155deg, #123528 0%, #0C2419 100%)",
+    scheme: { body: PEACHTX, muted: PEACHMU, ghostNum: "rgba(255,255,255,0.06)", border: "rgba(52,211,153,0.16)" },
     Art: ExerciseArt,
   },
   {
@@ -121,11 +127,11 @@ const STEPS: Step[] = [
       { value: 4,   suffix: "+", label: "Clinical inputs per nutrition plan" },
       { value: 100, suffix: "%", label: "Plans adapted to food preference" },
     ],
-    accent: VEGGIE,
+    accent: AMBER,
     driver: "Driven by: medications, bone density, dietary history.",
-    panelBg: "linear-gradient(145deg, #3D1A08 0%, #260F04 100%)",
-    sectionBg: "linear-gradient(145deg, #3D1A08 0%, #260F04 100%)",
-    scheme: { body: "rgba(255,255,255,0.88)", muted: "rgba(255,255,255,0.55)", ghostNum: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.1)" },
+    panelBg: "linear-gradient(150deg, #1C1A17 0%, #141210 100%)",
+    sectionBg: "linear-gradient(150deg, #1C1A17 0%, #141210 100%)",
+    scheme: { body: "rgba(255,255,255,0.9)", muted: "rgba(255,255,255,0.58)", ghostNum: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.1)" },
     Art: NutritionArt,
   },
   {
@@ -173,7 +179,7 @@ const BEAM_PATHS = [
 
 const ARCH_NODES = [
   { cx: _AX, cy: _AY, R: _AR, label: ["Medical", "Assessment"],   abbr: "01", light: "#5BA4F5", tag: "governs all", isRoot: true  },
-  { cx: _EX, cy: _EY, R: _PR, label: ["Personalised", "Exercise"], abbr: "02", light: "#E8967E", tag: "pillar",      isRoot: false },
+  { cx: _EX, cy: _EY, R: _PR, label: ["Personalised", "Exercise"], abbr: "02", light: "#34D399", tag: "pillar",      isRoot: false },
   { cx: _NX, cy: _NY, R: _PR, label: ["Nutrition", "Plan"],        abbr: "03", light: "#7DC8A6", tag: "pillar",      isRoot: false },
   { cx: _PX, cy: _PY, R: _PR, label: ["Mind", "Coaching"],          abbr: "04", light: "#88ABBF", tag: "if needed",   isRoot: false },
 ] as const;
@@ -384,7 +390,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
   ] as const;
 
   const pillars = [
-    { label: "Exercise",   color: CLAY,      tagX: PX,        tagW: 62 },
+    { label: "Exercise",   color: "#34D399", tagX: PX,        tagW: 62 },
     { label: "Nutrition",  color: SAGE,      tagX: PX + 70,   tagW: 68 },
     { label: "Mind",       color: "#88ABBF", tagX: PX + 146,  tagW: 44 },
   ] as const;
@@ -591,123 +597,136 @@ function AssessmentArt({ animate }: { animate: boolean }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ART — EXERCISE (02)  warm clay panel
-   Prescription cards — three zones, animated stagger
+   ART — EXERCISE (02)  deep forest-green panel
+   Prescription cards — three zones, animated stagger.
+   Fresh / energetic: mint-green accents, glass cards, light text.
    ═══════════════════════════════════════════════════════════ */
 
 function ExerciseArt({ animate }: { animate: boolean }) {
-  // Bright greens for visibility on dark forest green bg
+  // Light ink for text on the dark forest panel
+  const INK    = "rgba(255,255,255,0.92)";   // primary label
+  const INK_MU = "rgba(200,230,214,0.5)";    // muted note / frequency
+  const HEAD   = "rgba(200,230,214,0.42)";   // header / caption
+  const HAIR   = "rgba(110,231,183,0.16)";   // separators
+
+  // Mint accents — fresh on the dark green panel
   const zones = [
-    {
-      zone:  "Upper body",
-      rx:    "3 × 12",
-      note:  "Shoulder band · Wall push",
-      freq:  "3×/week",
-      color: "#4DD68C",
-      delay: 0.3,
-    },
-    {
-      zone:  "Lower back",
-      rx:    "Daily",
-      note:  "Bird dog · Cat-cow",
-      freq:  "Every day",
-      color: "#3DC47C",
-      delay: 0.6,
-    },
-    {
-      zone:  "Lower body",
-      rx:    "3 × 10",
-      note:  "Wall sit · Step-up",
-      freq:  "3×/week",
-      color: "#2EB06C",
-      delay: 0.9,
-    },
+    { zone: "Upper body", rx: "3 × 12", note: "Shoulder band · Wall push", freq: "3×/week",  color: CORAL,  delay: 0.30 },
+    { zone: "Lower back", rx: "Daily",  note: "Bird dog · Cat-cow",         freq: "Every day", color: SALMON, delay: 0.60 },
+    { zone: "Lower body", rx: "3 × 10", note: "Wall sit · Step-up",         freq: "3×/week",   color: CORAL,  delay: 0.90 },
   ] as const;
 
-  const CARD_W = 304, CARD_H = 60, CARD_X = 38, GAP = 74;
+  // Card geometry — taller cards, generous gap, consistent rhythm
+  const CARD_X = 34, CARD_W = 312, CARD_H = 62, GAP = 72;
+  const ROW_Y0 = 84;
+  // Right-side Rx pill
+  const PILL_W = 78, PILL_X = CARD_X + CARD_W - PILL_W - 12;
 
   return (
     <svg viewBox="0 0 380 310" fill="none" className="w-full h-full" aria-hidden>
-      {/* Header */}
-      <motion.text x={38} y={28}
+      <defs>
+        {/* Soft shadow so glass cards lift off the dark panel */}
+        <filter id="ex-card-shadow" x="-15%" y="-40%" width="130%" height="200%">
+          <feDropShadow dx="0" dy="3" stdDeviation="6"
+            floodColor="#000000" floodOpacity="0.28" />
+        </filter>
+      </defs>
+
+      {/* ── Header row ── */}
+      <motion.text x={CARD_X} y={30}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} letterSpacing="0.2em" fill="rgba(255,255,255,0.35)"
+        fontSize={9} letterSpacing="0.22em" fill={HEAD}
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 0.08 }}>
         EXERCISE PRESCRIPTION
       </motion.text>
 
-      {/* Week badge */}
-      <motion.rect x={CARD_X} y={38} width={72} height={20} rx={10}
-        fill="#4DD68C" fillOpacity={0.15} stroke="#4DD68C" strokeWidth={0.8} strokeOpacity={0.4}
+      {/* Week badge (right-aligned with cards) */}
+      <motion.rect x={CARD_X + CARD_W - 76} y={18} width={76} height={20} rx={10}
+        fill={CORAL} fillOpacity={0.16} stroke={CORAL} strokeWidth={0.8} strokeOpacity={0.5}
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 0.18 }}
       />
-      <motion.text x={CARD_X + 36} y={52} textAnchor="middle"
+      <motion.text x={CARD_X + CARD_W - 38} y={31.5} textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} fontWeight={600} fill="#4DD68C" opacity={0.85}
+        fontSize={9} fontWeight={700} letterSpacing="0.06em" fill={CORAL}
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 0.22 }}>
-        WEEK 1 – 2
+        WEEK 1–2
       </motion.text>
 
-      {/* Zone prescription cards */}
+      {/* Header divider */}
+      <motion.line x1={CARD_X} y1={48} x2={CARD_X + CARD_W} y2={48}
+        stroke={HAIR} strokeWidth={1}
+        initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
+        style={{ transformOrigin: `${CARD_X}px 48px` }}
+        transition={{ duration: 0.5, delay: 0.24 }}
+      />
+
+      {/* ── Zone prescription cards ── */}
       {zones.map((z, i) => {
-        const cardY = 72 + i * GAP;
+        const y  = ROW_Y0 + i * GAP;        // card top
+        const cy = y + CARD_H / 2;          // card vertical centre
         return (
           <g key={z.zone}>
-            {/* Card background */}
+            {/* Card — translucent mint glass on dark */}
             <motion.rect
-              x={CARD_X} y={cardY} width={CARD_W} height={CARD_H} rx={10}
+              x={CARD_X} y={y} width={CARD_W} height={CARD_H} rx={12}
               fill={z.color} fillOpacity={0}
-              stroke={z.color} strokeWidth={1.2} strokeOpacity={0}
-              animate={animate ? { fillOpacity: 0.07, strokeOpacity: 0.35 } : {}}
+              stroke={z.color} strokeWidth={1} strokeOpacity={0}
+              filter="url(#ex-card-shadow)"
+              animate={animate ? { fillOpacity: 0.08, strokeOpacity: 0.34 } : {}}
               transition={{ duration: 0.45, delay: z.delay }}
             />
-            {/* Accent left bar */}
+            {/* Rounded accent left bar */}
             <motion.rect
-              x={CARD_X} y={cardY} width={4} height={CARD_H} rx={2}
-              fill={z.color} fillOpacity={0}
-              animate={animate ? { fillOpacity: 0.8 } : {}}
-              transition={{ duration: 0.35, delay: z.delay + 0.08 }}
+              x={CARD_X + 9} y={y + 12} width={4} height={CARD_H - 24} rx={2}
+              fill={z.color}
+              initial={{ opacity: 0, scaleY: 0.4 }}
+              style={{ transformBox: "fill-box", transformOrigin: "center" }}
+              animate={animate ? { opacity: 1, scaleY: 1 } : {}}
+              transition={{ duration: 0.4, ease: EASE, delay: z.delay + 0.08 }}
             />
-            {/* Zone label — white on dark bg */}
-            <motion.text x={CARD_X + 18} y={cardY + 22}
+
+            {/* Zone label — bright, baseline above centre */}
+            <motion.text x={CARD_X + 26} y={cy - 4}
               fontFamily="Geist, Inter, -apple-system, sans-serif"
-              fontSize={11} fontWeight={600} fill="rgba(255,255,255,0.88)"
-              initial={{ opacity: 0, x: CARD_X + 12 }}
-              animate={animate ? { opacity: 1, x: CARD_X + 18 } : {}}
-              transition={{ duration: 0.35, ease: EASE, delay: z.delay + 0.12 }}>
+              fontSize={12.5} fontWeight={700} fill={INK}
+              initial={{ opacity: 0, x: CARD_X + 20 }}
+              animate={animate ? { opacity: 1, x: CARD_X + 26 } : {}}
+              transition={{ duration: 0.35, ease: EASE, delay: z.delay + 0.14 }}>
               {z.zone}
             </motion.text>
-            {/* Exercises note */}
-            <motion.text x={CARD_X + 18} y={cardY + 38}
+            {/* Exercises note — muted, baseline below centre */}
+            <motion.text x={CARD_X + 26} y={cy + 12}
               fontFamily="Geist, Inter, -apple-system, sans-serif"
-              fontSize={9.5} fill="rgba(255,255,255,0.45)"
+              fontSize={9.5} fill={INK_MU}
               initial={{ opacity: 0 }}
               animate={animate ? { opacity: 1 } : {}}
-              transition={{ delay: z.delay + 0.22 }}>
+              transition={{ delay: z.delay + 0.24 }}>
               {z.note}
             </motion.text>
-            {/* Rx badge — bright green number pops on dark bg */}
+
+            {/* Rx pill — self-contained on the right */}
             <motion.rect
-              x={CARD_X + CARD_W - 88} y={cardY + 14} width={76} height={30} rx={8}
+              x={PILL_X} y={cy - 18} width={PILL_W} height={36} rx={9}
               fill={z.color} fillOpacity={0}
-              animate={animate ? { fillOpacity: 0.14 } : {}}
-              transition={{ delay: z.delay + 0.18 }}
+              stroke={z.color} strokeWidth={0.8} strokeOpacity={0}
+              animate={animate ? { fillOpacity: 0.14, strokeOpacity: 0.3 } : {}}
+              transition={{ delay: z.delay + 0.2 }}
             />
             <motion.text
-              x={CARD_X + CARD_W - 50} y={cardY + 24} textAnchor="middle"
+              x={PILL_X + PILL_W / 2} y={cy - 2} textAnchor="middle"
               fontFamily="Geist, Inter, -apple-system, sans-serif"
               fontSize={13} fontWeight={700} fill={z.color}
               initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
-              transition={{ delay: z.delay + 0.22 }}>
+              transition={{ delay: z.delay + 0.24 }}>
               {z.rx}
             </motion.text>
             <motion.text
-              x={CARD_X + CARD_W - 50} y={cardY + 37} textAnchor="middle"
+              x={PILL_X + PILL_W / 2} y={cy + 11} textAnchor="middle"
               fontFamily="Geist, Inter, -apple-system, sans-serif"
-              fontSize={8.5} fill="rgba(255,255,255,0.45)"
+              fontSize={8} fill={INK_MU} letterSpacing="0.03em"
               initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
               transition={{ delay: z.delay + 0.3 }}>
               {z.freq}
@@ -716,16 +735,16 @@ function ExerciseArt({ animate }: { animate: boolean }) {
         );
       })}
 
-      {/* Footer */}
-      <motion.line x1={38} y1={284} x2={342} y2={284}
-        stroke="rgba(255,255,255,0.12)" strokeWidth={0.8}
+      {/* ── Footer ── */}
+      <motion.line x1={CARD_X} y1={290} x2={CARD_X + CARD_W} y2={290}
+        stroke={HAIR} strokeWidth={1}
         initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
-        style={{ transformOrigin: "38px 284px" }}
+        style={{ transformOrigin: `${CARD_X}px 290px` }}
         transition={{ duration: 0.45, delay: 1.5 }}
       />
-      <motion.text x={38} y={298}
+      <motion.text x={CARD_X} y={304}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} fill="rgba(255,255,255,0.38)"
+        fontSize={9} fill={HEAD}
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.6 }}>
         Pain-respecting · Scaled to your age + severity · Never generic
@@ -745,222 +764,111 @@ function NutritionArt({ animate }: { animate: boolean }) {
 
   useEffect(() => {
     if (!animate) return;
-    const id = setInterval(() => setIsVeg(v => !v), 2400);
+    const id = setInterval(() => setIsVeg(v => !v), 2800);
     return () => clearInterval(id);
   }, [animate]);
 
-  // Plate geometry
-  const CX = 190, CY = 158, R = 74;
-  const L = CX - R, RX = CX + R, T = CY - R, B = CY + R;
+  const acc = AMBER;
 
-  // 4 quadrant paths (pizza-slice shapes)
-  const qPaths = {
-    tl: `M ${CX} ${CY} L ${L} ${CY} A ${R} ${R} 0 0 0 ${CX} ${T} Z`,
-    tr: `M ${CX} ${CY} L ${CX} ${T} A ${R} ${R} 0 0 1 ${RX} ${CY} Z`,
-    br: `M ${CX} ${CY} L ${RX} ${CY} A ${R} ${R} 0 0 1 ${CX} ${B} Z`,
-    bl: `M ${CX} ${CY} L ${CX} ${B} A ${R} ${R} 0 0 1 ${L} ${CY} Z`,
-  };
+  // One full Imagen plate per diet (4 quadrants of real food baked into the photo)
+  const plateImg = isVeg
+    ? "/images/nutrition/plate-veg.png"
+    : "/images/nutrition/plate-nonveg.png";
 
-  const qFills = { tl: "rgba(255,200,70,0.13)", tr: "rgba(255,240,190,0.12)", br: "rgba(255,220,90,0.11)", bl: "rgba(90,200,120,0.12)" };
-
-  // Food in each quadrant — emoji + 2 food lines
-  type Q = { e: string; f1: string; f2: string };
-  type Foods = { tl: Q; tr: Q; br: Q; bl: Q };
-
-  const veg: Foods = {
-    tl: { e: "🫘", f1: "Kabul channa", f2: "Masoor dal"  },
-    tr: { e: "🥛", f1: "Paneer",       f2: "Dahi"        },
-    br: { e: "🍄", f1: "Mushrooms",    f2: "Fortified"   },
-    bl: { e: "🥦", f1: "Palak",        f2: "Brinjal"     },
-  };
-
-  const nonVeg: Foods = {
-    tl: { e: "🐟", f1: "Salmon",       f2: "Chicken"     },
-    tr: { e: "🧀", f1: "Yogurt",       f2: "Cheese"      },
-    br: { e: "🥚", f1: "Egg yolk",     f2: "Fatty fish"  },
-    bl: { e: "🍗", f1: "Chicken",      f2: "Fish oil"    },
-  };
-
-  const food = isVeg ? veg : nonVeg;
-  const acc = isVeg ? "#4DD68C" : "#F0A84C";
-
-  // Quadrant emoji centres (visual centroid of each slice)
-  const D = 34;
-  const qC = { tl: [CX - D, CY - D], tr: [CX + D, CY - D], br: [CX + D, CY + D], bl: [CX - D, CY + D] };
-
-  // Callout label positions and arrow end-point on plate edge (at 45° of each quadrant)
-  const S = R * 0.707; // R * cos(45°)
-  const labels = [
-    { q: "tl" as const, name: "PROTEIN",     lx: 8,   ly: 50,  ax: CX - S, ay: CY - S, anchor: "start" as const },
-    { q: "tr" as const, name: "CALCIUM",     lx: 372, ly: 50,  ax: CX + S, ay: CY - S, anchor: "end"   as const },
-    { q: "br" as const, name: "VIT D",       lx: 372, ly: 268, ax: CX + S, ay: CY + S, anchor: "end"   as const },
-    { q: "bl" as const, name: "ANTI-INFLAM", lx: 8,   ly: 268, ax: CX - S, ay: CY + S, anchor: "start" as const },
+  // Nutrient callouts — each points to one quadrant of the plate
+  type Callout = { nutrient: string; veg: string; nonveg: string; pos: React.CSSProperties };
+  const callouts: Callout[] = [
+    { nutrient: "PROTEIN",     veg: "Kabuli chana",   nonveg: "Grilled salmon", pos: { top: "9%",    left: "4%",  textAlign: "left"  } },
+    { nutrient: "CALCIUM",     veg: "Paneer · Dahi",  nonveg: "Yogurt · Cheese", pos: { top: "9%",    right: "4%", textAlign: "right" } },
+    { nutrient: "ANTI-INFLAM", veg: "Palak · Walnut", nonveg: "Grilled chicken", pos: { bottom: "22%", left: "4%",  textAlign: "left"  } },
+    { nutrient: "VITAMIN D",   veg: "Mushrooms",      nonveg: "Egg yolk · Fish", pos: { bottom: "22%", right: "4%", textAlign: "right" } },
   ];
 
   return (
-    <svg viewBox="0 0 380 310" fill="none" className="w-full h-full" aria-hidden>
+    <div className="w-full h-full relative" style={{ fontFamily: "Geist, Inter, sans-serif" }}>
 
-      {/* ── Header ── */}
-      <motion.text x={20} y={24}
-        fontFamily="Geist, Inter, sans-serif" fontSize={9} letterSpacing="0.2em"
-        fill="rgba(255,255,255,0.3)"
-        initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}} transition={{ delay: 0.08 }}>
-        NUTRITION PLAN
-      </motion.text>
-
-      {/* VEG / NON-VEG badge */}
-      <AnimatePresence mode="wait">
-        <motion.g key={isVeg ? "vbadge" : "nvbadge"}
-          initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 4 }} transition={{ duration: 0.25 }}>
-          <rect x={272} y={12} width={88} height={18} rx={9}
-            fill={acc} fillOpacity={0.16} stroke={acc} strokeWidth={0.8} strokeOpacity={0.5} />
-          <text x={316} y={24.5} textAnchor="middle"
-            fontFamily="Geist, Inter, sans-serif" fontSize={8.5} fontWeight={700}
-            fill={acc} letterSpacing="0.08em">
+      {/* Header */}
+      <div style={{ position: "absolute", top: 16, left: 20, right: 20, display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 5 }}>
+        <span style={{ fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)" }}>NUTRITION PLAN</span>
+        <AnimatePresence mode="wait">
+          <motion.span key={isVeg ? "vb" : "nvb"}
+            initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }}
+            transition={{ duration: 0.25 }}
+            style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.1em", color: acc,
+              padding: "3px 11px", borderRadius: 11, border: `1px solid ${acc}55`, background: `${acc}1A` }}>
             {isVeg ? "VEGETARIAN" : "NON-VEG"}
-          </text>
-        </motion.g>
-      </AnimatePresence>
+          </motion.span>
+        </AnimatePresence>
+      </div>
 
-      {/* ── Plate base ── */}
-      {/* Outer rim ring */}
-      <motion.circle cx={CX} cy={CY} r={R + 6}
-        stroke="rgba(255,255,255,0.1)" strokeWidth={1.2} fill="none"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={animate ? { scale: 1, opacity: 1 } : {}}
-        style={{ transformBox: "fill-box", transformOrigin: "center" }}
-        transition={{ duration: 0.5, delay: 0.12 }}
-      />
-      {/* White plate */}
-      <motion.circle cx={CX} cy={CY} r={R}
-        fill="rgba(255,255,255,0.92)"
-        style={{ transformBox: "fill-box", transformOrigin: "center", filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.45))" }}
-        initial={{ scale: 0 }} animate={animate ? { scale: 1 } : {}}
-        transition={{ duration: 0.45, delay: 0.14 }}
-      />
-
-      {/* ── Quadrant colour fills ── */}
-      {(Object.keys(qPaths) as (keyof typeof qPaths)[]).map((k) => (
-        <motion.path key={k} d={qPaths[k]} fill={qFills[k]}
-          initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
-          transition={{ delay: 0.28 }}
-        />
-      ))}
-
-      {/* ── Divider lines ── */}
-      <motion.line x1={CX} y1={T} x2={CX} y2={B}
-        stroke="rgba(255,255,255,0.55)" strokeWidth={1}
-        initial={{ scaleY: 0 }} animate={animate ? { scaleY: 1 } : {}}
-        style={{ transformOrigin: `${CX}px ${CY}px` }}
-        transition={{ delay: 0.3 }}
-      />
-      <motion.line x1={L} y1={CY} x2={RX} y2={CY}
-        stroke="rgba(255,255,255,0.55)" strokeWidth={1}
-        initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
-        style={{ transformOrigin: `${CX}px ${CY}px` }}
-        transition={{ delay: 0.32 }}
-      />
-      {/* Centre dot */}
-      <circle cx={CX} cy={CY} r={3.5} fill="rgba(255,255,255,0.7)" />
-
-      {/* ── Food items in quadrants — crossfade on switch ── */}
-      <AnimatePresence mode="wait">
-        <motion.g key={isVeg ? "veg" : "nv"}
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-          transition={{ duration: 0.38 }}>
-          {(Object.keys(qC) as (keyof typeof qC)[]).map((k) => {
-            const [ex, ey] = qC[k];
-            const f = food[k];
-            const isRight = ex > CX;
-            const anchor = "middle" as const;
-            return (
-              <g key={k}>
-                {/* Emoji */}
-                <text x={ex} y={ey - 4} textAnchor={anchor} fontSize={18} fontFamily="Geist, Inter, sans-serif">
-                  {f.e}
-                </text>
-                {/* Food line 1 */}
-                <text x={ex} y={ey + 14} textAnchor={anchor}
-                  fontFamily="Geist, Inter, sans-serif" fontSize={7.5} fontWeight={600}
-                  fill="rgba(50,20,5,0.85)">
-                  {f.f1}
-                </text>
-                {/* Food line 2 */}
-                <text x={ex} y={ey + 23} textAnchor={anchor}
-                  fontFamily="Geist, Inter, sans-serif" fontSize={7}
-                  fill="rgba(50,20,5,0.6)">
-                  {f.f2}
-                </text>
-              </g>
-            );
-          })}
-        </motion.g>
-      </AnimatePresence>
-
-      {/* ── Callout labels with dashed arrows ── */}
-      {labels.map((lb) => (
-        <g key={lb.q}>
-          {/* Dashed callout line */}
-          <motion.line
-            x1={lb.lx + (lb.anchor === "start" ? 56 : -56)}
-            y1={lb.ly - 4}
-            x2={lb.ax} y2={lb.ay}
-            stroke={acc} strokeWidth={0.75} strokeDasharray="3 2.5" opacity={0.55}
-            initial={{ pathLength: 0 }} animate={animate ? { pathLength: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.55 }}
-          />
-          {/* Arrow dot at plate edge */}
-          <motion.circle cx={lb.ax} cy={lb.ay} r={2.5} fill={acc}
-            initial={{ scale: 0 }} animate={animate ? { scale: 1 } : {}}
-            style={{ transformBox: "fill-box", transformOrigin: "center" }}
-            transition={{ type: "spring", delay: 0.75 }}
-          />
-          {/* Nutrient label */}
-          <motion.text x={lb.lx} y={lb.ly} textAnchor={lb.anchor}
-            fontFamily="Geist, Inter, sans-serif"
-            fontSize={9} fontWeight={700} fill={acc} letterSpacing="0.08em"
-            initial={{ opacity: 0 }} animate={animate ? { opacity: 0.95 } : {}}
-            transition={{ delay: 0.48 }}>
-            {lb.name}
-          </motion.text>
-          {/* Food subtitle changes with VEG/NON-VEG */}
+      {/* The plate — full Imagen photo, crossfades veg ↔ non-veg.
+          Static wrapper holds the centering translate; the motion.div only
+          animates scale/opacity (Framer's transform would otherwise drop the translate). */}
+      <div style={{
+        position: "absolute", top: "50%", left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "56%", aspectRatio: "1",
+      }}>
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={animate ? { scale: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+          style={{
+            width: "100%", height: "100%", borderRadius: "50%", overflow: "hidden",
+            boxShadow: "0 26px 64px rgba(0,0,0,0.6)",
+          }}
+        >
           <AnimatePresence mode="wait">
-            <motion.text key={`${isVeg}-${lb.q}`}
-              x={lb.lx} y={lb.ly + 12} textAnchor={lb.anchor}
-              fontFamily="Geist, Inter, sans-serif"
-              fontSize={7.5} fill="rgba(255,255,255,0.45)"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}>
-              {food[lb.q].f1}
-            </motion.text>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <motion.img key={plateImg} src={plateImg} alt="Your plate"
+              initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
           </AnimatePresence>
-        </g>
-      ))}
+        </motion.div>
+      </div>
 
-      {/* ── Slide mode dots ── */}
-      <motion.rect x={175} y={248} width={14} height={4} rx={2}
-        fill={acc} opacity={isVeg ? 1 : 0.3}
-        animate={{ opacity: isVeg ? 1 : 0.3 }} transition={{ duration: 0.3 }} />
-      <motion.rect x={193} y={248} width={6} height={4} rx={2}
-        fill={acc} opacity={isVeg ? 0.3 : 1}
-        animate={{ opacity: isVeg ? 0.3 : 1 }} transition={{ duration: 0.3 }} />
+      {/* Nutrient callouts pointing at quadrants */}
+      {callouts.map((c, i) => {
+        const right = c.pos.textAlign === "right";
+        return (
+          <motion.div key={c.nutrient}
+            initial={{ opacity: 0, x: right ? 10 : -10 }}
+            animate={animate ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.4, ease: EASE, delay: 0.55 + i * 0.12 }}
+            style={{ position: "absolute", ...c.pos, zIndex: 5, maxWidth: 112 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 5, justifyContent: right ? "flex-end" : "flex-start" }}>
+              {!right && <span style={{ width: 5, height: 5, borderRadius: "50%", background: acc }} />}
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.07em", color: acc }}>{c.nutrient}</span>
+              {right && <span style={{ width: 5, height: 5, borderRadius: "50%", background: acc }} />}
+            </div>
+            <AnimatePresence mode="wait">
+              <motion.div key={isVeg ? `${i}v` : `${i}n`}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                style={{ fontSize: 8, color: "rgba(255,255,255,0.5)", marginTop: 1, lineHeight: 1.3 }}>
+                {isVeg ? c.veg : c.nonveg}
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        );
+      })}
 
-      {/* ── Footer ── */}
-      <motion.line x1={20} y1={270} x2={360} y2={270}
-        stroke="rgba(255,255,255,0.08)" strokeWidth={1}
-        initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
-        style={{ transformOrigin: "20px 270px" }}
-        transition={{ delay: 1.2 }}
-      />
-      <motion.text x={20} y={282}
-        fontFamily="Geist, Inter, sans-serif" fontSize={8.5}
-        fill="rgba(255,255,255,0.28)"
-        initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
-        transition={{ delay: 1.3 }}>
-        Anti-inflam · Calcium · Vit D · Protein — adapted to your food preference
-      </motion.text>
-    </svg>
+      {/* Slide dots */}
+      <div style={{ position: "absolute", bottom: 46, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 5, zIndex: 5 }}>
+        {[true, false].map((v) => (
+          <motion.div key={String(v)}
+            animate={{ width: isVeg === v ? 16 : 6, opacity: isVeg === v ? 1 : 0.3 }}
+            transition={{ duration: 0.3 }}
+            style={{ height: 4, borderRadius: 2, background: acc }} />
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div style={{ position: "absolute", bottom: 14, left: 20, right: 20, borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 6, fontSize: 8.5, color: "rgba(255,255,255,0.3)", zIndex: 5 }}>
+        Anti-inflammatory · Calcium · Vit D · Protein — adapted to your food preference
+      </div>
+    </div>
   );
 }
 
@@ -1042,6 +950,24 @@ function PsychologyArt({ animate }: { animate: boolean }) {
         transition={{ duration: 1.0, ease: "easeInOut", delay: 0.35 }}
       />
 
+      {/* Brainwave readout — LEFT (stressed) */}
+      <motion.text x={79} y={162}
+        textAnchor="middle"
+        fontFamily="Geist, Inter, -apple-system, sans-serif"
+        fontSize={11} fontWeight={700} fill="#E8967E" letterSpacing="0.04em"
+        initial={{ opacity: 0 }} animate={animate ? { opacity: 0.9 } : {}}
+        transition={{ delay: 1.0 }}>
+        High Beta · 24 Hz
+      </motion.text>
+      <motion.text x={79} y={177}
+        textAnchor="middle"
+        fontFamily="Geist, Inter, -apple-system, sans-serif"
+        fontSize={9.5} fontWeight={600} fill="rgba(255,255,255,0.72)"
+        initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
+        transition={{ delay: 1.1 }}>
+        Overthinking · Tense · On guard
+      </motion.text>
+
       {/* Threshold divider */}
       <motion.line x1={175} y1={50} x2={175} y2={200}
         stroke="rgba(255,255,255,0.22)" strokeWidth={1.5} strokeDasharray="5 4"
@@ -1049,13 +975,21 @@ function PsychologyArt({ animate }: { animate: boolean }) {
         animate={animate ? { pathLength: 1, opacity: 1 } : {}}
         transition={{ duration: 0.4, delay: 1.3 }}
       />
-      <motion.text x={175} y={218}
+      <motion.text x={175} y={214}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={8.5} fill="rgba(255,255,255,0.28)" letterSpacing="0.08em"
+        fontSize={8.5} fill="rgba(255,255,255,0.3)" letterSpacing="0.08em"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.45 }}>
-        THRESHOLD
+        FLAG THRESHOLD
+      </motion.text>
+      <motion.text x={175} y={226}
+        textAnchor="middle"
+        fontFamily="Geist, Inter, -apple-system, sans-serif"
+        fontSize={7.5} fill="rgba(255,255,255,0.22)"
+        initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
+        transition={{ delay: 1.5 }}>
+        weekly check-ins + adherence
       </motion.text>
 
       {/* Arrow through threshold */}
@@ -1075,6 +1009,24 @@ function PsychologyArt({ animate }: { animate: boolean }) {
         animate={animate ? { pathLength: 1, opacity: 1 } : {}}
         transition={{ duration: 1.2, ease: "easeInOut", delay: 1.6 }}
       />
+
+      {/* Brainwave readout — RIGHT (calm) */}
+      <motion.text x={285} y={162}
+        textAnchor="middle"
+        fontFamily="Geist, Inter, -apple-system, sans-serif"
+        fontSize={11} fontWeight={700} fill="#7DD6A8" letterSpacing="0.04em"
+        initial={{ opacity: 0 }} animate={animate ? { opacity: 0.95 } : {}}
+        transition={{ delay: 2.3 }}>
+        Alpha · 10 Hz
+      </motion.text>
+      <motion.text x={285} y={177}
+        textAnchor="middle"
+        fontFamily="Geist, Inter, -apple-system, sans-serif"
+        fontSize={9.5} fontWeight={600} fill="rgba(255,255,255,0.72)"
+        initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
+        transition={{ delay: 2.4 }}>
+        Settled · Confident · In control
+      </motion.text>
 
       {/* Footer */}
       <motion.line x1={26} y1={252} x2={354} y2={252}
