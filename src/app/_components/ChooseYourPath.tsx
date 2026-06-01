@@ -16,6 +16,7 @@
 
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { asset } from "@/lib/asset";
 
 type Pillar = { name: string; lead: boolean };
 
@@ -210,7 +211,7 @@ export default function ChooseYourPath() {
                   <div className="relative aspect-[16/10] overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={t.image}
+                      src={asset(t.image)}
                       alt=""
                       aria-hidden="true"
                       loading="lazy"

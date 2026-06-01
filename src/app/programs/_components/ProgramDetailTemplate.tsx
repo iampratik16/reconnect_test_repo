@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Reveal from "@/components/Reveal";
@@ -84,7 +85,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
                 <div className="relative rounded-[20px] overflow-hidden shadow-soft">
                   {/* TODO: replace with Dr. Shruthi's consented patient/clinic photography */}
                   <img
-                    src={data.heroImage}
+                    src={asset(data.heroImage)}
                     alt={data.heroImageAlt}
                     loading="lazy"
                     className="w-full h-[360px] md:h-[460px] lg:h-[520px] object-cover"
@@ -217,7 +218,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
                 <div className="relative rounded-[20px] overflow-hidden shadow-soft xray-glow-sage">
                   {/* TODO: replace with consented member photo */}
                   <img
-                    src={testimonial.image}
+                    src={asset(testimonial.image)}
                     alt={testimonial.imageAlt}
                     loading="lazy"
                     className="w-full h-[360px] md:h-[460px] object-cover"

@@ -266,7 +266,7 @@ export default function BodyRegionDiagram() {
             </ul>
 
             <a
-              href={region.track}
+              href={asset(region.track)}
               className="group inline-flex items-center gap-2 text-body font-medium text-clay hover:text-clay-dark transition-colors duration-200 mt-1"
             >
               Explore the {region.trackName} track

@@ -19,6 +19,7 @@
  */
 
 import type { Metadata } from "next";
+import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
@@ -345,7 +346,7 @@ export default function PricingPage() {
             />
             <p className="text-body-sm text-ink-soft mt-6">
               Not finding yours?{" "}
-              <a href="/contact" className="text-clay font-medium underline-offset-4 hover:underline">
+              <a href={asset("/contact")} className="text-clay font-medium underline-offset-4 hover:underline">
                 Ask the team directly.
               </a>
             </p>

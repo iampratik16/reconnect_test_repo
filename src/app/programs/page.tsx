@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
@@ -247,7 +248,7 @@ export default function ProgramsPage() {
                       <div className="relative rounded-[20px] overflow-hidden shadow-soft">
                         {/* TODO: swap for Dr. Shruthi's consented patient/clinic photography */}
                         <img
-                          src={track.image}
+                          src={asset(track.image)}
                           alt={track.imageAlt}
                           loading="lazy"
                           className="w-full h-[360px] md:h-[460px] object-cover"
