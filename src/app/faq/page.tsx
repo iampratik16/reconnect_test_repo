@@ -42,7 +42,7 @@ const groups: FaqGroup[] = [
         ),
       },
       {
-        q: "How is this different from HealthifyMe, Fitternity, or a YouTube plan?",
+        q: "How is this different from a generic fitness app or other available programmes?",
         a: (
           <p>
             Those give you one generic set of workouts based on height, weight, and a few

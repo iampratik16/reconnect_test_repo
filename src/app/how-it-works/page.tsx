@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import CTASection from "@/components/CTASection";
 import { SkeletonSvg, SpineSvg } from "@/components/AnatomicalArt";
 import StickyJourneySequence from "./_components/StickyJourneySequence";
-import WhyNotYouTube from "./_components/WhyNotYouTube";
+import WhyNotGenericApp from "./_components/WhyNotGenericApp";
 import ComparisonSection from "./_components/ComparisonSection";
 
 export const metadata: Metadata = {
@@ -100,9 +100,9 @@ export default function HowItWorksPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
-          3) "WHY NOT JUST YOUTUBE?" CALLOUT
+          3) "WHY NOT JUST A FREE APP?" CALLOUT
           ═══════════════════════════════════════════════════════ */}
-      <WhyNotYouTube />
+      <WhyNotGenericApp />
 
       {/* ═══════════════════════════════════════════════════════
           4) RECONNECT vs GENERIC APPS COMPARISON

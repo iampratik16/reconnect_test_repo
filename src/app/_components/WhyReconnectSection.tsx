@@ -8,20 +8,20 @@ import Section from "@/components/Section";
 
 const proofCards = [
   {
-    title: "Doctor-led, not trainer-led",
-    body: "Programs designed by a rheumatologist. Trainers carry them out — the medicine sits behind every prescription.",
+    title: "Doctor-led",
+    body: "Designed and overseen by a rheumatologist — the medicine sits behind every prescription.",
   },
   {
     title: "Personalised to your condition",
     body: "Built around your diagnosis, imaging, pain map, and history — not a generic template.",
   },
   {
-    title: "Pain-first, not pain-through",
-    body: "We calm the pain, respect it, then build strength on top of a quieter joint.",
+    title: "An integrated approach",
+    body: "Medical care, exercise, nutrition and mind work as one — and the psychology isn't an add-on, it's what makes the programme actually stick.",
   },
   {
     title: "Structured roadmap",
-    body: "A 12-week cycle with milestones and reassessment — the direction YouTube can't give you.",
+    body: "A 16-week cycle with milestones and reassessment — the direction a generic app can't give you.",
   },
 ];
 
@@ -176,15 +176,6 @@ export default function WhyReconnectSection() {
             ))}
           </p>
 
-          {/* Description — fades in after headline */}
-          <motion.p
-            className="text-body text-ink-soft mt-5 max-w-2xl"
-            initial={{ opacity: 0, y: 8 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, ease, delay: 0.65 }}
-          >
-            Most fitness apps give you the same plan as the next person. Reconnect doesn&apos;t.
-          </motion.p>
         </div>
 
         {/* ── Grid ─────────────────────────────────────────────── */}
@@ -235,7 +226,7 @@ export default function WhyReconnectSection() {
                 {/* Quote text — word-by-word split reveal */}
                 <p className="serif-italic text-h3 text-ink leading-snug">
                   {[
-                    "YouTube", "has", "endless", "exercises", "—", "but", "no",
+                    "All around us there", "are", "endless", "exercises", "—", "but", "no",
                     "motivation,", "and", "no", "direction", "for", "where",
                   ].map((word, i) => (
                     <AnimWord

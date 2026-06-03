@@ -8,7 +8,6 @@ import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import SplitReveal from "@/components/SplitReveal";
-import AnimatedCounter from "@/components/AnimatedCounter";
 import ScrollMarquee from "@/components/ScrollMarquee";
 import BentoGrid, { BentoItem } from "@/components/BentoGrid";
 import JourneyStepper from "@/components/JourneyStepper";
@@ -26,7 +25,6 @@ import { plans } from "@/lib/content/pricing";
 import { asset } from "@/lib/asset";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
-import SpineConnects from "./_components/SpineConnects";
 import WhyReconnectSection from "./_components/WhyReconnectSection";
 import ScienceSection from "./_components/ScienceSection";
 import ConditionsGrid from "./_components/ConditionsGrid";
@@ -41,12 +39,6 @@ export const metadata: Metadata = {
 
 /* ── Data ──────────────────────────────────────────────────── */
 
-const stats = [
-  { value: 500, suffix: "+", label: "Members helped" },
-  { value: 12,  suffix: " wk", label: "Structured programs" },
-  { value: 4.9, suffix: "",    label: "Average rating", decimals: 1 },
-  { value: 3,   suffix: "",    label: "Specialist tracks" },
-];
 
 const proofCards = [
   {
@@ -63,7 +55,7 @@ const proofCards = [
   },
   {
     title: "Structured roadmap",
-    body: "A 12-week cycle with milestones and reassessment — the direction YouTube can’t give you.",
+    body: "A 12-week cycle with milestones and reassessment — the direction a generic app can’t give you.",
   },
 ];
 
@@ -81,10 +73,10 @@ const conditions = [
 ];
 
 const darkPoints = [
-  { title: "Doctor-led, not influencer-led", body: "Designed and overseen by a rheumatologist with over a decade of clinical practice." },
+  { title: "Doctor-led", body: "Designed and overseen by a rheumatologist with over a decade of clinical practice." },
   { title: "Personalised to your diagnosis", body: "Programs shaped by imaging, history, and current medication — not a one-size template." },
-  { title: "Pain-first", body: "We work around pain, respect it, reduce it — then build strength on top of it." },
-  { title: "Structured 12-week roadmap", body: "Direction and motivation a generic app or YouTube playlist can’t give." },
+  { title: "An integrated approach", body: "Medical care, exercise, nutrition and mind work as one. We respect your pain and build strength around it — psychology is a core pillar, not an add-on." },
+  { title: "Structured 12-week roadmap", body: "Direction and motivation a generic app can’t give." },
 ];
 
 /* ── Page ──────────────────────────────────────────────────── */
@@ -92,18 +84,7 @@ const darkPoints = [
 export default function HomePage() {
   return (
     <>
-      {/* ── Resource hints for the 3D spine in section (05) ────────
-         These get hoisted to <head> by React 19 / Next 15 so the
-         browser starts the GLB download in parallel with HTML parse,
-         and the DRACO decoder CDN is already warmed up by the time
-         three.js asks for it. Eliminates the cold-start wait. */}
-      <link
-        rel="preload"
-        as="fetch"
-        href={asset("/models/spine.glb")}
-        type="model/gltf-binary"
-        crossOrigin="anonymous"
-      />
+      {/* Spine GLB preload removed with the "Built like a spine" section. */}
       <link rel="preconnect" href="https://www.gstatic.com" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="https://www.gstatic.com" />
       {/* ════════════════════════════════════════════════════════
@@ -204,27 +185,7 @@ export default function HomePage() {
 
       </section>
 
-      {/* ════════════════════════════════════════════════════════
-          2) STAT STRIP — animated counters, hairline-separated
-          ════════════════════════════════════════════════════════ */}
-      <section className="border-y border-line bg-bone">
-        <div className="container-site grid grid-cols-2 lg:grid-cols-4 divide-x divide-line">
-          {stats.map((s, i) => (
-            <div key={s.label} className={`py-10 px-4 lg:px-8 ${i === 0 ? "border-l-0" : ""}`}>
-              <p className="text-h2 font-display text-ink leading-none">
-                {s.decimals ? (
-                  <DecimalCounter value={s.value} />
-                ) : (
-                  <AnimatedCounter value={s.value} suffix={s.suffix} />
-                )}
-              </p>
-              <p className="text-caption text-ink-soft uppercase tracking-widest mt-3">
-                {s.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* STAT STRIP removed per client request. */}
 
       {/* ════════════════════════════════════════════════════════
           3) THE DIFFERENTIATOR — (01) Why Reconnect
@@ -237,14 +198,94 @@ export default function HomePage() {
       <ScienceSection />
 
       {/* ════════════════════════════════════════════════════════
+          4b) BUILT FOR PREVENTION — primary highlight, before Conditions
+          ════════════════════════════════════════════════════════ */}
+      <Section bg="bg-bone">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* Persona image (placeholder) */}
+          <div className="lg:col-span-5">
+            <Reveal>
+              <figure className="relative rounded-[20px] overflow-hidden shadow-lifted bg-sage-deep aspect-[4/5]">
+                {/* TODO: client to supply a consented or licensed at-risk desk-work image —
+                    stressed professional, late night, takeaway on the desk. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={asset("/prevent/desk-night.png")}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover opacity-55"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(180deg, rgba(0,41,92,0.10) 0%, rgba(0,41,92,0.75) 100%)" }}
+                  aria-hidden="true"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 p-6 text-bone/85 text-body-sm">
+                  1:00 AM. Hunched over the laptop, dinner gone cold, the deadline still open.
+                  This is the posture that becomes a problem at 45.
+                </figcaption>
+              </figure>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-7">
+            <Reveal>
+              <Eyebrow>Built for prevention</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="text-h2 font-display text-ink mt-6">
+                Built for the prevention of joint pain and arthritis.
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
+                The damage almost never starts with a diagnosis. It starts with the chair.
+              </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <p className="text-body text-ink-soft mt-4 max-w-xl">
+                If you’re somewhere between 30 and 50 — building a career at a desk for ten or
+                twelve hours a day, raising kids, eating on the run, with no real time for the
+                gym — your body is quietly keeping score. The stiff neck. The lower back that
+                aches by evening. The shoulder that never fully loosens. None of it is bad
+                enough to see a doctor for. <em className="serif-italic">Yet.</em> That “yet” is
+                exactly where Reconnect works.
+              </p>
+            </Reveal>
+            <Reveal delay={0.4}>
+              <p className="serif-italic text-h4 text-clay mt-6 max-w-xl">
+                Movement is natural. Sitting still for twelve hours isn’t.
+              </p>
+            </Reveal>
+            <Reveal delay={0.5}>
+              <p className="text-body text-ink-soft mt-4 max-w-xl">
+                Prevention here isn’t a workout plan you’ll quit in three weeks. It’s a safety
+                net — small, doctor-guided changes now (a movement snack every hour, thirty
+                focused minutes you can do at home) so you don’t meet us again in a decade with
+                a disc that needs surgery. Look after it at 40, and your 50s feel better.
+              </p>
+            </Reveal>
+            <Reveal delay={0.6}>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Button variant="clay" href="/programs/prevent" arrow>
+                  Start with prevention
+                </Button>
+                <Button variant="sage-outline" href="/assessment" arrow>
+                  Take the free assessment
+                </Button>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </Section>
+
+      {/* ════════════════════════════════════════════════════════
           5) CONDITIONS — editorial masonry grid
           ════════════════════════════════════════════════════════ */}
       <ConditionsGrid />
 
-      {/* ════════════════════════════════════════════════════════
-          5b) CONNECTED BY DESIGN — scroll-rotating spine
-          ════════════════════════════════════════════════════════ */}
-      <SpineConnects />
+      {/* "Built like a spine" (Connected by design) section removed per client request. */}
 
       {/* ════════════════════════════════════════════════════════
           6) THE METHOD — morphing body silhouette
@@ -530,11 +571,6 @@ function ConditionCard({
       </div>
     </Link>
   );
-}
-
-function DecimalCounter({ value }: { value: number }) {
-  // Counter primitive integer-rounds; render 4.9 statically (still in-view triggered via parent reveal feel)
-  return <span>{value.toFixed(1)}</span>;
 }
 
 function SplitRevealInline({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {

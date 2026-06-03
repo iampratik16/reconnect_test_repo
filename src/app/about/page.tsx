@@ -158,9 +158,9 @@ export default function AboutPage() {
 
                 <p>
                   The reason it exists is plainer than the methodology. Too many of her patients
-                  arrived at the clinic having been harmed by generic exercise advice — a
-                  YouTube routine that flared a knee, a gym programme that worsened a disc, a
-                  fitness app prescribing impact loading to someone with osteoporosis. The cost
+                  arrived at the clinic having been harmed by generic exercise advice — an
+                  online routine that flared a knee, a gym programme that worsened a disc, a
+                  generic fitness app prescribing impact loading to someone with osteoporosis. The cost
                   of getting it wrong, at this end of medicine, is high. Reconnect is the
                   alternative she wanted to be able to offer them.
                 </p>

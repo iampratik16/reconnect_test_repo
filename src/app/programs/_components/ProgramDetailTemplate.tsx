@@ -84,6 +84,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
               <Reveal delay={0.2}>
                 <div className="relative rounded-[20px] overflow-hidden shadow-soft">
                   {/* TODO: replace with Dr. Shruthi's consented patient/clinic photography */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={asset(data.heroImage)}
                     alt={data.heroImageAlt}
@@ -111,6 +112,20 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
               description="If two or more of these feel familiar, this is your track. The assessment will confirm it."
               align="left"
             />
+            {data.signalsImage && (
+              <Reveal delay={0.2}>
+                <div className="relative mt-8 rounded-2xl overflow-hidden shadow-soft aspect-[4/3]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset(data.signalsImage)}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+              </Reveal>
+            )}
           </div>
 
           <div className="lg:col-span-7">
@@ -133,14 +148,42 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
           3) 12-WEEK ROADMAP (sticky-scroll timeline)
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
-        <SectionHeader
-          eyebrowNumber="(02)"
-          eyebrow="The 12-week roadmap"
-          title="What the cycle actually looks like."
-          description={data.roadmapLead}
-          align="left"
-          className="mb-16 md:mb-20"
-        />
+        {data.roadmapImage ? (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-14 md:mb-20">
+            <div className="lg:col-span-7">
+              <SectionHeader
+                eyebrowNumber="(02)"
+                eyebrow={data.roadmapEyebrow ?? "The 12-week roadmap"}
+                title="What the cycle actually looks like."
+                description={data.roadmapLead}
+                align="left"
+              />
+            </div>
+            <div className="lg:col-span-5">
+              <Reveal delay={0.2}>
+                <div className="relative rounded-2xl overflow-hidden shadow-soft aspect-[5/4]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset(data.roadmapImage)}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        ) : (
+          <SectionHeader
+            eyebrowNumber="(02)"
+            eyebrow={data.roadmapEyebrow ?? "The 12-week roadmap"}
+            title="What the cycle actually looks like."
+            description={data.roadmapLead}
+            align="left"
+            className="mb-16 md:mb-20"
+          />
+        )}
 
         <RoadmapTimeline phases={data.roadmap} />
 

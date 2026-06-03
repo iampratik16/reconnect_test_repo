@@ -1,12 +1,12 @@
 "use client";
 
 /**
- * WhyNotYouTube — Creative "fair question" section.
+ * WhyNotGenericApp — Creative "fair question" section.
  *
  * Premium touches (subtle, not gimmicky):
  *  - Heading reveals word-by-word with a mask-up motion.
- *  - The word "YouTube?" gets an SVG strike-through line that draws across
- *    after the word lands — the visual metaphor for "not YouTube".
+ *  - The accent phrase gets an SVG strike-through line that draws across
+ *    after the words land — the visual metaphor for "not just a free app".
  *  - The 3 reason cards stagger in, each with a thin top accent rule that
  *    draws horizontally, and a soft lift + accent shift on hover.
  *  - All motion respects prefers-reduced-motion via framer-motion defaults.
@@ -59,7 +59,7 @@ const accentVariants: Variants = {
   }),
 };
 
-export default function WhyNotYouTube() {
+export default function WhyNotGenericApp() {
   const prefersReduced = useReducedMotion();
 
   // Build the heading as discrete word tokens so each can mask up independently.
@@ -67,7 +67,9 @@ export default function WhyNotYouTube() {
     { text: "“Why", italic: true, accent: false },
     { text: "not", italic: true, accent: false },
     { text: "just", italic: true, accent: false },
-    { text: "YouTube?”", italic: true, accent: true },
+    { text: "a", italic: true, accent: false },
+    { text: "free", italic: true, accent: true },
+    { text: "app?”", italic: true, accent: true },
   ];
 
   return (
@@ -138,7 +140,7 @@ export default function WhyNotYouTube() {
             viewport={{ once: true, margin: "-15% 0px" }}
             transition={{ delay: 0.7, duration: 0.6, ease: EASE }}
           >
-            YouTube has endless exercises — but no motivation, and no direction for
+            All around us there are endless exercises — but no motivation, and no direction for
             where <em className="serif-italic text-ink">your</em> body is at. We give
             you the roadmap.
           </motion.blockquote>

@@ -46,12 +46,16 @@ export type ProgramDetail = {
   heroImage: string;
   heroImageAlt: string;
   heroIcon: SvgComponent;
+  /** Optional per-section accent images (Prevent distributes three across the page). */
+  signalsImage?: string;
+  roadmapImage?: string;
 
   // Section 2
   signalsHeadline: string;
   signals: string[];
 
   // Section 3
+  roadmapEyebrow?: string;   // optional override; defaults to "The 12-week roadmap"
   roadmapLead: string;       // short paragraph above timeline
   roadmap: RoadmapPhase[];
   bodyRegionNote: string;    // short line under timeline
@@ -81,11 +85,13 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     promise: "Protect the joints and bones you’ll need at seventy — starting now.",
     italicWord: "now",
     subhead:
-      "For early signs, family history, or age-related risk. A proactive 12-week program to build strength and bone density before problems start. Being protective now prevents future problems.",
+      "For early signs, family history, or age-related risk. A proactive 16-week program to build strength and bone density before problems start. Being protective now prevents future problems.",
     whoFor: ["Early arthritis signs", "Family history", "Post-menopausal bone health", "Adults 40+"],
-    heroImage: "/kettlebell-squat.jpg",
-    heroImageAlt: "TODO: replace with consented Prevent-track member photo — proactive strength session.",
+    heroImage: "/prevent/desk-night.png",
+    heroImageAlt: "A late night at the desk — the everyday posture and habits Prevent gets ahead of.",
     heroIcon: SkeletonSvg,
+    signalsImage: "/prevent/desk-back.png",
+    roadmapImage: "/prevent/desk-neck.png",
 
     signalsHeadline: "Is this you?",
     signals: [
@@ -97,8 +103,9 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       "Your last DEXA or blood panel had a borderline marker.",
     ],
 
+    roadmapEyebrow: "The 16-week roadmap",
     roadmapLead:
-      "A 12-week base-building cycle. Moderate, progressive — designed to lay down strength and bone density without flaring anything that’s already grumbling.",
+      "A 16-week base-building cycle. Moderate, progressive — designed to lay down strength and bone density without flaring anything that’s already grumbling.",
     roadmap: [
       {
         label: "Weeks 1–3",
@@ -149,7 +156,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     ],
 
     outcomesIntro:
-      "What members on this track typically experience after a 12-week cycle. Trajectories — not promises — and they sit alongside, not instead of, your existing medical care.",
+      "What members on this track typically experience after a 16-week cycle. Trajectories — not promises — and they sit alongside, not instead of, your existing medical care.",
     outcomes: [
       {
         label: "Strength gained",

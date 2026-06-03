@@ -2,26 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { asset } from "@/lib/asset";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+/**
+ * Conditions — horizontal swipe carousel (compact, scannable, mobile-first).
+ * TODO: client to supply the final expanded condition list.
+ * The track reflows automatically as entries are added or removed.
+ */
 const conditions = [
-  { name: "Knee Osteoarthritis",       note: "Stairs, getting up, walking distance",  href: "/programs/manage",  img: "/images/conditions/knee-oa.png",              video: "",                                            col: 2, row: 2 },
-  { name: "Chronic Back Pain",         note: "Posture, stiffness, daily ache",         href: "/programs/manage",  img: "/images/conditions/back-pain.png",             video: "/videos/conditions/back-pain.mp4",            col: 1, row: 1 },
-  { name: "Disc Bulge / Sciatica",     note: "Nerve symptoms, radiating pain",         href: "/programs/recover", img: "/images/conditions/sciatica.png",              video: "/videos/conditions/sciatica.mp4",             col: 1, row: 1 },
-  { name: "Rheumatoid Arthritis",      note: "Autoimmune joint inflammation",          href: "/programs/manage",  img: "/images/conditions/rheumatoid-arthritis.png",  video: "/videos/conditions/rheumatoid-arthritis.mp4", col: 1, row: 1 },
-  { name: "Osteoporosis",              note: "Bone density, fracture risk",            href: "/programs/recover", img: "/images/conditions/osteoporosis.png",          video: "/videos/conditions/osteoporosis.mp4",         col: 1, row: 1 },
-  { name: "Frozen Shoulder",           note: "Stiffness, range of motion loss",        href: "/programs/manage",  img: "/images/conditions/frozen-shoulder.png",       video: "/videos/conditions/frozen-shoulder.mp4",      col: 2, row: 1 },
-  { name: "Cervical (Neck) Pain",      note: "Posture-driven cervical strain",         href: "/programs/manage",  img: "/images/conditions/cervical-pain.png",         video: "/videos/conditions/cervical-pain.mp4",        col: 1, row: 1 },
-  { name: "Post-menopausal Bone Loss", note: "Density support after menopause",        href: "/programs/prevent", img: "/images/conditions/post-meno.png",             video: "/videos/conditions/post-meno.mp4",            col: 1, row: 1 },
-  { name: "Joint Stiffness",           note: "Morning stiffness, reduced mobility",    href: "/programs/manage",  img: "/images/conditions/joint-stiffness.png",       video: "/videos/conditions/joint-stiffness.mp4",      col: 1, row: 1 },
-  { name: "Hip Pain",                  note: "Hip OA, post-replacement, instability",  href: "/programs/recover", img: "/images/conditions/hip-pain.png",              video: "/videos/conditions/hip-pain.mp4",             col: 1, row: 1 },
+  { name: "Knee Osteoarthritis",       note: "Stairs, getting up, walking distance",  href: "/programs/manage",  img: "/images/conditions/knee-oa.png",              video: "" },
+  { name: "Chronic Back Pain",         note: "Posture, stiffness, daily ache",         href: "/programs/manage",  img: "/images/conditions/back-pain.png",             video: "/videos/conditions/back-pain.mp4" },
+  { name: "Disc Bulge / Sciatica",     note: "Nerve symptoms, radiating pain",         href: "/programs/recover", img: "/images/conditions/sciatica.png",              video: "/videos/conditions/sciatica.mp4" },
+  { name: "Rheumatoid Arthritis",      note: "Autoimmune joint inflammation",          href: "/programs/manage",  img: "/images/conditions/rheumatoid-arthritis.png",  video: "/videos/conditions/rheumatoid-arthritis.mp4" },
+  { name: "Osteoporosis",              note: "Bone density, fracture risk",            href: "/programs/recover", img: "/images/conditions/osteoporosis.png",          video: "/videos/conditions/osteoporosis.mp4" },
+  { name: "Frozen Shoulder",           note: "Stiffness, range of motion loss",        href: "/programs/manage",  img: "/images/conditions/frozen-shoulder.png",       video: "/videos/conditions/frozen-shoulder.mp4" },
+  { name: "Cervical (Neck) Pain",      note: "Posture-driven cervical strain",         href: "/programs/manage",  img: "/images/conditions/cervical-pain.png",         video: "/videos/conditions/cervical-pain.mp4" },
+  { name: "Post-menopausal Bone Loss", note: "Density support after menopause",        href: "/programs/prevent", img: "/images/conditions/post-meno.png",             video: "/videos/conditions/post-meno.mp4" },
+  { name: "Joint Stiffness",           note: "Morning stiffness, reduced mobility",    href: "/programs/manage",  img: "/images/conditions/joint-stiffness.png",       video: "/videos/conditions/joint-stiffness.mp4" },
+  { name: "Hip Pain",                  note: "Hip OA, post-replacement, instability",  href: "/programs/recover", img: "/images/conditions/hip-pain.png",              video: "/videos/conditions/hip-pain.mp4" },
 ];
 
-function ConditionTile({
+function ConditionCard({
   condition,
   index,
   isInView,
@@ -34,19 +39,14 @@ function ConditionTile({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
-  const isHero = condition.col === 2 && condition.row === 2;
-  const isWide = condition.col === 2 && condition.row === 1;
-  const colClass = condition.col === 2 ? "md:col-span-2" : "";
-  const rowClass = condition.row === 2 ? "md:row-span-2" : "";
-  const minH = isHero ? "min-h-[480px]" : isWide ? "min-h-[240px]" : "min-h-[260px]";
-
   const hasVideo = Boolean(condition.video);
 
-  // Load + play video on hover, pause+reset on leave
+  // Anatomy video plays on hover (pointer devices). On touch there's no hover,
+  // so a tap simply opens the linked track — no video, no extra load.
   const onEnter = useCallback(() => {
     const v = videoRef.current;
     if (!v || prefersReduced || !condition.video) return;
-    if (!v.src) v.src = asset(condition.video); // lazy-load src only on first hover
+    if (!v.src) v.src = asset(condition.video);
     v.currentTime = 0;
     v.play().catch(() => {});
   }, [condition.video, prefersReduced]);
@@ -60,31 +60,30 @@ function ConditionTile({
 
   return (
     <motion.div
-      className={`${colClass} ${rowClass} ${minH} relative overflow-hidden rounded-2xl group`}
-      initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
+      className="snap-start shrink-0 w-[80vw] min-[480px]:w-[300px] sm:w-[290px] lg:w-[320px] h-[200px] sm:h-[230px] lg:h-[260px] relative overflow-hidden rounded-2xl group"
+      initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease, delay: index * 0.07 }}
+      transition={{ duration: 0.6, ease, delay: Math.min(index, 6) * 0.05 }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
       <Link href={condition.href} className="block w-full h-full absolute inset-0">
 
-        {/* ── Poster image. Cards with a video: grayscale, fades out when video plays.
-               Cards without a video (e.g. Knee OA): grayscale that reveals full colour on hover. ── */}
+        {/* Poster image — grayscale; reveals colour (no-video cards) or fades to video on hover. */}
         <Image
           src={condition.img}
           alt={condition.name}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+          sizes="(max-width: 640px) 78vw, 320px"
           className={
             hasVideo
               ? `object-cover grayscale absolute inset-0 transition-opacity duration-700 ${videoReady ? "opacity-0" : "opacity-100"}`
               : "object-cover grayscale group-hover:grayscale-0 absolute inset-0 transition-[filter] duration-700"
           }
-          priority={index < 3}
+          priority={index < 4}
         />
 
-        {/* ── Veo video — src set lazily on first hover, visible only once playing ── */}
+        {/* Anatomy video — src set lazily on first hover, visible only once playing. */}
         <video
           ref={videoRef}
           loop
@@ -95,13 +94,13 @@ function ConditionTile({
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
         />
 
-        {/* Dark gradient overlay — same for both states */}
+        {/* Dark gradient overlay */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background: `linear-gradient(to top,
               rgba(10,10,8,0.9) 0%,
-              rgba(10,10,8,0.3) 50%,
+              rgba(10,10,8,0.3) 55%,
               transparent 100%)`,
           }}
         />
@@ -114,12 +113,12 @@ function ConditionTile({
         />
 
         {/* Index */}
-        <span className="absolute top-5 right-5 z-20 font-display text-[11px] font-medium text-white/30 tabular-nums">
+        <span className="absolute top-3 right-3 md:top-4 md:right-4 z-20 font-display text-[10px] md:text-[11px] font-medium text-white/30 tabular-nums">
           {String(index + 1).padStart(2, "0")}
         </span>
 
-        {/* "See anatomy" hint — on hover */}
-        <div className="absolute top-5 left-5 z-20 flex items-center gap-1.5
+        {/* "Anatomy view" hint — desktop hover only (no hover affordance on touch) */}
+        <div className="hidden md:flex absolute top-4 left-4 z-20 items-center gap-1.5
           opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0
           transition-all duration-500">
           <span className="w-1.5 h-1.5 rounded-full bg-[#C4714A] animate-pulse" />
@@ -129,25 +128,20 @@ function ConditionTile({
         </div>
 
         {/* Text content */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 z-20">
-          <p
-            className="font-display font-semibold text-white leading-tight mb-1 transition-transform duration-500 group-hover:-translate-y-1"
-            style={{ fontSize: isHero ? "clamp(1.2rem, 2.5vw, 1.6rem)" : "1rem" }}
-          >
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 z-20">
+          <p className="font-display font-semibold text-white leading-tight text-[0.95rem] md:text-base transition-transform duration-500 group-hover:-translate-y-1">
             {condition.name}
           </p>
-          <p className="text-white/55 leading-snug text-[0.8rem] mt-0.5">
+          <p className="text-white/55 leading-snug text-[0.8rem] mt-1">
             {condition.note}
           </p>
-
-          {/* Animated underline */}
           <div className="mt-3 h-px bg-white/15 rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-white/50 rounded-full"
               style={{ originX: 0 }}
               initial={{ scaleX: 0 }}
               animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-              transition={{ duration: 0.5, ease, delay: index * 0.07 + 0.4 }}
+              transition={{ duration: 0.5, ease, delay: Math.min(index, 6) * 0.05 + 0.35 }}
             />
           </div>
         </div>
@@ -161,11 +155,34 @@ export default function ConditionsGrid() {
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const prefersReduced = useReducedMotion();
 
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  const updateArrows = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    setAtStart(el.scrollLeft <= 8);
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+  }, []);
+
+  useEffect(() => {
+    updateArrows();
+    window.addEventListener("resize", updateArrows);
+    return () => window.removeEventListener("resize", updateArrows);
+  }, [updateArrows]);
+
+  const scrollByAmount = (dir: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.85, 340), behavior: "smooth" });
+  };
+
   return (
-    <section className="section-py bg-white">
+    <section className="section-py bg-white overflow-hidden">
       <div className="container-site" ref={ref}>
 
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8 md:mb-12">
           <div className="max-w-2xl">
             <motion.p
               className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C4714A] mb-3"
@@ -195,27 +212,71 @@ export default function ConditionsGrid() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease, delay: 0.25 }}
           >
-            Hover any card to see the anatomy in motion. Find your condition — each links to the right specialist track.
+            A bird&rsquo;s-eye view of what we work with. Swipe through &mdash; each links to the
+            right specialist track.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[minmax(200px,auto)]">
-          {conditions.map((c, i) => (
-            <ConditionTile
-              key={c.name}
-              condition={c}
-              index={i}
-              isInView={isInView}
-              prefersReduced={prefersReduced}
-            />
-          ))}
+        {/* ── Swipe carousel ──────────────────────────────────── */}
+        <div className="relative">
+          <div
+            ref={trackRef}
+            onScroll={updateArrows}
+            className="flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {conditions.map((c, i) => (
+              <ConditionCard
+                key={c.name}
+                condition={c}
+                index={i}
+                isInView={isInView}
+                prefersReduced={prefersReduced}
+              />
+            ))}
+            {/* trailing spacer so the last card can snap fully into view */}
+            <span aria-hidden className="shrink-0 w-px" />
+          </div>
+
+          {/* Left edge fade + arrow (appears once scrolled) */}
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent transition-opacity duration-300 ${atStart ? "opacity-0" : "opacity-100"}`}
+          />
+          <button
+            type="button"
+            onClick={() => scrollByAmount(-1)}
+            aria-label="Previous conditions"
+            className={`hidden sm:flex absolute left-1 top-1/2 -translate-y-1/2 z-30 w-10 h-10 items-center justify-center rounded-full bg-white text-ink shadow-lifted ring-1 ring-black/5 transition-all duration-300 hover:bg-bone-deep ${atStart ? "opacity-0 pointer-events-none -translate-x-2" : "opacity-100"}`}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          {/* Right edge fade + arrow (the "there's more" hint) */}
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent transition-opacity duration-300 ${atEnd ? "opacity-0" : "opacity-100"}`}
+          />
+          <motion.button
+            type="button"
+            onClick={() => scrollByAmount(1)}
+            aria-label="See more conditions"
+            className={`absolute right-1 top-1/2 -translate-y-1/2 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-white text-ink shadow-lifted ring-1 ring-black/5 transition-opacity duration-300 hover:bg-bone-deep ${atEnd ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            animate={prefersReduced || atEnd ? {} : { x: [0, 4, 0] }}
+            transition={{ duration: 1.4, ease: "easeInOut", repeat: Infinity }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </motion.button>
         </div>
 
         <motion.div
-          className="mt-10 text-center"
+          className="mt-8 md:mt-10 text-center"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
         >
           <p className="text-ink-soft text-sm">
             Not sure which track?{" "}
