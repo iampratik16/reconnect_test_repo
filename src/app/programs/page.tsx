@@ -350,7 +350,7 @@ export default function ProgramsPage() {
         <Card padding="lg" className="bg-calcium">
           <Eyebrow>Where does it hurt?</Eyebrow>
           <h3 className="text-h3 font-display text-ink mt-4 mb-6">
-            Exercise starts where the problem is.
+            Action starts where the problem is.
           </h3>
           <BodyRegionDiagram />
         </Card>
