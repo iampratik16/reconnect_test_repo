@@ -28,7 +28,7 @@ const columns = [
   {
     heading: "Support",
     links: [
-      { href: "/faq", label: "FAQ" },
+      { href: "/contact#faq", label: "FAQ" },
       { href: "/contact", label: "Contact" },
       { href: "/assessment", label: "Assessment" },
     ],

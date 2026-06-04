@@ -9,7 +9,7 @@ export const navLinks: NavLink[] = [
   { label: "How It Works", href: "/approach#the-journey" },
   { label: "About Dr. Shruthi", href: "/about" },
   { label: "Pricing", href: "/pricing" },
-  { label: "FAQ", href: "/faq" },
+  { label: "FAQ", href: "/contact#faq" },
 ];
 
 export const ctaLink: NavLink = {

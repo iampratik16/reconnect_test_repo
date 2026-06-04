@@ -14,8 +14,8 @@ const NAV_LINKS = [
   { href: "/approach", label: "Approach" },
   { href: "/programs/prevent", label: "Prevent" },
   { href: "/about", label: "About Dr.\u00A0Shruthi" },
+  { href: "/team", label: "Our Team" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/faq", label: "FAQ" },
 ] as const;
 
 /* ── Component ─────────────────────────────────────────────── */
