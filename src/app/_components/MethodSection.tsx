@@ -41,7 +41,7 @@ const STEPS = [
     num: "03",
     title: "Nutrition",
     subtitle: "Anti-inflammatory fuel",
-    body: "Anti-inflammatory plans integrated with your exercise protocol. Food as medicine, supporting joint recovery from within.",
+    body: "Anti-inflammatory plans integrated with your exercise protocol. Food as medicine, supporting joint repair from within.",
     region: "gut" as const,
     image: "/images/method-nutrition-v2.png",
     video: "/videos/method-nutrition-v2.mp4",
@@ -331,7 +331,7 @@ function StepContent({ step, active }: { step: (typeof STEPS)[number]; active: b
       />
 
       <Link
-        href="/how-it-works"
+        href="/approach#the-journey"
         className="inline-flex w-fit items-center gap-1 text-sm font-medium underline underline-offset-4 transition-opacity hover:opacity-60"
         style={{ color: step.color }}
       >
@@ -550,7 +550,7 @@ export default function MethodSection() {
                   transition={{ duration: 0.4, ease }}
                 >
                   <Link
-                    href="/how-it-works"
+                    href="/approach#the-journey"
                     className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
                     style={{
                       backgroundColor: step.color,

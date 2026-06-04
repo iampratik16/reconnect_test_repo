@@ -14,14 +14,14 @@ const columns = [
     links: [
       { href: "/programs/prevent", label: "Prevent" },
       { href: "/programs/manage", label: "Manage" },
-      { href: "/programs/recover", label: "Recover" },
+      { href: "/programs/strengthen", label: "Strengthen" },
       { href: "/cgm", label: "CGM" },
     ],
   },
   {
     heading: "Company",
     links: [
-      { href: "/how-it-works", label: "How It Works" },
+      { href: "/approach", label: "Approach" },
       { href: "/about", label: "About" },
       { href: "/pricing", label: "Pricing" },
     ],

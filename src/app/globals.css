@@ -110,6 +110,13 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
+/* Offset anchor jumps so section headings clear the fixed nav
+   (h-16 = 64px mobile, h-[72px] = 72px desktop) instead of landing
+   underneath it and clipping the "(01)" eyebrow. */
+html {
+  scroll-padding-top: 88px;
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    PAPER GRAIN / NOISE OVERLAY

@@ -16,14 +16,14 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const conditions = [
   { name: "Knee Osteoarthritis",       note: "Stairs, getting up, walking distance",  href: "/programs/manage",  img: "/images/conditions/knee-oa.png",              video: "" },
   { name: "Chronic Back Pain",         note: "Posture, stiffness, daily ache",         href: "/programs/manage",  img: "/images/conditions/back-pain.png",             video: "/videos/conditions/back-pain.mp4" },
-  { name: "Disc Bulge / Sciatica",     note: "Nerve symptoms, radiating pain",         href: "/programs/recover", img: "/images/conditions/sciatica.png",              video: "/videos/conditions/sciatica.mp4" },
+  { name: "Disc Bulge / Sciatica",     note: "Nerve symptoms, radiating pain",         href: "/programs/strengthen", img: "/images/conditions/sciatica.png",              video: "/videos/conditions/sciatica.mp4" },
   { name: "Rheumatoid Arthritis",      note: "Autoimmune joint inflammation",          href: "/programs/manage",  img: "/images/conditions/rheumatoid-arthritis.png",  video: "/videos/conditions/rheumatoid-arthritis.mp4" },
-  { name: "Osteoporosis",              note: "Bone density, fracture risk",            href: "/programs/recover", img: "/images/conditions/osteoporosis.png",          video: "/videos/conditions/osteoporosis.mp4" },
+  { name: "Osteoporosis",              note: "Bone density, fracture risk",            href: "/programs/strengthen", img: "/images/conditions/osteoporosis.png",          video: "/videos/conditions/osteoporosis.mp4" },
   { name: "Frozen Shoulder",           note: "Stiffness, range of motion loss",        href: "/programs/manage",  img: "/images/conditions/frozen-shoulder.png",       video: "/videos/conditions/frozen-shoulder.mp4" },
   { name: "Cervical (Neck) Pain",      note: "Posture-driven cervical strain",         href: "/programs/manage",  img: "/images/conditions/cervical-pain.png",         video: "/videos/conditions/cervical-pain.mp4" },
   { name: "Post-menopausal Bone Loss", note: "Density support after menopause",        href: "/programs/prevent", img: "/images/conditions/post-meno.png",             video: "/videos/conditions/post-meno.mp4" },
   { name: "Joint Stiffness",           note: "Morning stiffness, reduced mobility",    href: "/programs/manage",  img: "/images/conditions/joint-stiffness.png",       video: "/videos/conditions/joint-stiffness.mp4" },
-  { name: "Hip Pain",                  note: "Hip OA, post-replacement, instability",  href: "/programs/recover", img: "/images/conditions/hip-pain.png",              video: "/videos/conditions/hip-pain.mp4" },
+  { name: "Hip Pain",                  note: "Hip OA, post-replacement, instability",  href: "/programs/strengthen", img: "/images/conditions/hip-pain.png",              video: "/videos/conditions/hip-pain.mp4" },
 ];
 
 function ConditionCard({

@@ -153,7 +153,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
             <div className="lg:col-span-7">
               <SectionHeader
                 eyebrowNumber="(02)"
-                eyebrow={data.roadmapEyebrow ?? "The 12-week roadmap"}
+                eyebrow={data.roadmapEyebrow ?? "The 16-week roadmap"}
                 title="What the cycle actually looks like."
                 description={data.roadmapLead}
                 align="left"
@@ -177,7 +177,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
         ) : (
           <SectionHeader
             eyebrowNumber="(02)"
-            eyebrow={data.roadmapEyebrow ?? "The 12-week roadmap"}
+            eyebrow={data.roadmapEyebrow ?? "The 16-week roadmap"}
             title="What the cycle actually looks like."
             description={data.roadmapLead}
             align="left"

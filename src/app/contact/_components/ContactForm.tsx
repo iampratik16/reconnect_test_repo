@@ -48,7 +48,7 @@ const TRACKS = [
   { v: "unsure",  l: "I'm not sure yet" },
   { v: "prevent", l: "Prevent" },
   { v: "manage",  l: "Manage" },
-  { v: "recover", l: "Recover" },
+  { v: "strengthen", l: "Strengthen" },
   { v: "cgm",     l: "CGM (6-month add-on)" },
 ];
 

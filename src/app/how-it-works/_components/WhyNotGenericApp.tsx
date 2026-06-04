@@ -27,7 +27,7 @@ const REASONS = [
   },
   {
     label: "No roadmap",
-    body: "Random workouts don’t add up to a 12-week plan with milestones and medical oversight.",
+    body: "Random workouts don’t add up to a 16-week plan with milestones and medical oversight.",
   },
 ];
 
@@ -59,7 +59,11 @@ const accentVariants: Variants = {
   }),
 };
 
-export default function WhyNotGenericApp() {
+export default function WhyNotGenericApp({
+  eyebrowNumber = "(02)",
+}: {
+  eyebrowNumber?: string;
+} = {}) {
   const prefersReduced = useReducedMotion();
 
   // Build the heading as discrete word tokens so each can mask up independently.
@@ -85,7 +89,7 @@ export default function WhyNotGenericApp() {
             viewport={{ once: true, margin: "-15% 0px" }}
             transition={{ duration: 0.5, ease: EASE }}
           >
-            <Eyebrow number="(02)">A fair question</Eyebrow>
+            <Eyebrow number={eyebrowNumber}>A fair question</Eyebrow>
           </motion.div>
 
           {/* Heading */}

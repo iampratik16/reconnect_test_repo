@@ -23,7 +23,7 @@ type Pillar = { name: string; lead: boolean };
 type Emphasis = { color: string; badge: string; star?: boolean };
 
 type Track = {
-  slug: "prevent" | "manage" | "recover";
+  slug: "prevent" | "manage" | "strengthen";
   name: string;
   tagline: string;
   image: string;
@@ -31,7 +31,7 @@ type Track = {
   emphasis?: Emphasis; // pulls a card out: gold = where we'd start you, blue = where most do
   signals: string[]; // "right for you if" — recognition, in the visitor's own words
   pillars: Pillar[]; // what you'll work on — lead vs supporting focus
-  outcome: string; // where you'll be in 12 weeks
+  outcome: string; // where you'll be in 16 weeks
 };
 
 /** Recommended-entry gold — warm, deliberately apart from the cool severity ramp. */
@@ -79,9 +79,9 @@ const TRACKS: Track[] = [
     outcome: "Less daily pain, more range — activities back on the table.",
   },
   {
-    slug: "recover",
-    name: "Recover",
-    tagline: "Rebuild safely under close medical guidance.",
+    slug: "strengthen",
+    name: "Strengthen",
+    tagline: "Rebuild real strength, safely supervised.",
     image: "/trainer-guided-exercise.jpg",
     accent: "#00295C", // deepest — most clinical, most supervised
     signals: [
@@ -141,11 +141,6 @@ export default function ChooseYourPath() {
                 We&apos;ll meet you where you are.
               </span>
             </h2>
-            <p className="text-body-lg text-ink-soft">
-              Prevent, Manage, and Recover aren&apos;t three separate programs — they&apos;re
-              points on one spectrum of joint health. Find where you are today; each track is
-              personalised after your medical assessment.
-            </p>
           </div>
         </Reveal>
 
@@ -190,15 +185,15 @@ export default function ChooseYourPath() {
         </Reveal>
 
         {/* ── Comparison grid ─────────────────────────────────────
-            6 shared rows; each card spans them via subgrid so
-            "right for you if", "what you'll do", etc. line up across
+            5 shared rows; each card spans them via subgrid so
+            "right for you if", "in 16 weeks", etc. line up across
             all three — readable across (compare) or down (one track). */}
         <Reveal delay={0.15}>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-x-6 md:gap-y-0 md:[grid-template-rows:repeat(6,auto)]">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-x-6 md:gap-y-0 md:[grid-template-rows:repeat(5,auto)]">
             {TRACKS.map((t) => (
               <article
                 key={t.slug}
-                className={`flex h-full flex-col overflow-hidden rounded-lg bg-calcium md:grid md:row-span-6 md:grid-rows-subgrid ${
+                className={`flex h-full flex-col overflow-hidden rounded-lg bg-calcium md:grid md:row-span-5 md:grid-rows-subgrid ${
                   t.emphasis
                     ? "border-[1.5px] shadow-lifted"
                     : "border border-line shadow-card"
@@ -265,40 +260,9 @@ export default function ChooseYourPath() {
                   </ul>
                 </div>
 
-                {/* 4 — what you'll work on */}
+                {/* 4 — in 16 weeks */}
                 <div className="mt-5 border-t border-line px-6 pt-5 md:px-7">
-                  <p className="text-eyebrow text-ink-soft mb-3">What you&apos;ll work on</p>
-                  <div className="flex flex-wrap gap-2">
-                    {t.pillars.map((p) => (
-                      <span
-                        key={p.name}
-                        className="inline-flex items-center gap-1.5 rounded-pill px-3 py-1 text-caption font-medium"
-                        style={
-                          p.lead
-                            ? { backgroundColor: `${t.accent}14`, color: t.accent }
-                            : { backgroundColor: "var(--color-bone-deep)", color: "var(--color-ink-soft)" }
-                        }
-                      >
-                        <span
-                          className="h-1.5 w-1.5 rounded-full"
-                          style={{
-                            backgroundColor: p.lead ? t.accent : "transparent",
-                            border: p.lead ? "none" : "1.5px solid var(--color-ink-soft)",
-                            opacity: p.lead ? 1 : 0.5,
-                          }}
-                        />
-                        {p.name}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="mt-2.5 text-caption text-ink-soft">
-                    Filled = lead focus · the mix shifts with where you are.
-                  </p>
-                </div>
-
-                {/* 5 — in 12 weeks */}
-                <div className="mt-5 border-t border-line px-6 pt-5 md:px-7">
-                  <p className="text-eyebrow text-ink-soft mb-2">In 12 weeks</p>
+                  <p className="text-eyebrow text-ink-soft mb-2">In 16 weeks</p>
                   <p className="flex gap-2 text-body text-ink">
                     <span style={{ color: t.accent }} aria-hidden="true">
                       →

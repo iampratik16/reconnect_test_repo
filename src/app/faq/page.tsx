@@ -59,7 +59,7 @@ const groups: FaqGroup[] = [
           <p>
             No. Dr. Shruthi is a rheumatologist; surgical cases are referred to orthopaedics.
             Reconnect focuses on non-surgical strength and pain management, both for people
-            avoiding surgery and people recovering from one.
+            avoiding surgery and people rebuilding after one.
           </p>
         ),
       },
@@ -119,15 +119,15 @@ const groups: FaqGroup[] = [
         ),
       },
       {
-        q: "Is it safe for severe arthritis, rheumatoid arthritis, or post-surgical recovery?",
+        q: "Is it safe for severe arthritis, rheumatoid arthritis, or post-surgical rebuilding?",
         a: (
           <p>
             Yes, with the right track and the right modifications. The{" "}
             <Link
-              href="/programs/recover"
+              href="/programs/strengthen"
               className="text-clay font-medium underline-offset-4 hover:underline"
             >
-              Recover track
+              Strengthen track
             </Link>{" "}
             specifically handles post-surgery and severe degeneration with milestone-gated
             progression and close coordination with your treating surgeon or physician. We are
@@ -180,7 +180,7 @@ const groups: FaqGroup[] = [
         q: "Can I pause or cancel my plan?",
         a: (
           <p>
-            Yes — both. Pause for travel, surgery recovery, or any other reason; cancel any
+            Yes — both. Pause for travel, surgery, or any other reason; cancel any
             time before your next billing cycle. No long-term contracts, no lock-ins.
           </p>
         ),

@@ -18,7 +18,7 @@ import {
 type SvgComponent = ComponentType<{ className?: string } & SVGProps<SVGSVGElement>>;
 
 export type RoadmapPhase = {
-  label: string;        // e.g. "Weeks 1–3"
+  label: string;        // e.g. "Weeks 1–4"
   title: string;        // e.g. "Settle the pain"
   body: string;
   focus: string[];      // 2-4 short focus tags
@@ -37,7 +37,7 @@ export type Outcome = {
 export type FaqItem = { q: string; a: string };
 
 export type ProgramDetail = {
-  slug: "prevent" | "manage" | "recover";
+  slug: "prevent" | "manage" | "strengthen";
   name: string;
   promise: string;           // h1
   italicWord: string;        // word inside promise that should be italic-clay
@@ -55,7 +55,7 @@ export type ProgramDetail = {
   signals: string[];
 
   // Section 3
-  roadmapEyebrow?: string;   // optional override; defaults to "The 12-week roadmap"
+  roadmapEyebrow?: string;   // optional override; defaults to "The 16-week roadmap"
   roadmapLead: string;       // short paragraph above timeline
   roadmap: RoadmapPhase[];
   bodyRegionNote: string;    // short line under timeline
@@ -108,25 +108,25 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       "A 16-week base-building cycle. Moderate, progressive — designed to lay down strength and bone density without flaring anything that’s already grumbling.",
     roadmap: [
       {
-        label: "Weeks 1–3",
+        label: "Weeks 1–4",
         title: "Foundation & assessment",
         body: "Rheumatologist-led intake, baseline strength testing, posture and joint screening. Movement re-education before loading anything.",
         focus: ["Posture", "Joint screening", "Movement quality"],
       },
       {
-        label: "Weeks 4–6",
+        label: "Weeks 4–8",
         title: "Activate & build",
         body: "Introduce light resistance across upper body, lower body, and posterior chain. Focus on the hips, spine, and shoulders — the sites most at risk.",
         focus: ["Hips", "Posterior chain", "Shoulders"],
       },
       {
-        label: "Weeks 7–9",
+        label: "Weeks 8–12",
         title: "Load & density",
         body: "Progressive loading to stimulate bone formation — squat patterns, hinge patterns, controlled impact where appropriate.",
         focus: ["Squat & hinge", "Bone-loading patterns", "Standing strength"],
       },
       {
-        label: "Weeks 10–12",
+        label: "Weeks 12–16",
         title: "Sustain",
         body: "Settle into the routine you’ll keep. Long-term habit, periodic reassessment, and a check-in cadence with the medical team.",
         focus: ["Habit lock-in", "Reassessment", "Maintenance"],
@@ -222,28 +222,28 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     ],
 
     roadmapLead:
-      "12 weeks built around your specific joint. We calm the pain first — with whatever medical measure is appropriate — then activate the muscles around it, then load the full body.",
+      "16 weeks built around your specific joint. We calm the pain first — with whatever medical measure is appropriate — then activate the muscles around it, then load the full body.",
     roadmap: [
       {
-        label: "Weeks 1–3",
+        label: "Weeks 1–4",
         title: "Settle the pain",
         body: "Coordinate with your physician on the right medical measure for flare control. Gentle, pain-respecting movement to restore baseline.",
         focus: ["Flare control", "Pain mapping", "Gentle range"],
       },
       {
-        label: "Weeks 4–6",
+        label: "Weeks 4–8",
         title: "Activate & build",
         body: "Switch on the muscles around the painful joint — quads for knees, glutes for hips, deep core for backs. Targeted, low load.",
         focus: ["Target muscle wake-up", "Joint stability", "Low-load strength"],
       },
       {
-        label: "Month 2",
+        label: "Weeks 8–12",
         title: "Muscles activating — start loading",
         body: "Now the supporting muscles are firing, we load progressively. Standing strength, real-life patterns, full-body work that protects the joint.",
         focus: ["Progressive load", "Standing strength", "Full-body integration"],
       },
       {
-        label: "Weeks 10–12",
+        label: "Weeks 12–16",
         title: "Resilience & sustain",
         body: "Higher capacity, fewer flare-ups, a routine you can carry. Periodic medical reassessment to confirm progress and adjust.",
         focus: ["Flare prevention", "Endurance", "Independent training"],
@@ -273,7 +273,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     ],
 
     outcomesIntro:
-      "What members on this track typically experience over a 12-week cycle. Trajectories — not promises — and the program works alongside, not instead of, your existing medical care.",
+      "What members on this track typically experience over a 16-week cycle. Trajectories — not promises — and the program works alongside, not instead of, your existing medical care.",
     outcomes: [
       {
         label: "Pain down",
@@ -302,7 +302,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         q: "I’ve been told I need a knee replacement. Should I still try?",
-        a: "Many members in this position improve enough to delay or avoid surgery — others use the program to enter surgery stronger and recover faster. The assessment will tell us which path is realistic for you.",
+        a: "Many members in this position improve enough to delay or avoid surgery — others use the program to enter surgery stronger and rebuild faster. The assessment will tell us which path is realistic for you.",
       },
       {
         q: "What if my pain flares mid-program?",
@@ -315,17 +315,17 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     ],
   },
 
-  /* ═════════ RECOVER ═════════ */
-  recover: {
-    slug: "recover",
-    name: "Recover",
-    promise: "Rebuild — carefully, with your doctor in the loop.",
+  /* ═════════ STRENGTHEN ═════════ */
+  strengthen: {
+    slug: "strengthen",
+    name: "Strengthen",
+    promise: "Rebuild real strength — carefully, with your doctor in the loop.",
     italicWord: "carefully",
     subhead:
-      "For post-surgery, severe joint degeneration, or fracture recovery. The most cautious progression we offer — non-surgical ourselves, coordinating closely with your treating doctor at every stage.",
-    whoFor: ["Post-surgery", "Severe osteoarthritis", "Fracture recovery", "Deconditioning"],
+      "For post-surgery, severe joint degeneration, or rebuilding after a fracture. The most cautious progression we offer — non-surgical ourselves, coordinating closely with your treating doctor at every stage.",
+    whoFor: ["Post-surgery", "Severe osteoarthritis", "Post-fracture rebuild", "Deconditioning"],
     heroImage: "/trainer-guided-exercise.jpg",
-    heroImageAlt: "TODO: replace with consented Recover-track member photo — supervised rehabilitation session.",
+    heroImageAlt: "TODO: replace with consented Strengthen-track member photo — supervised, doctor-guided strength session.",
     heroIcon: KneeSvg,
 
     signalsHeadline: "Is this you?",
@@ -339,28 +339,28 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     ],
 
     roadmapLead:
-      "A 12-week milestone-gated rebuild. Every phase has a checkpoint — we don’t progress until your body and your doctor say we should.",
+      "A 16-week milestone-gated rebuild. Every phase has a checkpoint — we don’t progress until your body and your doctor say we should.",
     roadmap: [
       {
-        label: "Weeks 1–3",
+        label: "Weeks 1–4",
         title: "Protect & restore range",
         body: "Coordinate with your treating doctor on current restrictions. Restore joint range gently, retrain the muscles that switched off during inactivity.",
         focus: ["Protected range", "Muscle re-activation", "Doctor coordination"],
       },
       {
-        label: "Weeks 4–6",
+        label: "Weeks 4–8",
         title: "Activate & build base",
         body: "Low-load strength work on supporting muscles. Walking volume and balance training. Confidence in basic movement returns.",
         focus: ["Supporting muscles", "Walking volume", "Balance"],
       },
       {
-        label: "Month 2",
+        label: "Weeks 8–12",
         title: "Load — milestone-gated",
         body: "Progressive loading begins, but only once range, pain, and your doctor’s sign-off allow it. Standing strength, controlled compound patterns.",
         focus: ["Progressive load", "Standing strength", "Compound patterns"],
       },
       {
-        label: "Weeks 10–12",
+        label: "Weeks 12–16",
         title: "Independence",
         body: "Build a routine you can sustain solo, with periodic medical reassessment. Hand-off the maintenance plan to your treating doctor.",
         focus: ["Independent training", "Maintenance plan", "Doctor hand-off"],
@@ -381,11 +381,11 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Nutrition",
-        body: "Protein optimisation for tissue recovery, anti-inflammatory support, calcium and Vitamin D for bone. Veg / non-veg adapted.",
+        body: "Protein optimisation for tissue repair, anti-inflammatory support, calcium and Vitamin D for bone. Veg / non-veg adapted.",
       },
       {
         name: "Mind Coaching",
-        body: "Surgery and severe degeneration carry real psychological weight. If fear of re-injury or low mood is holding back recovery, we refer in a clinical psychologist.",
+        body: "Surgery and severe degeneration carry real psychological weight. If fear of re-injury or low mood is holding back progress, we refer in a clinical psychologist.",
       },
     ],
 

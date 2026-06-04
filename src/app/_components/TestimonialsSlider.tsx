@@ -53,7 +53,7 @@ function OutcomeCard({
 }) {
   const trackColor: Record<string, string> = {
     Manage: "bg-sage/10 text-sage border border-sage/20",
-    Recover: "bg-clay/10 text-clay border border-clay/20",
+    Strengthen: "bg-clay/10 text-clay border border-clay/20",
     Prevent: "bg-ink/10 text-ink-soft border border-line",
   };
 

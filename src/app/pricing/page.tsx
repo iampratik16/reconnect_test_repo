@@ -55,7 +55,7 @@ const pricingFaqs = [
   },
   {
     q: "Can I pause or cancel my plan?",
-    a: "Yes — both. Pause for travel, surgery recovery, or any other reason; cancel any time before your next billing cycle. We don't believe in trapping members into plans that don't fit their life.",
+    a: "Yes — both. Pause for travel, surgery, or any other reason; cancel any time before your next billing cycle. We don't believe in trapping members into plans that don't fit their life.",
   },
   {
     q: "What exactly is included in the medical assessment?",
@@ -71,7 +71,7 @@ const pricingFaqs = [
   },
   {
     q: "Can I switch plans later?",
-    a: "Yes. Many members start on Essential and move up as they progress, or step down to maintenance after a 12-week cycle. Switch any time with your coach.",
+    a: "Yes. Many members start on Essential and move up as they progress, or step down to maintenance after a 16-week cycle. Switch any time with your coach.",
   },
   {
     q: "Is there a one-time program option?",
@@ -191,7 +191,7 @@ export default function PricingPage() {
                     body: "We calm pain before we build strength on top of it. Adjusted week-to-week.",
                   },
                   {
-                    label: "Structured 12-week roadmap",
+                    label: "Structured 16-week roadmap",
                     body: "Direction, milestones, reassessment. The roadmap a generic app can’t give.",
                   },
                 ].map((v) => (
@@ -206,7 +206,7 @@ export default function PricingPage() {
               <Reveal delay={0.2}>
                 <blockquote className="mt-8 border-l-2 border-clay pl-6">
                   <p className="serif-italic text-h4 text-ink">
-                    “I was told I needed a knee replacement. After 12 weeks with Reconnect, my pain
+                    “I was told I needed a knee replacement. After 16 weeks with Reconnect, my pain
                     dropped from 8 to 2.”
                   </p>
                   <footer className="text-caption text-ink-soft mt-3">

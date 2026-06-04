@@ -4,9 +4,9 @@ export type NavLink = {
 };
 
 export const navLinks: NavLink[] = [
-  { label: "Programs", href: "/programs" },
+  { label: "Programs", href: "/approach" },
   { label: "Prevent", href: "/programs/prevent" },
-  { label: "How It Works", href: "/how-it-works" },
+  { label: "How It Works", href: "/approach#the-journey" },
   { label: "About Dr. Shruthi", href: "/about" },
   { label: "Pricing", href: "/pricing" },
   { label: "FAQ", href: "/faq" },

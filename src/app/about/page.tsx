@@ -40,7 +40,7 @@ const doctorLed = [
 const tracks = [
   { name: "Prevent", note: "For 40+, family history, post-menopausal bone health.", href: "/programs/prevent" },
   { name: "Manage",  note: "For active arthritis, joint pain, back & neck pain, disc bulge.", href: "/programs/manage" },
-  { name: "Recover", note: "For post-surgery, severe OA, fracture recovery.", href: "/programs/recover" },
+  { name: "Strengthen", note: "For post-surgery, severe OA, post-fracture rebuild.", href: "/programs/strengthen" },
 ] as const;
 
 /* ── Page ──────────────────────────────────────────────────── */
@@ -183,12 +183,11 @@ export default function AboutPage() {
 
               <blockquote className="mt-10">
                 <p className="text-hero text-ink leading-[1.05]">
-                  We work around the pain,{" "}
-                  <span className="serif-italic text-clay">respect it,</span> and reduce it.
+                  Exercise is not artificial. But{" "}
+                  <span className="serif-italic text-clay">inactivity</span> is.
                 </p>
                 <p className="text-h3 font-display text-ink-soft mt-8 max-w-3xl">
-                  Pain-first. Doctor-led. Designed for the body in front of us — never a
-                  template.
+                  It&rsquo;s the medicine that needs you.
                 </p>
                 <footer className="text-caption text-ink-soft mt-8">
                   — Dr.&nbsp;Shruthi Desai, on the principles behind Reconnect

@@ -632,7 +632,7 @@ function Confirmation({
   name,
   concern,
 }: {
-  recommendation: { track: "Prevent" | "Manage" | "Recover" | "CGM"; href: string; reason: string };
+  recommendation: { track: "Prevent" | "Manage" | "Strengthen" | "CGM"; href: string; reason: string };
   name: string;
   concern: Concern | "";
 }) {
@@ -683,7 +683,7 @@ function Confirmation({
    RECOMMENDATION LOGIC (deliberately conservative)
    ══════════════════════════════════════════════════════════════ */
 
-function recommend(a: Answers): { track: "Prevent" | "Manage" | "Recover" | "CGM"; href: string; reason: string } {
+function recommend(a: Answers): { track: "Prevent" | "Manage" | "Strengthen" | "CGM"; href: string; reason: string } {
   if (a.concern === "blood-sugar") {
     return {
       track: "CGM",
@@ -693,7 +693,7 @@ function recommend(a: Answers): { track: "Prevent" | "Manage" | "Recover" | "CGM
     };
   }
 
-  // Post-surgical signal in free-text → Recover
+  // Post-surgical signal in free-text → Strengthen
   const surgicalSignal = /surger|replacement|post[- ]?op|fracture/i.test(a.treatment);
 
   if (
@@ -702,10 +702,10 @@ function recommend(a: Answers): { track: "Prevent" | "Manage" | "Recover" | "CGM
     surgicalSignal
   ) {
     return {
-      track: "Recover",
-      href: "/programs/recover",
+      track: "Strengthen",
+      href: "/programs/strengthen",
       reason:
-        "Your answers suggest a more cautious, milestone-gated rebuild. The Recover track works closely with your treating doctor and progresses only as your body — and they — allow.",
+        "Your answers suggest a more cautious, milestone-gated rebuild. The Strengthen track works closely with your treating doctor and progresses only as your body — and they — allow.",
     };
   }
 

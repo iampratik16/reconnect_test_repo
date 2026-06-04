@@ -34,7 +34,7 @@ const steps: Step[] = [
   {
     number: "03",
     title: "Nutrition",
-    description: "Anti-inflammatory nutrition plans that fuel recovery from within.",
+    description: "Anti-inflammatory nutrition plans that fuel repair from within.",
     image: "/journey-nutrition.jpg",
     imageAlt: "Nourishing bowl of greens, avocado and fresh produce",
   },

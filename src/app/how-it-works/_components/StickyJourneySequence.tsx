@@ -140,7 +140,7 @@ const STEPS: Step[] = [
     badge: "Only if needed",
     principle: "Structured roadmap",
     title: "Mind Coaching",
-    body: "A 12-week cycle with defined milestones, weekly check-ins, and a medical reassessment at the end. If we detect fear or low adherence, a clinical psychologist steps in. You always know where you are.",
+    body: "A 16-week cycle with defined milestones, weekly check-ins, and a medical reassessment at the end. If we detect fear or low adherence, a clinical psychologist steps in. You always know where you are.",
     bullets: [
       "Referral only when indicated",
       "Clinical psychologist on hand",

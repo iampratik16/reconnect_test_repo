@@ -14,7 +14,7 @@ const cards = [
     stat: 60,
     statSuffix: "%",
     // Stat flows directly into this sentence — read together as one thought
-    continuation: "of members report meaningful pain reduction within their first 12-week cycle.",
+    continuation: "of members report meaningful pain reduction within their first 16-week cycle.",
     insight: "Targeted strength calms the joint — not just masks the pain.",
     wide: true,
     accent: "#C4714A",
@@ -45,7 +45,7 @@ const cards = [
     stat: 12,
     statSuffix: "",
     continuation: "times more joint load absorbed by strong muscles — less cartilage wear, slower degeneration.",
-    insight: "Built progressively across a structured 12-week cycle with milestones.",
+    insight: "Built progressively across a structured 16-week cycle with milestones.",
     wide: true,
     accent: "#C4714A",
   },
@@ -244,7 +244,7 @@ export default function ScienceSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.9 }}
         >
-          Based on peer-reviewed literature and outcomes reported across Reconnect 12-week program cycles.
+          Based on peer-reviewed literature and outcomes reported across Reconnect 16-week program cycles.
         </motion.p>
       </div>
     </section>

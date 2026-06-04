@@ -26,9 +26,9 @@ export const testimonials: Testimonial[] = [
     quote:
       "I was told I needed a knee replacement. Reconnect changed that.",
     story:
-      "Rajesh had been living with severe knee osteoarthritis for over five years and was advised surgery. After joining the Manage track, he followed a personalised strength program that focused on quadriceps activation and joint stability. Within 12 weeks his pain score dropped from 8 to 2 and he returned to walking 5 km daily. He has since completed a second cycle and continues to improve.",
+      "Rajesh had been living with severe knee osteoarthritis for over five years and was advised surgery. After joining the Manage track, he followed a personalised strength program that focused on quadriceps activation and joint stability. Within 16 weeks his pain score dropped from 8 to 2 and he returned to walking 5 km daily. He has since completed a second cycle and continues to improve.",
     bullets: [
-      "Pain dropped from 8 to 2 in 12 weeks",
+      "Pain dropped from 8 to 2 in 16 weeks",
       "Avoided recommended knee replacement surgery",
       "Back to walking 5 km daily",
     ],
@@ -49,7 +49,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "I spent years avoiding movement. Reconnect helped me build strength around the problem.",
     story:
-      "Meera had a diagnosed L4-L5 disc bulge and chronic lower back pain that kept her from exercising for three years. Her program focused on core stability, posterior chain strengthening, and gradual loading. After completing the 12-week Manage track, her medication was reduced by 80 percent and she has not had a flare-up in over four months. She now trains three times a week independently.",
+      "Meera had a diagnosed L4-L5 disc bulge and chronic lower back pain that kept her from exercising for three years. Her program focused on core stability, posterior chain strengthening, and gradual loading. After completing the 16-week Manage track, her medication was reduced by 80 percent and she has not had a flare-up in over four months. She now trains three times a week independently.",
     bullets: [
       "Medication reduced by 80% under doctor supervision",
       "No flare-up in over 4 months",
@@ -68,11 +68,11 @@ export const testimonials: Testimonial[] = [
     age: 65,
     location: "Delhi",
     condition: "Osteoporosis",
-    track: "Recover",
+    track: "Strengthen",
     quote:
       "My DEXA scan improved for the first time in years. The difference was visible.",
     story:
-      "Amit was diagnosed with osteoporosis after a wrist fracture and had a T-score of -3.2. His program combined load-bearing exercises with anti-inflammatory nutrition guidance and vitamin D optimisation. After 12 weeks his follow-up DEXA showed measurable improvement in lumbar spine density. His balance and confidence have also improved significantly, reducing his fall risk.",
+      "Amit was diagnosed with osteoporosis after a wrist fracture and had a T-score of -3.2. His program combined load-bearing exercises with anti-inflammatory nutrition guidance and vitamin D optimisation. After 16 weeks his follow-up DEXA showed measurable improvement in lumbar spine density. His balance and confidence have also improved significantly, reducing his fall risk.",
     bullets: [
       "First DEXA improvement in years — lumbar density gained",
       "Balance and fall-risk significantly improved",

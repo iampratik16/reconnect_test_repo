@@ -26,6 +26,10 @@ export default function SmoothScroll({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       touchMultiplier: 1.5,
+      // Intercept in-page anchor jumps (e.g. #three-tracks) and stop 88px
+      // short so the section's "(01)" eyebrow clears the fixed nav instead
+      // of landing underneath it.
+      anchors: { offset: -88 },
     });
 
     lenisRef.current = lenis;

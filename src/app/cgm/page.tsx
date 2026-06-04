@@ -299,7 +299,7 @@ export default function CGMPage() {
               members who want metabolic data alongside their physical work.
             </p>
             <div className="mt-8">
-              <Button variant="sage-outline" href="/programs" arrow>
+              <Button variant="sage-outline" href="/approach" arrow>
                 Explore the main programs
               </Button>
             </div>
@@ -310,7 +310,7 @@ export default function CGMPage() {
               {[
                 { name: "Prevent", note: "Stay ahead of joint &amp; bone problems.", href: "/programs/prevent" },
                 { name: "Manage",  note: "Reduce arthritis &amp; joint pain.",       href: "/programs/manage"  },
-                { name: "Recover", note: "Rebuild post-surgery, severe OA.",        href: "/programs/recover" },
+                { name: "Strengthen", note: "Rebuild post-surgery, severe OA.",    href: "/programs/strengthen" },
               ].map((t) => (
                 <Link
                   key={t.name}

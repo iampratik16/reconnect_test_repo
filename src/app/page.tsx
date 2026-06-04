@@ -55,28 +55,28 @@ const proofCards = [
   },
   {
     title: "Structured roadmap",
-    body: "A 12-week cycle with milestones and reassessment — the direction a generic app can’t give you.",
+    body: "A 16-week cycle with milestones and reassessment — the direction a generic app can’t give you.",
   },
 ];
 
 const conditions = [
   { name: "Knee Osteoarthritis",         note: "Stairs, getting up, walking distance",  href: "/programs/manage",  Icon: KneeSvg },
   { name: "Chronic Back Pain",           note: "Posture, stiffness, daily ache",        href: "/programs/manage",  Icon: SpineSvg },
-  { name: "Disc Bulge / Sciatica",       note: "Nerve symptoms, radiating pain",        href: "/programs/recover", Icon: SpineSvg },
+  { name: "Disc Bulge / Sciatica",       note: "Nerve symptoms, radiating pain",        href: "/programs/strengthen", Icon: SpineSvg },
   { name: "Rheumatoid Arthritis",        note: "Autoimmune joint inflammation",         href: "/programs/manage",  Icon: HandSvg },
-  { name: "Osteoporosis",                note: "Bone density, fracture risk",           href: "/programs/recover", Icon: SkeletonSvg },
+  { name: "Osteoporosis",                note: "Bone density, fracture risk",           href: "/programs/strengthen", Icon: SkeletonSvg },
   { name: "Frozen Shoulder",             note: "Stiffness, range of motion loss",       href: "/programs/manage",  Icon: HandSvg },
   { name: "Cervical (Neck) Pain",        note: "Posture-driven cervical strain",        href: "/programs/manage",  Icon: SpineSvg },
   { name: "Post-menopausal Bone Loss",   note: "Density support after menopause",       href: "/programs/prevent", Icon: SkeletonSvg },
   { name: "Joint Stiffness",             note: "Morning stiffness, reduced mobility",   href: "/programs/manage",  Icon: HipSvg },
-  { name: "Hip Pain",                    note: "Hip OA, post-replacement, instability", href: "/programs/recover", Icon: HipSvg },
+  { name: "Hip Pain",                    note: "Hip OA, post-replacement, instability", href: "/programs/strengthen", Icon: HipSvg },
 ];
 
 const darkPoints = [
   { title: "Doctor-led", body: "Designed and overseen by a rheumatologist with over a decade of clinical practice." },
   { title: "Personalised to your diagnosis", body: "Programs shaped by imaging, history, and current medication — not a one-size template." },
   { title: "An integrated approach", body: "Medical care, exercise, nutrition and mind work as one. We respect your pain and build strength around it — psychology is a core pillar, not an add-on." },
-  { title: "Structured 12-week roadmap", body: "Direction and motivation a generic app can’t give." },
+  { title: "Structured 16-week roadmap", body: "Direction and motivation a generic app can’t give." },
 ];
 
 /* ── Page ──────────────────────────────────────────────────── */
