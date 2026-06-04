@@ -7,6 +7,7 @@ export type Plan = {
   name: string;
   price: number;
   period: string;
+  billingNote: string;
   features: PlanFeature[];
   popular: boolean;
   description: string;
@@ -35,30 +36,23 @@ function buildFeatures(includedCount: number): PlanFeature[] {
 
 export const plans: Plan[] = [
   {
-    name: "Standard",
-    price: 20000,
-    period: "",
-    features: buildFeatures(4),
-    popular: false,
-    description:
-      "Medical consultation, a personalised plan, and the fitness and nutrition guidance to start strong.",
-  },
-  {
     name: "Basic",
-    price: 30000,
-    period: "",
+    price: 4999,
+    period: "/month",
+    billingNote: "₹20,000 for 4 months",
     features: buildFeatures(5),
     popular: true,
     description:
-      "Everything in Standard, plus mental-health support so the work is sustainable beyond week three.",
+      "Medical consultation, a personalised plan, fitness and nutrition guidance, progress tracking, and mental-health support.",
   },
   {
     name: "Premium",
-    price: 40000,
-    period: "",
+    price: 9999,
+    period: "/month",
+    billingNote: "₹40,000 for 4 months",
     features: buildFeatures(7),
     popular: false,
     description:
-      "The full Reconnect experience — dedicated mind coaching sessions and exclusive 1-on-1 support on top of everything else.",
+      "Everything in Basic, plus deep psychological input and exclusive 1-on-1 sessions — the full Reconnect experience.",
   },
 ];

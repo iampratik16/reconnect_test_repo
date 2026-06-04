@@ -1,23 +1,3 @@
-/*
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║  ⚠️  PRICING TODO — RECONCILE BEFORE LAUNCH                             ║
- * ║                                                                          ║
- * ║  Dr. Shruthi referenced a ₹15,000 / 6-month figure on the founder call. ║
- * ║  The monthly tiers below (Essential ₹2,499, Care ₹4,999, Elite ₹8,999) ║
- * ║  do NOT cleanly map to that.                                             ║
- * ║                                                                          ║
- * ║  Likely resolution: either                                               ║
- * ║    (a) keep monthly tiers AND add a "6-month program" anchored at        ║
- * ║        ₹15,000 (≈ Essential x 6 with a discount), shown as the headline ║
- * ║        commitment plan, or                                               ║
- * ║    (b) restructure the tiers as 6-month bundles (₹15K / ₹30K / ₹54K)    ║
- * ║        and drop monthly altogether.                                      ║
- * ║                                                                          ║
- * ║  Until resolved: monthly tiers shown as primary, CGM 6-month add-on as  ║
- * ║  the only 6-month price visible. FLAG THIS TO THE CLIENT.               ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- */
-
 import type { Metadata } from "next";
 import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
@@ -34,7 +14,7 @@ import { plans, PLAN_FEATURES } from "@/lib/content/pricing";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Three plans, all including a medical assessment and a personalised program. Essential, Care (most popular), and Elite — plus a CGM add-on.",
+    "Two monthly plans, both including a medical assessment and a personalised program. Basic (most popular) and Premium, with a minimum 4-month program.",
 };
 
 /* ── Data ──────────────────────────────────────────────────── */
@@ -51,7 +31,7 @@ const allFeatures = PLAN_FEATURES.map((label) => ({
 const pricingFaqs = [
   {
     q: "How does billing work?",
-    a: "All plans are billed monthly. You're charged at the start of each cycle. No long-term contracts, no lock-ins.",
+    a: "Both plans are billed monthly, with a minimum program duration of 4 months. You're charged at the start of each cycle.",
   },
   {
     q: "Can I pause or cancel my plan?",
@@ -71,11 +51,7 @@ const pricingFaqs = [
   },
   {
     q: "Can I switch plans later?",
-    a: "Yes. Many members start on Essential and move up as they progress, or step down to maintenance after a 16-week cycle. Switch any time with your coach.",
-  },
-  {
-    q: "Is there a one-time program option?",
-    a: "There's a 6-month CGM add-on at ₹15,000 for those layering metabolic monitoring on top of a strength track. We're finalising a 6-month program bundle — ask the team during your assessment.",
+    a: "Yes. Many members start on Basic and move up to Premium as they progress, or step down to maintenance after their 16-week cycle. Switch any time with your coach.",
   },
 ];
 
@@ -103,8 +79,8 @@ export default function PricingPage() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="text-body-lg text-ink-soft mt-8 max-w-2xl">
-                All plans include a medical assessment and a personalised program.
-                No long-term contracts. Pause or cancel any time.
+                Both plans include a medical assessment and a personalised program, billed
+                monthly with a minimum 4-month program.
               </p>
             </Reveal>
           </div>
@@ -115,44 +91,16 @@ export default function PricingPage() {
           2) THREE TIERS
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch" staggerDelay={0.1}>
+        <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch max-w-3xl" staggerDelay={0.1}>
           {plans.map((plan) => (
             <PlanCard key={plan.name} plan={plan} />
           ))}
         </Stagger>
 
         <p className="text-caption text-ink-soft mt-8 max-w-3xl">
-          Prices in INR. GST extra where applicable. The assessment is free and runs before
-          you commit to any plan.
+          Minimum program duration: 4 months. Prices in INR; GST extra where applicable. The
+          assessment is free and runs before you commit to any plan.
         </p>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
-          3) CGM ADD-ON
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <Reveal>
-          <div className="bg-sage-tint rounded-[20px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start gap-5 max-w-2xl">
-              <span className="hidden sm:inline-flex shrink-0 w-12 h-12 rounded-full bg-sage text-bone items-center justify-center text-body-sm font-medium">
-                +
-              </span>
-              <div>
-                <p className="text-eyebrow text-sage mb-2">Add-on · 6 months</p>
-                <h3 className="text-h4 font-display text-ink mb-1">
-                  Continuous Glucose Monitoring
-                </h3>
-                <p className="text-body-sm text-ink-soft">
-                  Pair any plan with CGM to manage borderline sugar — blood-sugar patterns drive
-                  systemic inflammation that affects joints and bone. <strong className="text-ink">₹15,000 for 6 months.</strong>
-                </p>
-              </div>
-            </div>
-            <Button variant="sage-outline" href="/cgm" arrow>
-              Learn about CGM
-            </Button>
-          </div>
-        </Reveal>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
@@ -420,6 +368,9 @@ function PlanCard({ plan }: { plan: Plan }) {
             {plan.period}
           </span>
         </div>
+        <p className={`text-caption mt-1 ${isPopular ? "text-bone/60" : "text-ink-soft"}`}>
+          {plan.billingNote}
+        </p>
       </div>
 
       <p className={`relative text-body-sm ${isPopular ? "text-bone/75" : "text-ink-soft"}`}>

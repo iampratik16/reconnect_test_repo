@@ -445,34 +445,6 @@ export default function ApproachPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
-          7) CGM ADD-ON — slim, subordinate
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <Reveal>
-          <div className="bg-sage-tint rounded-[20px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start gap-5 max-w-2xl">
-              <span className="hidden sm:inline-flex shrink-0 w-12 h-12 rounded-full bg-sage text-bone items-center justify-center text-body-sm font-medium">
-                +
-              </span>
-              <div>
-                <p className="text-eyebrow text-sage mb-2">Add-on</p>
-                <h3 className="text-h4 font-display text-ink mb-1">
-                  Continuous Glucose Monitoring
-                </h3>
-                <p className="text-body-sm text-ink-soft">
-                  Managing borderline sugar? Pair any track with our CGM program — blood-sugar patterns
-                  drive systemic inflammation that hits joints and bone. ₹15,000 for 6 months.
-                </p>
-              </div>
-            </div>
-            <Button variant="sage-outline" href="/cgm" arrow>
-              Learn about CGM
-            </Button>
-          </div>
-        </Reveal>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
           8) THE CONNECTED JOURNEY — big numbered sticky-scroll sequence
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep" id="the-journey">

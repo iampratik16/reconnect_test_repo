@@ -73,10 +73,11 @@ const conditions = [
 ];
 
 const darkPoints = [
-  { title: "Doctor-led", body: "Designed and overseen by a rheumatologist with over a decade of clinical practice." },
-  { title: "Personalised to your diagnosis", body: "Programs shaped by imaging, history, and current medication — not a one-size template." },
-  { title: "An integrated approach", body: "Medical care, exercise, nutrition and mind work as one. We respect your pain and build strength around it — psychology is a core pillar, not an add-on." },
-  { title: "Structured 16-week roadmap", body: "Direction and motivation a generic app can’t give." },
+  { title: "Reconnect Strength", body: "Rebuild lost muscle and load-bearing strength — the base everything else is built on." },
+  { title: "Reconnect Joints", body: "Calm arthritis and joint pain, then build the strength that protects them." },
+  { title: "Reconnect Spine", body: "Neck, back, and disc issues met at the source — posture, core, and control." },
+  { title: "Reconnect Pain", body: "We work around pain, respect it, and reduce it — never push through it." },
+  { title: "Reconnect Metabolism", body: "Tackle the blood sugar and inflammation that quietly drive joint and bone loss." },
 ];
 
 /* ── Page ──────────────────────────────────────────────────── */
@@ -143,8 +144,8 @@ export default function HomePage() {
 
               <Reveal delay={0.55}>
                 <p className="text-body-lg text-bone/85 mt-6 max-w-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
-                  A doctor-designed strength and nutrition program for arthritis,
-                  joint pain, back issues, and osteoporosis.
+                  A doctor-designed strength and nutrition program for joint pain,
+                  neck/back issues, chronic body pains, and for stronger bones and muscles.
                 </p>
               </Reveal>
 
@@ -395,45 +396,16 @@ export default function HomePage() {
       </Section>
 
       {/* ════════════════════════════════════════════════════════
-          11) CGM TEASER — slim, clearly secondary
-          ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <Reveal>
-          <div className="bg-sage-tint rounded-[20px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start gap-5 max-w-2xl">
-              <span className="hidden sm:inline-flex shrink-0 w-12 h-12 rounded-full bg-sage text-bone items-center justify-center text-body-sm font-medium">
-                +
-              </span>
-              <div>
-                <p className="text-eyebrow text-sage mb-2">Add-on · metabolic track</p>
-                <h3 className="text-h4 font-display text-ink mb-1">
-                  Managing borderline sugar?
-                </h3>
-                <p className="text-body-sm text-ink-soft">
-                  Ask about our Continuous Glucose Monitoring program — sensor-driven,
-                  doctor-supervised. ₹15,000 for 6 months.
-                </p>
-              </div>
-            </div>
-            <Button variant="sage-outline" href="/cgm" arrow>
-              Learn about CGM
-            </Button>
-          </div>
-        </Reveal>
-      </Section>
-
-      {/* ════════════════════════════════════════════════════════
-          12) PRICING TEASER — 3 compact plans
+          11) PRICING TEASER — compact plans
           ════════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep">
         <SectionHeader
           title="Plans that fit your needs."
-          description="All plans include a medical assessment and a personalised program. No long-term contracts."
           align="left"
           className="mb-12"
         />
 
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-5" staggerDelay={0.08}>
+        <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-5" staggerDelay={0.08}>
           {plans.map((p) => {
             const isPopular = p.popular;
             return (
@@ -457,6 +429,9 @@ export default function HomePage() {
                     <span className={`text-caption font-normal ${isPopular ? "text-bone/60" : "text-ink-soft"}`}>
                       {p.period}
                     </span>
+                  </p>
+                  <p className={`text-caption mt-1 ${isPopular ? "text-bone/60" : "text-ink-soft"}`}>
+                    {p.billingNote}
                   </p>
                 </div>
                 <ul className="flex flex-col gap-2.5 text-body-sm flex-1">
@@ -523,8 +498,9 @@ export default function HomePage() {
           })}
         </Stagger>
 
-        <p className="text-caption text-ink-soft mt-6 italic">
-          TODO: confirm pricing with client — founder also referenced a ₹15,000 / 6-month program option.
+        <p className="text-caption text-ink-soft mt-6">
+          Minimum program duration: 4 months. Prices in INR; the assessment is free and runs
+          before you commit to any plan.
         </p>
       </Section>
 

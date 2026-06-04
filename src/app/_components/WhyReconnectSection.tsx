@@ -9,7 +9,7 @@ import Section from "@/components/Section";
 const proofCards = [
   {
     title: "Doctor-led",
-    body: "Designed and overseen by a rheumatologist — the medicine sits behind every prescription.",
+    body: "Program designed by a doctor — medicines sit behind every prescription.",
   },
   {
     title: "Personalised to your condition",
@@ -17,7 +17,7 @@ const proofCards = [
   },
   {
     title: "An integrated approach",
-    body: "Medical care, exercise, nutrition and mind work as one — and the psychology isn't an add-on, it's what makes the programme actually stick.",
+    body: "Blending nutrition and psychology for better health.",
   },
   {
     title: "Structured roadmap",
@@ -65,9 +65,7 @@ export default function WhyReconnectSection() {
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const prefersReduced = useReducedMotion();
 
-  // Crossed-out line 1 words: "Not random workouts."
-  const line1 = ["Not", "random", "workouts."];
-  // Clean line 2 words split around the highlighted span
+  // Headline words split around the highlighted "your body" span
   const line2a = ["A", "program", "designed", "for"];
   const line2b = ["."];
 
@@ -105,32 +103,7 @@ export default function WhyReconnectSection() {
         {/* ── Headline ─────────────────────────────────────────── */}
         <div className="mb-14 max-w-4xl">
 
-          {/* Line 1: "Not random workouts." — slides up, then gets struck through */}
-          <div className="relative inline-flex flex-wrap items-baseline text-ink-soft mb-1">
-            <p className="text-h2 font-display flex flex-wrap">
-              {line1.map((word, i) => (
-                <AnimWord
-                  key={word}
-                  delay={i * 0.06}
-                  isInView={isInView}
-                  prefersReduced={prefersReduced}
-                >
-                  {word}
-                </AnimWord>
-              ))}
-            </p>
-            {/* Strikethrough line draws left → right after words land */}
-            <motion.span
-              aria-hidden
-              className="absolute left-0 top-1/2 -translate-y-1/2 h-[2.5px] bg-clay/55 rounded-full pointer-events-none"
-              style={{ originX: 0, width: "100%" }}
-              initial={{ scaleX: 0 }}
-              animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut", delay: 0.85 }}
-            />
-          </div>
-
-          {/* Line 2: "A program designed for your body." — clean, "your body" in clay */}
+          {/* Headline: "A program designed for your body." — "your body" in clay */}
           <p className="text-h2 font-display text-ink flex flex-wrap items-baseline">
             {line2a.map((word, i) => (
               <AnimWord

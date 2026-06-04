@@ -40,7 +40,6 @@ const CONCERNS = [
   { v: "disc",        l: "Disc issues" },
   { v: "bone-health", l: "Bone health (osteoporosis)" },
   { v: "prevention",  l: "Prevention / staying ahead" },
-  { v: "cgm",         l: "CGM program (metabolic add-on)" },
   { v: "other",       l: "Something else" },
 ];
 
@@ -49,7 +48,6 @@ const TRACKS = [
   { v: "prevent", l: "Prevent" },
   { v: "manage",  l: "Manage" },
   { v: "strengthen", l: "Strengthen" },
-  { v: "cgm",     l: "CGM (6-month add-on)" },
 ];
 
 export default function ContactForm() {

@@ -63,21 +63,6 @@ const groups: FaqGroup[] = [
           </p>
         ),
       },
-      {
-        q: "What is the CGM package?",
-        a: (
-          <p>
-            A separate 6-month metabolic add-on for borderline-diabetic and medication-avoidant
-            adults — a continuous glucose monitor with remote review and nutrition adjustments.{" "}
-            <Link
-              href="/cgm"
-              className="text-clay font-medium underline-offset-4 hover:underline"
-            >
-              See the CGM program →
-            </Link>
-          </p>
-        ),
-      },
     ],
   },
   {
@@ -146,8 +131,8 @@ const groups: FaqGroup[] = [
         q: "How much does it cost? What plans are available?",
         a: (
           <p>
-            Three monthly plans: Essential (₹2,499/mo), Care (₹4,999/mo — most popular), and
-            Elite (₹8,999/mo). The CGM add-on is ₹15,000 for 6 months.{" "}
+            Two monthly plans with a minimum 4-month program: Basic (₹4,999/mo — most popular)
+            and Premium (₹9,999/mo).{" "}
             <Link
               href="/pricing"
               className="text-clay font-medium underline-offset-4 hover:underline"

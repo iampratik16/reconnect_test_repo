@@ -15,7 +15,6 @@ const columns = [
       { href: "/programs/prevent", label: "Prevent" },
       { href: "/programs/manage", label: "Manage" },
       { href: "/programs/strengthen", label: "Strengthen" },
-      { href: "/cgm", label: "CGM" },
     ],
   },
   {

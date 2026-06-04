@@ -50,6 +50,14 @@ export type ProgramDetail = {
   signalsImage?: string;
   roadmapImage?: string;
 
+  /** Optional "Who is it for?" audience section (rendered right after the hero). */
+  whoIsItFor?: {
+    eyebrow: string;
+    title: string;
+    groups: { heading: string; items: string[] }[];
+    images: string[];
+  };
+
   // Section 2
   signalsHeadline: string;
   signals: string[];
@@ -92,6 +100,37 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     heroIcon: SkeletonSvg,
     signalsImage: "/prevent/desk-back.png",
     roadmapImage: "/prevent/desk-neck.png",
+
+    whoIsItFor: {
+      eyebrow: "Who it’s for",
+      title: "For people looking to prevent the problem before it starts.",
+      groups: [
+        {
+          heading: "Typical clientele",
+          items: [
+            "Busy professionals, entrepreneurs, executives, healthcare and IT workers, teachers, and parents.",
+            "Spending long hours sitting, commuting, or working at a desk.",
+            "Limited time for exercise despite understanding its importance.",
+          ],
+        },
+        {
+          heading: "Current health status",
+          items: [
+            "Not diagnosed with a major chronic disease yet.",
+            "Beginning to notice early warning signs — pain in joints, neck, or back.",
+            "Reduced fitness and stamina, with persistent body pains.",
+            "Stiffness after prolonged sitting and poor posture.",
+            "Low energy, and difficulty keeping up with children or recreational activities.",
+          ],
+        },
+      ],
+      images: [
+        "/prevent/who-1.avif",
+        "/prevent/who-2.avif",
+        "/prevent/who-3.avif",
+        "/prevent/who-4.webp",
+      ],
+    },
 
     signalsHeadline: "Is this you?",
     signals: [

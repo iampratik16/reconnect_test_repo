@@ -100,6 +100,61 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
       </section>
 
       {/* ═══════════════════════════════════════════════════════
+          1b) WHO IS IT FOR?  (optional — Prevent only)
+          ═══════════════════════════════════════════════════════ */}
+      {data.whoIsItFor && (
+        <Section bg="bg-bone">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+            <div className="lg:col-span-6">
+              <SectionHeader
+                eyebrow={data.whoIsItFor.eyebrow}
+                title={data.whoIsItFor.title}
+                align="left"
+                className="mb-10"
+              />
+              <div className="flex flex-col gap-8">
+                {data.whoIsItFor.groups.map((g) => (
+                  <div key={g.heading}>
+                    <p className="text-eyebrow text-clay mb-3">{g.heading}</p>
+                    <ul className="flex flex-col gap-2.5">
+                      {g.items.map((item) => (
+                        <li key={item} className="flex items-start gap-3 text-body text-ink-soft">
+                          <CheckMark />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-6">
+              <Reveal delay={0.15}>
+                <div className="grid grid-cols-2 gap-4">
+                  {data.whoIsItFor.images.map((src) => (
+                    <div
+                      key={src}
+                      className="relative overflow-hidden rounded-2xl shadow-soft aspect-[4/3]"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={asset(src)}
+                        alt=""
+                        aria-hidden
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </Section>
+      )}
+
+      {/* ═══════════════════════════════════════════════════════
           2) IS THIS YOU?
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep">
