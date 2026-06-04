@@ -7,7 +7,7 @@ import ContactForm from "./_components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Dr. Shruthi's team. Book a consultation, ask about a program, or message us — a real person replies within a working day.",
+    "Get in touch with Dr. Shruthi's team. Book a consultation, ask about a program, or message us — someone from the team will get in touch.",
 };
 
 type Way = {
@@ -74,15 +74,15 @@ export default function ContactPage() {
             </Reveal>
             <Reveal delay={0.1}>
               <h1 className="text-hero text-ink mt-6">
-                Talk to a{" "}
-                <span className="serif-italic text-clay">real human.</span>
+                Talk to the{" "}
+                <span className="serif-italic text-clay">team.</span>
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="text-body-lg text-ink-soft mt-6 max-w-2xl">
                 Whatever you need — a quick question, a booking, or context on a complicated
-                case — there&rsquo;s a real person on the other end. Replies typically arrive
-                within a working day.
+                case — there&rsquo;s a real person on the other end. Someone from the team will
+                get in touch.
               </p>
             </Reveal>
           </div>
