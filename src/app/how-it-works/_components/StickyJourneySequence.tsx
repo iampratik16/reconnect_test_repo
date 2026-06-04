@@ -1206,8 +1206,9 @@ function SequenceAnimated() {
                 transition={{ duration: 0.5 }}
               />
 
-              {/* Progress dots */}
-              <div className="absolute top-5 right-5 flex flex-col gap-2 z-10">
+              {/* Progress dots — hidden below lg, where the smaller card frame
+                  makes them overlap the card's own "IN PROGRESS" header. */}
+              <div className="absolute top-5 right-5 hidden lg:flex flex-col gap-2 z-10">
                 {STEPS.map((s, i) => (
                   <motion.span
                     key={s.number}
