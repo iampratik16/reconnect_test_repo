@@ -175,7 +175,7 @@ export default function ApproachPage() {
       {/* ═══════════════════════════════════════════════════════
           1) HERO — full-bleed bone with x-ray glow + watermark
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-bone pt-36 md:pt-44 pb-24 md:pb-32">
+      <section className="relative overflow-hidden bg-bone pt-28 md:pt-44 pb-20 md:pb-32">
         <SkeletonSvg className="watermark text-ink right-[-120px] top-[60px] w-[520px] hidden md:block" />
 
         <div className="container-site relative">

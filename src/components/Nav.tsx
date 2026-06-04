@@ -92,7 +92,7 @@ export default function Nav() {
       >
         <nav className="container-site flex items-center justify-between h-16 md:h-[72px]">
           {/* ── Logo ──────────────────────────────────────── */}
-          <Link href="/" className="flex items-center gap-2.5 group" aria-label="Reconnect home">
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0" aria-label="Reconnect home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-9 w-9 object-contain" />
             <span
@@ -104,7 +104,7 @@ export default function Nav() {
           </Link>
 
           {/* ── Desktop links (center) ────────────────────── */}
-          <ul className="hidden md:flex items-center gap-6 lg:gap-8">
+          <ul className="hidden lg:flex items-center gap-5 xl:gap-8">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
@@ -122,8 +122,8 @@ export default function Nav() {
           </ul>
 
           {/* ── Desktop CTA (right) ───────────────────────── */}
-          <div className="hidden md:block">
-            <Button variant="clay" href="/assessment" size="md">
+          <div className="hidden lg:block shrink-0">
+            <Button variant="clay" href="/assessment" size="md" className="whitespace-nowrap">
               Take the free assessment
             </Button>
           </div>
@@ -132,7 +132,7 @@ export default function Nav() {
           <button
             ref={toggleRef}
             onClick={toggleMenu}
-            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2"
+            className="lg:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
           >
@@ -170,7 +170,7 @@ export default function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[60] bg-bone flex flex-col md:hidden"
+            className="fixed inset-0 z-[60] bg-bone flex flex-col lg:hidden"
           >
             {/* Top bar with close */}
             <div className="container-site flex items-center justify-between h-16">
