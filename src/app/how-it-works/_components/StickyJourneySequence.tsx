@@ -17,7 +17,7 @@ const PEACHTX = "rgba(255,255,255,0.92)"; // Exercise — light body text on dar
 const PEACHMU = "rgba(200,230,214,0.62)"; // Exercise — muted minty text
 const VEGGIE = "#4E7A3A";   // Nutrition — earthy, olive, vegetables
 const AMBER  = "#D08B14";   // Nutrition accent — saffron/turmeric, food-editorial
-const DARK   = "#0B2D3D";
+const DARK   = "#5E9ED6";   // Mind Coaching — calm sky-blue, legible on the dark navy panel
 
 /* ── Count-up hook ───────────────────────────────────────────── */
 function useCountUp(target: number, inView: boolean, delay = 0) {
@@ -1064,32 +1064,62 @@ export { STEPS };
 export default function StickyJourneySequence() {
   const prefersReduced = useReducedMotion();
 
-  if (prefersReduced) {
-    return (
-      <>
-        <ProgramArchitecture />
-        <ol className="flex flex-col gap-16 md:gap-24">
-          {STEPS.map((s) => (
-            <li key={s.number}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-              <div className="lg:col-span-5">
-                <StaticArtPanel step={s} />
-              </div>
-              <div className="lg:col-span-7">
-                <StepCopy step={s} />
-              </div>
-            </li>
-          ))}
-        </ol>
-      </>
-    );
-  }
-
   return (
     <>
       <ProgramArchitecture />
-      <SequenceAnimated />
+
+      {/* Stacked layout — clean, fully-visible flow. Shown on mobile/tablet,
+          and at all sizes when reduced motion is preferred. */}
+      <div className={prefersReduced ? "" : "lg:hidden"}>
+        <StackedSequence />
+      </div>
+
+      {/* Animated sticky choreography — desktop only, skipped for reduced motion. */}
+      {!prefersReduced && (
+        <div className="hidden lg:block">
+          <SequenceAnimated />
+        </div>
+      )}
     </>
+  );
+}
+
+/* ── Stacked layout (mobile + reduced-motion) ───────────────────
+   Each step is a self-contained dark card: art on top, copy below.
+   No sticky scroll-jacking, no forced viewport heights — everything
+   is fully visible and reads as a normal vertical flow. */
+function StackedSequence() {
+  return (
+    <div className="flex flex-col gap-8 md:gap-12">
+      {STEPS.map((step) => {
+        const Art = step.Art;
+        return (
+          <div
+            key={step.number}
+            className="relative rounded-3xl overflow-hidden p-6 sm:p-8"
+            style={{ background: step.sectionBg, border: `1px solid ${step.scheme.border}` }}
+          >
+            {/* Art — the SVG already carries its own header, footer and step
+                number, so no extra badge is layered on top of it. */}
+            <div
+              className="relative w-full aspect-square rounded-2xl overflow-hidden mb-8"
+              style={{ background: step.panelBg, border: `1px solid ${step.scheme.border}` }}
+            >
+              <div
+                className="absolute top-0 inset-x-0 h-0.75 rounded-t-2xl"
+                style={{ background: step.accent }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Art animate />
+              </div>
+            </div>
+
+            {/* Copy */}
+            <StepCopy step={step} />
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
@@ -1307,9 +1337,10 @@ function StepCopy({ step }: { step: Step }) {
 
   return (
     <div className="relative">
-      {/* Ghost number — top equals negative of font-size so it never overlaps content */}
+      {/* Ghost number — top equals negative of font-size so it never overlaps content.
+          Hidden below lg, where the stacked card would clip its negative offset. */}
       <span
-        className="absolute -left-2 select-none pointer-events-none font-display text-line leading-none"
+        className="absolute -left-2 select-none pointer-events-none font-display text-line leading-none hidden lg:block"
         style={{
           fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
           top: "calc(-1 * clamp(3.5rem, 6vw, 5.5rem))",
@@ -1389,33 +1420,3 @@ function StepCopy({ step }: { step: Step }) {
   );
 }
 
-/* ── Static fallback art panel (reduced motion) ────────────── */
-
-function StaticArtPanel({ step }: { step: Step }) {
-  return (
-    <div
-      className="relative aspect-square rounded-3xl overflow-hidden shadow-md"
-      style={{
-        background: "#F7F5F2",
-        border: "1px solid rgba(0,0,0,0.07)",
-        borderTop: `3px solid ${step.accent}`,
-      }}
-    >
-      <div className="absolute inset-0 flex items-center justify-center p-4">
-        <step.Art animate />
-      </div>
-      <div className="absolute bottom-0 inset-x-0 p-5">
-        <span
-          className="inline-flex items-center gap-1.5 rounded-pill px-3 py-1 text-eyebrow font-medium"
-          style={{
-            background: `${step.accent}18`,
-            color: step.accent,
-            border: `1px solid ${step.accent}30`,
-          }}
-        >
-          {step.number} · {step.title}
-        </span>
-      </div>
-    </div>
-  );
-}
