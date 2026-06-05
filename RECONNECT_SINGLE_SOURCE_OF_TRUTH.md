@@ -144,7 +144,7 @@ Build the Reconnect home page at "/". Cinematic, scroll-driven, myhealthprac-gra
 
 7) PROGRAMS — Eyebrow "(03) Programs". "Choose your path." Intro: "Three tracks for where you are today. Each is personalised after your medical assessment." Three large image cards (staggered reveal, image zoom on hover) -> /programs/prevent, /manage, /recover, with tag chips (Prevent: Early arthritis · Bone health · 40+ · Manage: Active arthritis · Joint pain · Back pain · Recover: Post-surgery · Severe OA · Rehab).
 
-8) WHAT MAKES US DIFFERENT (DARK section, --sage-deep, --bone text — the dramatic contrast moment). Headline "This isn't a fitness app. It's medicine that moves you." Four points (stagger): Doctor-led, not influencer-led · Personalised to your diagnosis · Pain-first ("we work around pain, respect it, reduce it — then build strength") · Structured 12-week roadmap (the direction & motivation YouTube can't give).
+8) WHAT MAKES US DIFFERENT (DARK section, --sage-deep, --bone text — the dramatic contrast moment). Headline "This isn't a fitness app. It's science that moves you." Four points (stagger): Doctor-led, not influencer-led · Personalised to your diagnosis · Pain-first ("we work around pain, respect it, reduce it — then build strength") · Structured 12-week roadmap (the direction & motivation YouTube can't give).
 
 9) MEET DR. SHRUTHI — asymmetric editorial split, portrait (/dr-shruthi.jpg, warm-graded, parallax) + text. Eyebrow "Your medical lead". "MBBS, MD (Internal Medicine), DM (Rheumatology). Over 12 years in rheumatology. Reconnect was born from her belief that strength training, done right, is the most powerful medicine for joint and bone health." Note non-surgical / works alongside your doctor. CTA "Read full story" -> /about.
 

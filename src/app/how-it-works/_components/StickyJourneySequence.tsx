@@ -5,19 +5,30 @@ import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-mot
 import { asset } from "@/lib/asset";
 
 /* ── Tokens ──────────────────────────────────────────────────── */
+/* MONOCHROME — Apple-style, on a warm IVORY / elephant-tusk ground with
+   near-black INK text and art. NO accent colour. Every step's "accent"
+   is ink; the art uses tints of ink only. The names below are kept
+   (BLUE, CORAL, AMBER…) so the large art SVGs don't need renaming —
+   they're all re-pointed to the ink monochrome ramp. */
 const EASE  = [0.16, 1, 0.3, 1] as const;
-const BLUE  = "#0064E0";
-const CLAY  = "#C26B54";
-const SAGE  = "#4D7B68";
-const GREEN  = "#2E7D52";   // (legacy) green
-const TERRA  = "#C4612F";   // (legacy) terracotta
-const CORAL  = "#34D399";   // Exercise — fresh mint-green hero accent on deep forest panel
-const SALMON = "#6EE7B7";   // Exercise — lighter mint secondary accent
-const PEACHTX = "rgba(255,255,255,0.92)"; // Exercise — light body text on dark forest
-const PEACHMU = "rgba(200,230,214,0.62)"; // Exercise — muted minty text
-const VEGGIE = "#4E7A3A";   // Nutrition — earthy, olive, vegetables
-const AMBER  = "#D08B14";   // Nutrition accent — saffron/turmeric, food-editorial
-const DARK   = "#5E9ED6";   // Mind Coaching — calm sky-blue, legible on the dark navy panel
+
+// Ink monochrome ramp — near-black at varying opacity, for art on ivory.
+const MONO_HI  = "rgba(29,29,31,0.88)";   // strongest — primary accent / headline art
+const MONO_MID = "rgba(29,29,31,0.58)";   // secondary
+const MONO_LO  = "rgba(29,29,31,0.38)";   // tertiary / muted
+
+const BLUE  = MONO_HI;   // step 1 accent → ink
+const CLAY  = MONO_MID;
+const SAGE  = MONO_MID;
+const GREEN  = MONO_MID;
+const TERRA  = MONO_MID;
+const CORAL  = MONO_HI;   // Exercise art → ink
+const SALMON = MONO_MID;  // Exercise secondary → grey
+const PEACHTX = "rgba(29,29,31,0.88)";
+const PEACHMU = "rgba(29,29,31,0.55)";
+const VEGGIE = MONO_MID;
+const AMBER  = MONO_HI;   // Nutrition art → ink
+const DARK   = MONO_HI;   // Mind Coaching accent → ink
 
 /* ── Count-up hook ───────────────────────────────────────────── */
 function useCountUp(target: number, inView: boolean, delay = 0) {
@@ -51,6 +62,22 @@ type StepAccent = typeof BLUE | typeof CLAY | typeof SAGE | typeof GREEN | typeo
 type StatItem = { value: number; suffix: string; label: string };
 
 type TextScheme = { body: string; muted: string; ghostNum: string; border: string };
+
+/* ── Unified monochrome ground ───────────────────────────────────
+   One near-black charcoal for ALL four steps, so scrolling no longer
+   strobes through navy → green → brown → blue. Apple-style: not pure
+   #000 (flat/cheap) but a subtle dark gradient with depth. Each step
+   keeps its own ART accent colour; only the ground is unified.
+   The architecture diagram above stays light by design. */
+/* White ground — clean, matches the page canvas (--color-bone #FFFFFF). */
+const MONO_GROUND = "#FFFFFF";
+/* Shared ink text scheme for every step on the white ground. */
+const MONO_SCHEME: TextScheme = {
+  body: "rgba(29,29,31,0.92)",
+  muted: "rgba(29,29,31,0.58)",
+  ghostNum: "rgba(29,29,31,0.07)",
+  border: "rgba(29,29,31,0.12)",
+};
 
 type Step = {
   number: string;
@@ -86,9 +113,9 @@ const STEPS: Step[] = [
     ],
     accent: BLUE,
     driver: "The gateway — governs every pillar that follows.",
-    panelBg: "linear-gradient(145deg, #0E2235 0%, #09162A 100%)",
-    sectionBg: "linear-gradient(145deg, #0E2235 0%, #09162A 100%)",
-    scheme: { body: "rgba(255,255,255,0.88)", muted: "rgba(255,255,255,0.55)", ghostNum: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.1)" },
+    panelBg: MONO_GROUND,
+    sectionBg: MONO_GROUND,
+    scheme: MONO_SCHEME,
     Art: AssessmentArt,
   },
   {
@@ -108,9 +135,9 @@ const STEPS: Step[] = [
     ],
     accent: CORAL,
     driver: "Driven by: pain map, imaging, joint assessment.",
-    panelBg: "linear-gradient(155deg, #123528 0%, #0C2419 100%)",
-    sectionBg: "linear-gradient(155deg, #123528 0%, #0C2419 100%)",
-    scheme: { body: PEACHTX, muted: PEACHMU, ghostNum: "rgba(255,255,255,0.06)", border: "rgba(52,211,153,0.16)" },
+    panelBg: MONO_GROUND,
+    sectionBg: MONO_GROUND,
+    scheme: MONO_SCHEME,
     Art: ExerciseArt,
   },
   {
@@ -130,9 +157,9 @@ const STEPS: Step[] = [
     ],
     accent: AMBER,
     driver: "Driven by: medications, bone density, dietary history.",
-    panelBg: "linear-gradient(150deg, #1C1A17 0%, #141210 100%)",
-    sectionBg: "linear-gradient(150deg, #1C1A17 0%, #141210 100%)",
-    scheme: { body: "rgba(255,255,255,0.9)", muted: "rgba(255,255,255,0.58)", ghostNum: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.1)" },
+    panelBg: MONO_GROUND,
+    sectionBg: MONO_GROUND,
+    scheme: MONO_SCHEME,
     Art: NutritionArt,
   },
   {
@@ -152,18 +179,26 @@ const STEPS: Step[] = [
     ],
     accent: DARK,
     driver: "Triggered by: adherence signals, fear-avoidance patterns.",
-    panelBg: "linear-gradient(145deg, #0C1E2D 0%, #07131D 100%)",
-    sectionBg: "linear-gradient(145deg, #0C1E2D 0%, #07131D 100%)",
-    scheme: { body: "rgba(255,255,255,0.88)", muted: "rgba(255,255,255,0.55)", ghostNum: "rgba(255,255,255,0.05)", border: "rgba(255,255,255,0.08)" },
+    panelBg: MONO_GROUND,
+    sectionBg: MONO_GROUND,
+    scheme: MONO_SCHEME,
     Art: PsychologyArt,
   },
 ];
 
 /* ═══════════════════════════════════════════════════════════
-   PROGRAM ARCHITECTURE DIAGRAM
-   Dark glass card — Assessment at top governs three pillars.
-   Pulse beams + glowing dots + pulsing root ring.
+   PROGRAM ARCHITECTURE DIAGRAM  —  light / clinical + one warm accent
+   Bright bone canvas, near-black ink nodes. Amber-honey is the ONLY
+   colour, used sparingly to mark meaning: the source (root ring),
+   the flow (travelling pulse dots), and the dependency (informs-next).
+   The motion carries the drama, not the colour.
    ═══════════════════════════════════════════════════════════ */
+
+// ── Light / clinical palette ──
+const AMBER_ACCENT = "rgba(29,29,31,0.62)";          // deepened amber — reads with weight on white
+const MONO_NODE    = "rgba(29,29,31,0.78)";    // near-black ink — uniform pillar ring/ink
+const MONO_TRACK   = "rgba(29,29,31,0.12)";    // soft ink hairline connector
+const INK_LABEL    = "rgba(29,29,31,0.55)";    // node label text on light
 
 // viewBox 760 × 382
 const _AX = 380, _AY = 95,  _AR = 50;  // Assessment (root)
@@ -172,53 +207,57 @@ const _NX = 380, _NY = 295;             // Nutrition
 const _PX = 664, _PY = 295;            // Psychology
 
 const BEAM_PATHS = [
-  { d: `M ${_AX},${_AY+_AR} C ${_AX},200 ${_EX},232 ${_EX},${_EY-_PR}`, light: "#5BA4F5", color: BLUE, dur: "2.8s", delay: 0.3  },
-  { d: `M ${_AX},${_AY+_AR} L ${_NX},${_NY-_PR}`,                         light: "#5BA4F5", color: BLUE, dur: "2.1s", delay: 0.55 },
-  { d: `M ${_AX},${_AY+_AR} C ${_AX},200 ${_PX},232 ${_PX},${_PY-_PR}`, light: "#5BA4F5", color: BLUE, dur: "2.8s", delay: 0.8  },
-  { d: `M ${_EX+_PR},${_EY} L ${_NX-_PR},${_NY}`,                         light: "#E8967E", color: CLAY, dur: "1.7s", delay: 1.2  },
+  // Root → pillars: amber pulse travels grey tracks. Informs-next: amber too.
+  { d: `M ${_AX},${_AY+_AR} C ${_AX},200 ${_EX},232 ${_EX},${_EY-_PR}`, light: AMBER_ACCENT, dur: "2.8s", delay: 0.3  },
+  { d: `M ${_AX},${_AY+_AR} L ${_NX},${_NY-_PR}`,                         light: AMBER_ACCENT, dur: "2.1s", delay: 0.55 },
+  { d: `M ${_AX},${_AY+_AR} C ${_AX},200 ${_PX},232 ${_PX},${_PY-_PR}`, light: AMBER_ACCENT, dur: "2.8s", delay: 0.8  },
+  { d: `M ${_EX+_PR},${_EY} L ${_NX-_PR},${_NY}`,                         light: AMBER_ACCENT, dur: "1.7s", delay: 1.2  },
 ] as const;
 
 const ARCH_NODES = [
-  { cx: _AX, cy: _AY, R: _AR, label: ["Medical", "Assessment"],   abbr: "01", light: "#5BA4F5", tag: "governs all", isRoot: true  },
-  { cx: _EX, cy: _EY, R: _PR, label: ["Personalised", "Exercise"], abbr: "02", light: "#34D399", tag: "pillar",      isRoot: false },
-  { cx: _NX, cy: _NY, R: _PR, label: ["Nutrition", "Plan"],        abbr: "03", light: "#7DC8A6", tag: "pillar",      isRoot: false },
-  { cx: _PX, cy: _PY, R: _PR, label: ["Mind", "Coaching"],          abbr: "04", light: "#88ABBF", tag: "if needed",   isRoot: false },
+  // Root carries the amber accent ("governs all"). Pillars are uniform white.
+  { cx: _AX, cy: _AY, R: _AR, label: ["Medical", "Assessment"],   abbr: "01", light: AMBER_ACCENT, tag: "governs all", isRoot: true  },
+  { cx: _EX, cy: _EY, R: _PR, label: ["Personalised", "Exercise"], abbr: "02", light: MONO_NODE, tag: "pillar",      isRoot: false },
+  { cx: _NX, cy: _NY, R: _PR, label: ["Nutrition", "Plan"],        abbr: "03", light: MONO_NODE, tag: "pillar",      isRoot: false },
+  { cx: _PX, cy: _PY, R: _PR, label: ["Mind", "Coaching"],          abbr: "04", light: MONO_NODE, tag: "if needed",   isRoot: false },
 ] as const;
 
 function ProgramArchitecture() {
   const ref    = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
+  const prefersReduced = useReducedMotion();
 
   return (
     <div ref={ref} className="mb-16 md:mb-20">
 
-      {/* ── Dark glass card ── */}
+      {/* ── Light clinical card ── */}
       <div
         className="relative rounded-3xl overflow-hidden"
         style={{
-          background: "linear-gradient(150deg, #0D2437 0%, #081620 100%)",
+          background: "linear-gradient(155deg, #FFFFFF 0%, #EEF4FC 100%)",
           boxShadow:
-            "0 40px 96px rgba(0,0,0,0.38), 0 6px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.06)",
+            "0 30px 80px rgba(0,41,92,0.10), 0 4px 16px rgba(0,41,92,0.06), inset 0 1px 0 rgba(29,29,31,0.8)",
+          border: "1px solid rgba(0,41,92,0.06)",
         }}
       >
-        {/* Blue radial bloom at Assessment position */}
+        {/* Amber radial bloom behind the root — the single warm glow */}
         <div
           aria-hidden
           className="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none"
           style={{
             width: 560,
             height: 280,
-            background: `radial-gradient(ellipse at 50% 0%, ${BLUE}32 0%, transparent 65%)`,
+            background: `radial-gradient(ellipse at 50% 0%, rgba(29,29,31,0.06) 0%, transparent 62%)`,
           }}
         />
 
         {/* Card header */}
         <div className="relative flex items-center justify-between px-8 md:px-10 pt-8 pb-0">
           <p className="text-caption uppercase tracking-[0.2em]"
-            style={{ color: "rgba(255,255,255,0.3)" }}>
+            style={{ color: "rgba(29,29,31,0.4)" }}>
             Program architecture
           </p>
-          <p className="text-caption" style={{ color: "rgba(255,255,255,0.18)" }}>
+          <p className="text-caption" style={{ color: "rgba(29,29,31,0.28)" }}>
             One integrated system
           </p>
         </div>
@@ -250,12 +289,12 @@ function ProgramArchitecture() {
             </filter>
           </defs>
 
-          {/* ── Beam tracks ── */}
+          {/* ── Beam tracks — grey hairlines, the skeleton ── */}
           {BEAM_PATHS.map((b, i) => (
             <motion.path
               key={`track-${i}`}
               d={b.d}
-              stroke="rgba(255,255,255,0.06)" strokeWidth={1.5}
+              stroke={MONO_TRACK} strokeWidth={1.5}
               strokeLinecap="round" fill="none"
               initial={{ pathLength: 0 }}
               animate={inView ? { pathLength: 1 } : {}}
@@ -263,35 +302,37 @@ function ProgramArchitecture() {
             />
           ))}
 
-          {/* ── Lit beam overlays ── */}
+          {/* ── Lit beam overlays — faint amber warmth; the travelling dot
+                carries the real colour, so these stay restrained ── */}
           {BEAM_PATHS.map((b, i) => (
             <motion.path
               key={`beam-${i}`}
               d={b.d}
-              stroke={b.light} strokeWidth={2}
+              stroke={b.light} strokeWidth={1.5}
               strokeLinecap="round" fill="none"
               filter="url(#beam-glow)"
               initial={{ pathLength: 0, opacity: 0 }}
-              animate={inView ? { pathLength: 1, opacity: 0.55 } : {}}
+              animate={inView ? { pathLength: 1, opacity: 0.32 } : {}}
               transition={{ duration: 0.75, ease: EASE, delay: b.delay }}
             />
           ))}
 
-          {/* ── Glowing pulse dots ── */}
-          {inView && BEAM_PATHS.map((b, i) => (
+          {/* ── Travelling pulse dots — the one moving colour, amber.
+                Skipped under reduced-motion (infinite animateMotion). ── */}
+          {inView && !prefersReduced && BEAM_PATHS.map((b, i) => (
             <g key={`dot-${i}`} filter="url(#arch-bloom)">
-              <circle r={5.5} fill={b.light} opacity={0.95}>
+              <circle r={5} fill={b.light} opacity={0.95}>
                 <animateMotion dur={b.dur} repeatCount="indefinite" path={b.d} />
               </circle>
             </g>
           ))}
 
-          {/* ── Assessment pulsing ring — animate r directly so it expands from cx/cy ── */}
-          {inView && (
+          {/* ── Assessment pulsing ring — amber, marks "the source" ── */}
+          {inView && !prefersReduced && (
             <motion.circle
               cx={_AX} cy={_AY}
-              fill="none" stroke="#5BA4F5" strokeWidth={1.5}
-              animate={{ r: [_AR + 18, _AR + 58], opacity: [0.55, 0] }}
+              fill="none" stroke={AMBER_ACCENT} strokeWidth={1.5}
+              animate={{ r: [_AR + 18, _AR + 58], opacity: [0.5, 0] }}
               transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
             />
           )}
@@ -305,15 +346,16 @@ function ProgramArchitecture() {
               style={{ transformBox: "fill-box", transformOrigin: "center" }}
               transition={{ type: "spring", stiffness: 220, damping: 22, delay: 0.08 + i * 0.3 }}
             >
-              {/* Ambient glow behind node */}
+              {/* Ambient glow behind node — root glows amber (the source),
+                  pillars carry a barely-there ink halo. */}
               <circle cx={node.cx} cy={node.cy} r={node.R + 16}
-                fill={node.light} fillOpacity={0.06} />
-              {/* Glass circle */}
+                fill={node.light} fillOpacity={node.isRoot ? 0.10 : 0.03} />
+              {/* Circle — faint tinted fill so it reads on the light canvas */}
               <circle cx={node.cx} cy={node.cy} r={node.R}
-                fill="rgba(255,255,255,0.04)"
+                fill={node.isRoot ? "rgba(29,29,31,0.04)" : "rgba(0,41,92,0.02)"}
                 stroke={node.light}
-                strokeWidth={node.isRoot ? 2.2 : 1.6}
-                strokeOpacity={node.isRoot ? 0.85 : 0.65} />
+                strokeWidth={node.isRoot ? 2.2 : 1.4}
+                strokeOpacity={node.isRoot ? 0.95 : 0.6} />
               {/* Number */}
               <text x={node.cx} y={node.cy - (node.isRoot ? 5 : 4)}
                 textAnchor="middle"
@@ -329,30 +371,30 @@ function ProgramArchitecture() {
                 fill={node.light} opacity={0.55} letterSpacing="0.08em">
                 {node.tag.toUpperCase()}
               </text>
-              {/* Label below — white on dark, with breathing room below glow ring */}
+              {/* Label below — ink on light, with breathing room below glow ring */}
               <text x={node.cx} y={node.cy + node.R + 30}
                 textAnchor="middle"
                 fontFamily="Geist, Inter, -apple-system, sans-serif"
-                fontSize={11} fill="white" opacity={0.5}>
+                fontSize={11} fill={INK_LABEL}>
                 {node.label[0]}
               </text>
               <text x={node.cx} y={node.cy + node.R + 44}
                 textAnchor="middle"
                 fontFamily="Geist, Inter, -apple-system, sans-serif"
-                fontSize={11} fill="white" opacity={0.5}>
+                fontSize={11} fill={INK_LABEL}>
                 {node.label[1]}
               </text>
             </motion.g>
           ))}
 
-          {/* "INFORMS NEXT" label between Exercise and Nutrition */}
+          {/* "INFORMS NEXT" label — the amber dependency marker between pillars */}
           <motion.text
             x={(_EX + _NX) / 2} y={_EY + 26}
             textAnchor="middle"
             fontFamily="Geist, Inter, -apple-system, sans-serif"
-            fontSize={8.5} fill="#E8967E" letterSpacing="0.12em"
+            fontSize={8.5} fill={AMBER_ACCENT} letterSpacing="0.12em"
             initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 0.55 } : {}}
+            animate={inView ? { opacity: 0.6 } : {}}
             transition={{ delay: 2.0 }}
           >
             INFORMS NEXT
@@ -361,7 +403,7 @@ function ProgramArchitecture() {
 
         {/* Card footer */}
         <div className="relative px-8 md:px-10 pb-7 pt-1">
-          <p className="text-caption" style={{ color: "rgba(255,255,255,0.22)" }}>
+          <p className="text-caption" style={{ color: "rgba(29,29,31,0.4)" }}>
             Assessment is the source. Each pillar builds on the one before it.
             Mind coaching is conditional — only when the data shows it's needed.
           </p>
@@ -384,16 +426,16 @@ function AssessmentArt({ animate }: { animate: boolean }) {
   const RX = 340;  // inner right edge
 
   const items = [
-    { label: "Medical history",  status: "COMPLETE",  color: "#72C4FF", delay: 0.58 },
-    { label: "Imaging reports",  status: "REVIEWED",  color: "#4AAEF5", delay: 0.84 },
-    { label: "Medications",      status: "3 ACTIVE",  color: "#2F96E8", delay: 1.10 },
-    { label: "Pain regions",     status: "4 MAPPED",  color: "#1C7ED8", delay: 1.36 },
+    { label: "Medical history",  status: "COMPLETE",  color: "rgba(29,29,31,0.92)", delay: 0.58 },
+    { label: "Imaging reports",  status: "REVIEWED",  color: "rgba(29,29,31,0.92)", delay: 0.84 },
+    { label: "Medications",      status: "3 ACTIVE",  color: "rgba(29,29,31,0.62)", delay: 1.10 },
+    { label: "Pain regions",     status: "4 MAPPED",  color: "rgba(29,29,31,0.62)", delay: 1.36 },
   ] as const;
 
   const pillars = [
-    { label: "Exercise",   color: "#34D399", tagX: PX,        tagW: 62 },
+    { label: "Exercise",   color: "rgba(29,29,31,0.62)", tagX: PX,        tagW: 62 },
     { label: "Nutrition",  color: SAGE,      tagX: PX + 70,   tagW: 68 },
-    { label: "Mind",       color: "#88ABBF", tagX: PX + 146,  tagW: 44 },
+    { label: "Mind",       color: "rgba(29,29,31,0.62)", tagX: PX + 146,  tagW: 44 },
   ] as const;
 
   const ITEM_Y0 = 120, ITEM_DY = 26;
@@ -410,7 +452,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
 
       {/* ── Card outline ── */}
       <motion.rect x={CX} y={CY} width={CW} height={CH} rx={13}
-        fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.1)" strokeWidth={1}
+        fill="rgba(29,29,31,0.025)" stroke="rgba(29,29,31,0.1)" strokeWidth={1}
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ duration: 0.4, delay: 0.06 }}
       />
@@ -418,28 +460,28 @@ function AssessmentArt({ animate }: { animate: boolean }) {
       {/* ── HEADER: CLINICAL INTAKE + live status dot ── */}
       <motion.text x={PX} y={44}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} letterSpacing="0.2em" fill="rgba(255,255,255,0.3)"
+        fontSize={9} letterSpacing="0.2em" fill="rgba(29,29,31,0.3)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 0.10 }}>
         CLINICAL INTAKE
       </motion.text>
 
       {animate && (
-        <motion.circle cx={RX - 68} cy={40} r={3.5} fill="#72C4FF"
+        <motion.circle cx={RX - 68} cy={40} r={3.5} fill="rgba(29,29,31,0.92)"
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{ duration: 1.8, repeat: Infinity }}
         />
       )}
       <motion.text x={RX - 60} y={44}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} letterSpacing="0.1em" fill="#72C4FF"
+        fontSize={9} letterSpacing="0.1em" fill="rgba(29,29,31,0.92)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.55 } : {}}
         transition={{ delay: 0.10 }}>
         IN PROGRESS
       </motion.text>
 
       <motion.line x1={PX} y1={54} x2={RX} y2={54}
-        stroke="rgba(255,255,255,0.07)" strokeWidth={1}
+        stroke="rgba(29,29,31,0.07)" strokeWidth={1}
         initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
         style={{ transformOrigin: `${PX}px 54px` }}
         transition={{ duration: 0.35, delay: 0.16 }}
@@ -448,21 +490,21 @@ function AssessmentArt({ animate }: { animate: boolean }) {
       {/* ── CONDITION ROW ── */}
       <motion.text x={PX} y={74}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={8.5} letterSpacing="0.14em" fill="rgba(255,255,255,0.26)"
+        fontSize={8.5} letterSpacing="0.14em" fill="rgba(29,29,31,0.26)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 0.26 }}>
         CONDITION
       </motion.text>
       <motion.text x={108} y={74}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={11.5} fontWeight={600} fill="rgba(255,255,255,0.88)"
+        fontSize={11.5} fontWeight={600} fill="rgba(29,29,31,0.88)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ duration: 0.5, ease: EASE, delay: 0.40 }}>
         Ankylosing Spondylitis
       </motion.text>
 
       <motion.line x1={PX} y1={85} x2={RX} y2={85}
-        stroke="rgba(255,255,255,0.05)" strokeWidth={1}
+        stroke="rgba(29,29,31,0.05)" strokeWidth={1}
         initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
         style={{ transformOrigin: `${PX}px 85px` }}
         transition={{ duration: 0.3, delay: 0.36 }}
@@ -471,7 +513,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
       {/* ── INTAKE SUB-HEADER ── */}
       <motion.text x={PX} y={103}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={8} letterSpacing="0.16em" fill="rgba(255,255,255,0.2)"
+        fontSize={8} letterSpacing="0.16em" fill="rgba(29,29,31,0.2)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 0.46 }}>
         INTAKE DATA  —  EACH INPUT SHAPES WHAT COMES NEXT
@@ -492,7 +534,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
             {/* Label */}
             <motion.text x={PX + 18} y={ry}
               fontFamily="Geist, Inter, -apple-system, sans-serif"
-              fontSize={11} fill="rgba(255,255,255,0.62)"
+              fontSize={11} fill="rgba(29,29,31,0.62)"
               initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
               transition={{ duration: 0.28, delay: item.delay + 0.06 }}>
               {item.label}
@@ -513,7 +555,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
             {/* Row separator (not after last item) */}
             {i < items.length - 1 && (
               <motion.line x1={PX} y1={ry + 9} x2={RX} y2={ry + 9}
-                stroke="rgba(255,255,255,0.04)" strokeWidth={1}
+                stroke="rgba(29,29,31,0.04)" strokeWidth={1}
                 initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
                 style={{ transformOrigin: `${PX}px ${ry + 9}px` }}
                 transition={{ duration: 0.22, delay: item.delay + 0.16 }}
@@ -526,13 +568,13 @@ function AssessmentArt({ animate }: { animate: boolean }) {
       {/* ── PROGRESS BAR ── */}
       {/* Track */}
       <motion.rect x={BAR_X} y={BAR_Y} width={BAR_W} height={BAR_H} rx={2.5}
-        fill="rgba(255,255,255,0.06)"
+        fill="rgba(29,29,31,0.06)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.52 }}
       />
       {/* Fill — scaleX from left so rounded corners don't distort */}
       <motion.rect x={BAR_X} y={BAR_Y} width={BAR_W} height={BAR_H} rx={2.5}
-        fill="#4AAEF5" filter="url(#a-bar-glow)"
+        fill="rgba(29,29,31,0.92)" filter="url(#a-bar-glow)"
         style={{ transformBox: "fill-box", transformOrigin: "left center" }}
         initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
         transition={{ duration: 1.1, ease: EASE, delay: 1.60 }}
@@ -540,7 +582,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
       {/* 100% label */}
       <motion.text x={RX} y={BAR_Y - 5} textAnchor="end"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={8.5} fontWeight={600} fill="#4AAEF5"
+        fontSize={8.5} fontWeight={600} fill="rgba(29,29,31,0.92)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.65 } : {}}
         transition={{ delay: 2.72 }}>
         100%
@@ -548,14 +590,14 @@ function AssessmentArt({ animate }: { animate: boolean }) {
 
       {/* ── OUTPUT: PROGRAM CONFIGURED ── */}
       <motion.line x1={PX} y1={228} x2={RX} y2={228}
-        stroke="rgba(255,255,255,0.07)" strokeWidth={1}
+        stroke="rgba(29,29,31,0.07)" strokeWidth={1}
         initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
         style={{ transformOrigin: `${PX}px 228px` }}
         transition={{ duration: 0.35, delay: 2.78 }}
       />
       <motion.text x={PX} y={245}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} letterSpacing="0.16em" fontWeight={600} fill="#72C4FF"
+        fontSize={9} letterSpacing="0.16em" fontWeight={600} fill="rgba(29,29,31,0.92)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.9 } : {}}
         transition={{ delay: 2.84 }}>
         PROGRAM CONFIGURED
@@ -581,14 +623,14 @@ function AssessmentArt({ animate }: { animate: boolean }) {
 
       {/* ── SIGN-OFF ── */}
       <motion.line x1={PX} y1={280} x2={RX} y2={280}
-        stroke="rgba(255,255,255,0.06)" strokeWidth={1}
+        stroke="rgba(29,29,31,0.06)" strokeWidth={1}
         initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
         style={{ transformOrigin: `${PX}px 280px` }}
         transition={{ duration: 0.4, delay: 3.08 }}
       />
       <motion.text x={PX} y={291}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={8.5} fill="rgba(255,255,255,0.24)"
+        fontSize={8.5} fill="rgba(29,29,31,0.24)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 3.14 }}>
         Dr. Shruthi Desai · DM Rheumatology
@@ -605,7 +647,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
 
 function ExerciseArt({ animate }: { animate: boolean }) {
   // Light ink for text on the dark forest panel
-  const INK    = "rgba(255,255,255,0.92)";   // primary label
+  const INK    = "rgba(29,29,31,0.92)";   // primary label
   const INK_MU = "rgba(200,230,214,0.5)";    // muted note / frequency
   const HEAD   = "rgba(200,230,214,0.42)";   // header / caption
   const HAIR   = "rgba(110,231,183,0.16)";   // separators
@@ -779,10 +821,10 @@ function NutritionArt({ animate }: { animate: boolean }) {
   // Nutrient callouts — each points to one quadrant of the plate
   type Callout = { nutrient: string; veg: string; nonveg: string; pos: React.CSSProperties };
   const callouts: Callout[] = [
-    { nutrient: "PROTEIN",     veg: "Kabuli chana",   nonveg: "Grilled salmon", pos: { top: "9%",    left: "4%",  textAlign: "left"  } },
-    { nutrient: "CALCIUM",     veg: "Paneer · Dahi",  nonveg: "Yogurt · Cheese", pos: { top: "9%",    right: "4%", textAlign: "right" } },
-    { nutrient: "ANTI-INFLAM", veg: "Palak · Walnut", nonveg: "Grilled chicken", pos: { bottom: "22%", left: "4%",  textAlign: "left"  } },
-    { nutrient: "VITAMIN D",   veg: "Mushrooms",      nonveg: "Egg yolk · Fish", pos: { bottom: "22%", right: "4%", textAlign: "right" } },
+    { nutrient: "PROTEIN",     veg: "Kabuli chana",   nonveg: "Grilled salmon", pos: { top: "20%",    left: "3%",  textAlign: "left"  } },
+    { nutrient: "CALCIUM",     veg: "Paneer · Dahi",  nonveg: "Yogurt · Cheese", pos: { top: "20%",    right: "3%", textAlign: "right" } },
+    { nutrient: "ANTI-INFLAM", veg: "Palak · Walnut", nonveg: "Grilled chicken", pos: { bottom: "28%", left: "3%",  textAlign: "left"  } },
+    { nutrient: "VITAMIN D",   veg: "Mushrooms",      nonveg: "Egg yolk · Fish", pos: { bottom: "28%", right: "3%", textAlign: "right" } },
   ];
 
   return (
@@ -790,13 +832,13 @@ function NutritionArt({ animate }: { animate: boolean }) {
 
       {/* Header */}
       <div style={{ position: "absolute", top: 16, left: 20, right: 20, display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 5 }}>
-        <span style={{ fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)" }}>NUTRITION PLAN</span>
+        <span style={{ fontSize: 9, letterSpacing: "0.2em", color: "rgba(29,29,31,0.32)" }}>NUTRITION PLAN</span>
         <AnimatePresence mode="wait">
           <motion.span key={isVeg ? "vb" : "nvb"}
             initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.25 }}
             style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.1em", color: acc,
-              padding: "3px 11px", borderRadius: 11, border: `1px solid ${acc}55`, background: `${acc}1A` }}>
+              padding: "3px 11px", borderRadius: 11, border: "1px solid rgba(29,29,31,0.34)", background: "rgba(29,29,31,0.10)" }}>
             {isVeg ? "VEGETARIAN" : "NON-VEG"}
           </motion.span>
         </AnimatePresence>
@@ -806,25 +848,25 @@ function NutritionArt({ animate }: { animate: boolean }) {
           Static wrapper holds the centering translate; the motion.div only
           animates scale/opacity (Framer's transform would otherwise drop the translate). */}
       <div style={{
-        position: "absolute", top: "50%", left: "50%",
+        position: "absolute", top: "48%", left: "50%",
         transform: "translate(-50%, -50%)",
-        width: "56%", aspectRatio: "1",
+        width: "50%", aspectRatio: "1",
       }}>
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={animate ? { scale: 1, opacity: 1 } : {}}
           transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
-          style={{
-            width: "100%", height: "100%", borderRadius: "50%", overflow: "hidden",
-            boxShadow: "0 26px 64px rgba(0,0,0,0.6)",
-          }}
+          style={{ width: "100%", height: "100%" }}
         >
           <AnimatePresence mode="wait">
             {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* Plate shot on pure white = card white, so no clip/mask needed —
+                `contain` shows the whole round plate floating on the card.
+                Grayscale keeps it consistent with the monochrome section. */}
             <motion.img key={plateImg} src={plateImg} alt="Your plate"
-              initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", filter: "grayscale(1) contrast(1.03)" }} />
           </AnimatePresence>
         </motion.div>
       </div>
@@ -847,7 +889,7 @@ function NutritionArt({ animate }: { animate: boolean }) {
               <motion.div key={isVeg ? `${i}v` : `${i}n`}
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                style={{ fontSize: 8, color: "rgba(255,255,255,0.5)", marginTop: 1, lineHeight: 1.3 }}>
+                style={{ fontSize: 8, color: "rgba(29,29,31,0.5)", marginTop: 1, lineHeight: 1.3 }}>
                 {isVeg ? c.veg : c.nonveg}
               </motion.div>
             </AnimatePresence>
@@ -855,19 +897,15 @@ function NutritionArt({ animate }: { animate: boolean }) {
         );
       })}
 
-      {/* Slide dots */}
-      <div style={{ position: "absolute", bottom: 46, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 5, zIndex: 5 }}>
+      {/* Veg ↔ non-veg slide dots — sit above the panel's own step badge,
+          which carries the "03 Nutrition Plan" label, so nothing overlaps. */}
+      <div style={{ position: "absolute", bottom: 64, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 5, zIndex: 5 }}>
         {[true, false].map((v) => (
           <motion.div key={String(v)}
             animate={{ width: isVeg === v ? 16 : 6, opacity: isVeg === v ? 1 : 0.3 }}
             transition={{ duration: 0.3 }}
             style={{ height: 4, borderRadius: 2, background: acc }} />
         ))}
-      </div>
-
-      {/* Footer */}
-      <div style={{ position: "absolute", bottom: 14, left: 20, right: 20, borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 6, fontSize: 8.5, color: "rgba(255,255,255,0.3)", zIndex: 5 }}>
-        Anti-inflammatory · Calcium · Vit D · Protein — adapted to your food preference
       </div>
     </div>
   );
@@ -900,25 +938,25 @@ function PsychologyArt({ animate }: { animate: boolean }) {
     <svg viewBox="0 0 380 310" fill="none" className="w-full h-full" aria-hidden>
       {/* Ghost number */}
       <text x={14} y={248} fontFamily="Geist, sans-serif" fontSize={220}
-        fontWeight={700} fill="white" opacity={0.025}>04</text>
+        fontWeight={700} fill="rgba(29,29,31,1)" opacity={0.05}>04</text>
 
       {/* Subtle grid */}
       {[80, 100, 120, 140, 160].map(y => (
         <line key={y} x1={20} y1={y} x2={360} y2={y}
-          stroke="white" strokeWidth={0.4} opacity={0.04} />
+          stroke="rgba(29,29,31,1)" strokeWidth={0.4} opacity={0.06} />
       ))}
 
       {/* State labels */}
       <motion.text x={26} y={55}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} letterSpacing="0.18em" fill="#E8967E"
+        fontSize={9} letterSpacing="0.18em" fill="rgba(29,29,31,0.92)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.65 } : {}}
         transition={{ delay: 0.2 }}>
         BARRIER ACTIVE
       </motion.text>
       <motion.text x={212} y={55}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} letterSpacing="0.18em" fill="rgba(255,255,255,0.5)"
+        fontSize={9} letterSpacing="0.18em" fill="rgba(29,29,31,0.5)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.6 }}>
         COACHING ENGAGED
@@ -928,7 +966,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={79} y={75}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={10} fill="#E8967E" opacity={0.5}
+        fontSize={10} fill="rgba(29,29,31,0.92)" opacity={0.5}
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 0.3 }}>
         Fear · Catastrophising
@@ -936,7 +974,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={285} y={75}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={10} fill="rgba(255,255,255,0.38)"
+        fontSize={10} fill="rgba(29,29,31,0.38)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.7 }}>
         Calm · Engaged
@@ -944,7 +982,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
 
       {/* Chaotic waveform */}
       <motion.path d={chaotic}
-        stroke="#E8967E" strokeWidth={2} strokeLinecap="round"
+        stroke="rgba(29,29,31,0.92)" strokeWidth={2} strokeLinecap="round"
         strokeLinejoin="round" fill="none"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={animate ? { pathLength: 1, opacity: 0.88 } : {}}
@@ -955,7 +993,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={79} y={162}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={11} fontWeight={700} fill="#E8967E" letterSpacing="0.04em"
+        fontSize={11} fontWeight={700} fill="rgba(29,29,31,0.92)" letterSpacing="0.04em"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.9 } : {}}
         transition={{ delay: 1.0 }}>
         High Beta · 24 Hz
@@ -963,7 +1001,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={79} y={177}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9.5} fontWeight={600} fill="rgba(255,255,255,0.72)"
+        fontSize={9.5} fontWeight={600} fill="rgba(29,29,31,0.72)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.1 }}>
         Overthinking · Tense · On guard
@@ -971,7 +1009,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
 
       {/* Threshold divider */}
       <motion.line x1={175} y1={50} x2={175} y2={200}
-        stroke="rgba(255,255,255,0.22)" strokeWidth={1.5} strokeDasharray="5 4"
+        stroke="rgba(29,29,31,0.22)" strokeWidth={1.5} strokeDasharray="5 4"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={animate ? { pathLength: 1, opacity: 1 } : {}}
         transition={{ duration: 0.4, delay: 1.3 }}
@@ -979,7 +1017,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={175} y={214}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={8.5} fill="rgba(255,255,255,0.3)" letterSpacing="0.08em"
+        fontSize={8.5} fill="rgba(29,29,31,0.3)" letterSpacing="0.08em"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.45 }}>
         FLAG THRESHOLD
@@ -987,7 +1025,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={175} y={226}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={7.5} fill="rgba(255,255,255,0.22)"
+        fontSize={7.5} fill="rgba(29,29,31,0.22)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 1.5 }}>
         weekly check-ins + adherence
@@ -995,7 +1033,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
 
       {/* Arrow through threshold */}
       <motion.path d="M 148,120 L 164,120 L 160,115 M 164,120 L 160,125"
-        stroke="rgba(255,255,255,0.35)" strokeWidth={1.2} strokeLinecap="round"
+        stroke="rgba(29,29,31,0.35)" strokeWidth={1.2} strokeLinecap="round"
         fill="none"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={animate ? { pathLength: 1, opacity: 1 } : {}}
@@ -1004,7 +1042,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
 
       {/* Calm waveform */}
       <motion.path d={calm}
-        stroke="rgba(255,255,255,0.75)" strokeWidth={2} strokeLinecap="round"
+        stroke="rgba(29,29,31,0.75)" strokeWidth={2} strokeLinecap="round"
         strokeLinejoin="round" fill="none"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={animate ? { pathLength: 1, opacity: 1 } : {}}
@@ -1015,7 +1053,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={285} y={162}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={11} fontWeight={700} fill="#7DD6A8" letterSpacing="0.04em"
+        fontSize={11} fontWeight={700} fill="rgba(29,29,31,0.62)" letterSpacing="0.04em"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.95 } : {}}
         transition={{ delay: 2.3 }}>
         Alpha · 10 Hz
@@ -1023,7 +1061,7 @@ function PsychologyArt({ animate }: { animate: boolean }) {
       <motion.text x={285} y={177}
         textAnchor="middle"
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9.5} fontWeight={600} fill="rgba(255,255,255,0.72)"
+        fontSize={9.5} fontWeight={600} fill="rgba(29,29,31,0.72)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 2.4 }}>
         Settled · Confident · In control
@@ -1031,21 +1069,21 @@ function PsychologyArt({ animate }: { animate: boolean }) {
 
       {/* Footer */}
       <motion.line x1={26} y1={252} x2={354} y2={252}
-        stroke="rgba(255,255,255,0.08)" strokeWidth={1}
+        stroke="rgba(29,29,31,0.08)" strokeWidth={1}
         initial={{ scaleX: 0 }} animate={animate ? { scaleX: 1 } : {}}
         style={{ transformOrigin: "26px 252px" }}
         transition={{ duration: 0.5, delay: 2.0 }}
       />
       <motion.text x={26} y={268}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={10} fontWeight={600} fill="#E8967E"
+        fontSize={10} fontWeight={600} fill="rgba(29,29,31,0.92)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.85 } : {}}
         transition={{ delay: 2.1 }}>
         → Mind coaching initiated
       </motion.text>
       <motion.text x={26} y={284}
         fontFamily="Geist, Inter, -apple-system, sans-serif"
-        fontSize={9} fill="rgba(255,255,255,0.28)"
+        fontSize={9} fill="rgba(29,29,31,0.28)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 2.22 }}>
         Only when data shows it's holding you back · Clinical psychologist
@@ -1197,7 +1235,7 @@ function SequenceAnimated() {
               className="relative w-full aspect-square rounded-3xl overflow-hidden"
               style={{
                 boxShadow: "0 32px 80px rgba(0,0,0,0.28), 0 6px 20px rgba(0,0,0,0.14)",
-                border: `1px solid ${activeStep.scheme.border || "rgba(255,255,255,0.06)"}`,
+                border: `1px solid ${activeStep.scheme.border || "rgba(29,29,31,0.06)"}`,
                 maxHeight: "calc(100vh - 5rem)",
                 maxWidth: "calc(100vh - 5rem)",
               }}
@@ -1248,7 +1286,7 @@ function SequenceAnimated() {
                       width: i === active ? 8 : 6,
                       height: i === active ? 8 : 6,
                       opacity: i < active ? 0.7 : i === active ? 1 : 0.3,
-                      backgroundColor: i <= active ? activeStep.accent : "#CBD5E1",
+                      backgroundColor: i <= active ? activeStep.accent : "rgba(29,29,31,0.20)",
                     }}
                     transition={{ duration: 0.4 }}
                   />
@@ -1269,9 +1307,9 @@ function SequenceAnimated() {
                     <span
                       className="inline-flex items-center gap-1.5 rounded-pill px-3 py-1 text-eyebrow font-medium"
                       style={{
-                        background: `${activeStep.accent}18`,
+                        background: "rgba(29,29,31,0.09)",
                         color: activeStep.accent,
-                        border: `1px solid ${activeStep.accent}30`,
+                        border: "1px solid rgba(29,29,31,0.18)",
                       }}
                     >
                       <span className="opacity-60">{activeStep.number}</span>
@@ -1356,9 +1394,9 @@ function StepCopy({ step }: { step: Step }) {
         <p
           className="inline-block text-eyebrow font-medium rounded-pill px-3 py-1"
           style={{
-            background: `${step.accent}14`,
+            background: "rgba(29,29,31,0.07)",
             color: step.accent,
-            border: `1px solid ${step.accent}28`,
+            border: "1px solid rgba(29,29,31,0.16)",
           }}
         >
           {step.badge}
@@ -1410,7 +1448,7 @@ function StepCopy({ step }: { step: Step }) {
       <div
         ref={statsRef}
         className="relative flex gap-10 flex-wrap pt-7"
-        style={{ borderTop: `1px solid ${step.accent}20` }}
+        style={{ borderTop: "1px solid rgba(29,29,31,0.14)" }}
       >
         {step.stats.map((s, i) => (
           <StatDisplay key={s.label} stat={s} inView={inView} index={i} accent={step.accent} scheme={scheme} />

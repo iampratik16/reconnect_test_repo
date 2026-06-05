@@ -21,12 +21,14 @@ import {
   SpineSvg,
 } from "@/components/AnatomicalArt";
 import { sciencePoints } from "@/lib/content/science";
-import { plans } from "@/lib/content/pricing";
+import PricingTiers from "@/components/PricingTiers";
 import { asset } from "@/lib/asset";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
 import WhyReconnectSection from "./_components/WhyReconnectSection";
 import ScienceSection from "./_components/ScienceSection";
+import PreventionDivergence from "./_components/PreventionDivergence";
+import PreventionTimeline from "./_components/PreventionTimeline";
 import ConditionsGrid from "./_components/ConditionsGrid";
 import MethodSection from "./_components/MethodSection";
 import ChooseYourPath from "./_components/ChooseYourPath";
@@ -152,7 +154,7 @@ export default function HomePage() {
               <Reveal delay={0.7}>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Button variant="clay" size="lg" href="/assessment" arrow>
-                    Take free assessment
+                    Take the free assessment
                   </Button>
 
                   {/* Premium glass secondary CTA — visible on any video frame */}
@@ -202,31 +204,12 @@ export default function HomePage() {
           4b) BUILT FOR PREVENTION — primary highlight, before Conditions
           ════════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Persona image (placeholder) */}
-          <div className="lg:col-span-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* Prevention divergence: two scroll-drawn paths from age 40 — the
+              widening gap between "do nothing" and "with Reconnect" is the pitch. */}
+          <div className="lg:col-span-5 lg:sticky lg:top-24">
             <Reveal>
-              <figure className="relative rounded-[20px] overflow-hidden shadow-lifted bg-sage-deep aspect-[4/5]">
-                {/* TODO: client to supply a consented or licensed at-risk desk-work image —
-                    stressed professional, late night, takeaway on the desk. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={asset("/prevent/desk-night.png")}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover opacity-55"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{ background: "linear-gradient(180deg, rgba(0,41,92,0.10) 0%, rgba(0,41,92,0.75) 100%)" }}
-                  aria-hidden="true"
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 p-6 text-bone/85 text-body-sm">
-                  1:00 AM. Hunched over the laptop, dinner gone cold, the deadline still open.
-                  This is the posture that becomes a problem at 45.
-                </figcaption>
-              </figure>
+              <PreventionDivergence />
             </Reveal>
           </div>
 
@@ -263,8 +246,8 @@ export default function HomePage() {
               <p className="text-body text-ink-soft mt-4 max-w-xl">
                 Prevention here isn’t a workout plan you’ll quit in three weeks. It’s a safety
                 net — small, doctor-guided changes now (a movement snack every hour, thirty
-                focused minutes you can do at home) so you don’t meet us again in a decade with
-                a disc that needs surgery. Look after it at 40, and your 50s feel better.
+                focused minutes you can do at home) so the next decade asks far less of you.
+                Look after it at 40, and your 50s feel better.
               </p>
             </Reveal>
             <Reveal delay={0.6}>
@@ -279,6 +262,9 @@ export default function HomePage() {
             </Reveal>
           </div>
         </div>
+
+        {/* The story, made human: what tends to happen — and where it can turn */}
+        <PreventionTimeline />
       </Section>
 
       {/* ════════════════════════════════════════════════════════
@@ -308,7 +294,7 @@ export default function HomePage() {
           <Reveal>
             <h2 className="text-h2 font-display text-bone max-w-3xl">
               This isn’t a fitness app.{" "}
-              <span className="serif-italic text-clay-soft">It’s medicine that moves you.</span>
+              <span className="serif-italic text-clay-soft">It’s science that moves you.</span>
             </h2>
           </Reveal>
 
@@ -396,7 +382,7 @@ export default function HomePage() {
       </Section>
 
       {/* ════════════════════════════════════════════════════════
-          11) PRICING TEASER — compact plans
+          11) PRICING TEASER — editorial tiers (shared component)
           ════════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep">
         <SectionHeader
@@ -405,100 +391,9 @@ export default function HomePage() {
           className="mb-12"
         />
 
-        <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-5" staggerDelay={0.08}>
-          {plans.map((p) => {
-            const isPopular = p.popular;
-            return (
-              <div
-                key={p.name}
-                className={`relative rounded-[18px] p-6 md:p-7 flex flex-col gap-4 h-full hairline ${
-                  isPopular ? "bg-sage-deep text-bone" : "bg-calcium text-ink"
-                }`}
-              >
-                {isPopular && (
-                  <span className="self-start text-caption font-medium bg-clay text-calcium rounded-pill px-3 py-1">
-                    Most popular
-                  </span>
-                )}
-                <div>
-                  <p className={`text-eyebrow ${isPopular ? "text-clay-soft" : "text-clay"}`}>
-                    {p.name}
-                  </p>
-                  <p className={`text-h3 font-display mt-2 ${isPopular ? "text-bone" : "text-ink"}`}>
-                    ₹{p.price.toLocaleString("en-IN")}
-                    <span className={`text-caption font-normal ${isPopular ? "text-bone/60" : "text-ink-soft"}`}>
-                      {p.period}
-                    </span>
-                  </p>
-                  <p className={`text-caption mt-1 ${isPopular ? "text-bone/60" : "text-ink-soft"}`}>
-                    {p.billingNote}
-                  </p>
-                </div>
-                <ul className="flex flex-col gap-2.5 text-body-sm flex-1">
-                  {p.features.map((f) => (
-                    <li key={f.label} className="flex items-start gap-2.5">
-                      {f.included ? (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className={`shrink-0 mt-0.5 ${isPopular ? "text-clay-soft" : "text-clay"}`}
-                          aria-label="Included"
-                        >
-                          <path d="M4 10l4 4 8-8" />
-                        </svg>
-                      ) : (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className={`shrink-0 mt-0.5 ${isPopular ? "text-bone/30" : "text-ink-soft/40"}`}
-                          aria-label="Not included"
-                        >
-                          <path d="M6 6l8 8M14 6l-8 8" />
-                        </svg>
-                      )}
-                      <span
-                        className={
-                          f.included
-                            ? isPopular
-                              ? "text-bone"
-                              : "text-ink"
-                            : isPopular
-                              ? "text-bone/40 line-through"
-                              : "text-ink-soft/50 line-through"
-                        }
-                      >
-                        {f.label}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  variant={isPopular ? "clay" : "sage-outline"}
-                  size="md"
-                  href="/pricing"
-                  arrow
-                  className="w-full justify-center"
-                >
-                  See plan
-                </Button>
-              </div>
-            );
-          })}
-        </Stagger>
+        <PricingTiers ctaLabel="See plan" ctaHref="/pricing" />
 
-        <p className="text-caption text-ink-soft mt-6">
+        <p className="text-caption text-ink-soft mt-8 text-center max-w-[64rem] mx-auto">
           Minimum program duration: 4 months. Prices in INR; the assessment is free and runs
           before you commit to any plan.
         </p>
@@ -511,7 +406,7 @@ export default function HomePage() {
         headline="Your joints deserve better than painkillers and rest."
         description="Take a 2-minute assessment and find the right program for your body."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"

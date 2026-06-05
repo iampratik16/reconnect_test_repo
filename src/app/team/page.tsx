@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { asset } from "@/lib/asset";
-import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
 import Reveal from "@/components/Reveal";
@@ -17,17 +16,6 @@ export const metadata: Metadata = {
 };
 
 /* ── Data ──────────────────────────────────────────────────── */
-// NOTE: Names, photos and credentials below are placeholders for the
-// demo build. Replace with the real team's details and portraits.
-
-const lead = {
-  name: "Dr. Shruthi Desai",
-  role: "Founder & Medical Lead",
-  credentials: "MBBS, MD (Internal Medicine), DM (Rheumatology)",
-  image: "/dr-shruthi.jpg",
-  bio: "The rheumatologist who designed Reconnect. Every program begins with her medical assessment — nothing is prescribed without understanding the body it’s for.",
-};
-
 const team = [
   {
     name: "Priya Nair",
@@ -72,87 +60,77 @@ export default function TeamPage() {
   return (
     <>
       {/* ═══════════════════════════════════════════════════════
-          1) HERO
+          1) HERO — founder portrait + framing
           ═══════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden bg-bone pt-32 md:pt-40 pb-20 md:pb-28">
-        <SkeletonSvg className="watermark text-ink right-[-140px] top-[60px] w-[560px] hidden md:block" />
+        <SkeletonSvg className="watermark text-ink right-[-180px] top-[60px] w-[520px] hidden lg:block" />
 
         <div className="container-site relative">
-          <div className="max-w-3xl">
-            <Reveal>
-              <Eyebrow>Our team</Eyebrow>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h1 className="text-hero text-ink mt-6 leading-[0.95]">
-                The people behind your{" "}
-                <span className="serif-italic text-clay">recovery.</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
-                One rheumatologist sets the direction. A small, multidisciplinary
-                team builds and runs your program together — so the medicine,
-                the movement and the mindset all point the same way.
-              </p>
-            </Reveal>
-            <Reveal delay={0.3}>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
-                <Button variant="clay" size="lg" href="/assessment" arrow>
-                  Take free assessment
-                </Button>
-                <Button variant="ghost" size="lg" href="/contact">
-                  Talk to the team
-                </Button>
-              </div>
-            </Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            {/* Left: framing copy */}
+            <div className="lg:col-span-7 order-2 lg:order-1">
+              <Reveal>
+                <Eyebrow>Our team</Eyebrow>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <h1 className="text-hero text-ink mt-6 leading-[0.95]">
+                  The visionary behind your{" "}
+                  <span className="serif-italic text-clay">well-being.</span>
+                </h1>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
+                  One rheumatologist sets the direction. A small, multidisciplinary
+                  team builds and runs your program together — so the medicine,
+                  the movement and the mindset all point the same way.
+                </p>
+              </Reveal>
+              <Reveal delay={0.3}>
+                <div className="mt-10 flex flex-wrap items-center gap-4">
+                  <Button variant="clay" size="lg" href="/assessment" arrow>
+                    Take the free assessment
+                  </Button>
+                  <Button variant="ghost" size="lg" href="/contact">
+                    Talk to the team
+                  </Button>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right: founder portrait with name plate over the photo */}
+            <div className="lg:col-span-5 order-1 lg:order-2">
+              <Reveal delay={0.15}>
+                <figure className="relative rounded-[20px] overflow-hidden shadow-lifted xray-glow aspect-[4/5]">
+                  {/* Real portrait, 4× upscaled via Vertex (scripts/upscale-shruthi.mjs). */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset("/dr-shruthi-hires.png")}
+                    alt="Dr. Shruthi Desai, Founder of Reconnect"
+                    loading="eager"
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                  />
+                  {/* Bottom scrim + name plate. `!absolute`/`!bottom-0` beat the
+                      `.xray-glow > *` { position: relative } rule in globals.css. */}
+                  <figcaption
+                    className="absolute! inset-x-0 bottom-0! top-auto p-6 pt-16 z-10"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(0,41,92,0) 0%, rgba(0,41,92,0.78) 100%)",
+                    }}
+                  >
+                    <p className="text-h4 font-display text-bone leading-tight">
+                      Dr.&nbsp;Shruthi Desai
+                    </p>
+                    <p className="text-caption text-clay-soft mt-1">
+                      Founder, Reconnect
+                    </p>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          2) MEDICAL LEAD — featured
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <figure className="relative">
-                <div className="relative rounded-[20px] overflow-hidden shadow-lifted xray-glow">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={asset(lead.image)}
-                    alt={`${lead.name}, ${lead.role} at Reconnect`}
-                    loading="lazy"
-                    className="w-full h-[420px] md:h-[480px] object-cover"
-                  />
-                </div>
-              </figure>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-7">
-            <SectionHeader
-              eyebrowNumber="(01)"
-              eyebrow="The medical lead"
-              title="It starts with the doctor."
-              align="left"
-            />
-            <Reveal delay={0.1}>
-              <div className="mt-8">
-                <h3 className="text-h3 font-display text-ink">{lead.name}</h3>
-                <p className="text-body font-medium text-clay mt-1">{lead.role}</p>
-                <p className="text-caption text-ink-soft mt-2">{lead.credentials}</p>
-                <p className="text-body-lg text-ink-soft mt-6 max-w-xl">{lead.bio}</p>
-                <div className="mt-8">
-                  <Button variant="ghost" size="md" href="/about" arrow>
-                    More about Dr.&nbsp;Shruthi
-                  </Button>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </Section>
 
       {/* ═══════════════════════════════════════════════════════
           3) THE WIDER TEAM — grid
@@ -209,7 +187,7 @@ export default function TeamPage() {
         headline="Meet the team that builds your plan."
         description="Take the assessment, or book a consultation to talk it through with someone from the team."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"

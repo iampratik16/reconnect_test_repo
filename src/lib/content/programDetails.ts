@@ -125,9 +125,9 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
         },
       ],
       images: [
-        "/prevent/who-1.avif",
-        "/prevent/who-2.avif",
-        "/prevent/who-3.avif",
+        "/prevent/who-1.webp",
+        "/prevent/who-2.webp",
+        "/prevent/who-3.webp",
         "/prevent/who-4.webp",
       ],
     },

@@ -525,8 +525,9 @@ export default function MethodSection() {
             ))}
           </div>
 
-          {/* Scroll hint / final CTA */}
-          <div className="mt-8 flex justify-center">
+          {/* Scroll hint / final CTA — aligned under the centre card column */}
+          <div className="mt-8 grid grid-cols-12">
+            <div className="col-span-12 md:col-start-4 md:col-span-5 flex justify-center">
             <AnimatePresence mode="wait">
               {activeStep < 3 ? (
                 <motion.p
@@ -563,6 +564,7 @@ export default function MethodSection() {
                 </motion.div>
               )}
             </AnimatePresence>
+            </div>
           </div>
 
         </div>

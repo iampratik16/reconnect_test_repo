@@ -71,7 +71,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
               <Reveal delay={0.4}>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Button variant="clay" size="lg" href="/assessment" arrow>
-                    Take free assessment
+                    Take the free assessment
                   </Button>
                   <Button variant="ghost" size="lg" href="/programs">
                     Back to all tracks
@@ -104,7 +104,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
           ═══════════════════════════════════════════════════════ */}
       {data.whoIsItFor && (
         <Section bg="bg-bone">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             <div className="lg:col-span-6">
               <SectionHeader
                 eyebrow={data.whoIsItFor.eyebrow}
@@ -135,7 +135,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
                   {data.whoIsItFor.images.map((src) => (
                     <div
                       key={src}
-                      className="relative overflow-hidden rounded-2xl shadow-soft aspect-[4/3]"
+                      className="relative overflow-hidden rounded-2xl shadow-soft aspect-square"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -397,7 +397,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
         headline={`Ready to start the ${data.name} track?`}
         description="Two minutes. A handful of questions. We confirm the right track and shape the program around your body."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"

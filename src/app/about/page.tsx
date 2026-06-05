@@ -8,7 +8,7 @@ import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
 import Pill from "@/components/Pill";
 import CTASection from "@/components/CTASection";
-import { SkeletonSvg, SpineSvg, KneeSvg } from "@/components/AnatomicalArt";
+import { SkeletonSvg, KneeSvg } from "@/components/AnatomicalArt";
 
 export const metadata: Metadata = {
   title: "About Dr. Shruthi",
@@ -85,7 +85,7 @@ export default function AboutPage() {
               <Reveal delay={0.4}>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Button variant="clay" size="lg" href="/assessment" arrow>
-                    Take free assessment
+                    Take the free assessment
                   </Button>
                   <Button variant="ghost" size="lg" href="/contact">
                     Book consultation
@@ -173,24 +173,32 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════════════════════
           3) PHILOSOPHY PULL-QUOTE
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-bone section-py overflow-hidden">
-        <SpineSvg className="watermark text-ink left-[-100px] top-[30px] w-[440px] hidden md:block" />
+      <section className="relative bg-ink section-py overflow-hidden">
+        {/* Oversized opening quotation mark — intentional typographic motif */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -top-10 left-4 md:left-12 text-clay/15 font-display leading-none"
+          style={{ fontSize: "clamp(16rem, 30vw, 34rem)" }}
+        >
+          &ldquo;
+        </span>
 
         <div className="container-site relative">
           <Reveal>
             <div className="max-w-4xl">
               <Eyebrow number="(02)">Philosophy</Eyebrow>
 
-              <blockquote className="mt-10">
-                <p className="text-hero text-ink leading-[1.05]">
+              <blockquote className="mt-10 relative pl-6 md:pl-10 border-l-2 border-clay">
+                <p className="text-hero text-calcium leading-[1.05]">
                   Exercise is not artificial. But{" "}
                   <span className="serif-italic text-clay">inactivity</span> is.
                 </p>
-                <p className="text-h3 font-display text-ink-soft mt-8 max-w-3xl">
+                <p className="text-h3 font-display text-calcium/70 mt-8 max-w-3xl">
                   It&rsquo;s the medicine that needs you.
                 </p>
-                <footer className="text-caption text-ink-soft mt-8">
-                  — Dr.&nbsp;Shruthi Desai, on the principles behind Reconnect
+                <footer className="text-caption text-calcium/50 mt-10 flex items-center gap-4">
+                  <span className="h-px w-8 bg-clay/60" aria-hidden="true" />
+                  Dr.&nbsp;Shruthi Desai, on the principles behind Reconnect
                 </footer>
               </blockquote>
             </div>
@@ -286,7 +294,7 @@ export default function AboutPage() {
         headline="Want to talk it through?"
         description="Take the assessment, or book a consultation directly with Dr. Shruthi’s team."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"
