@@ -34,9 +34,9 @@ import MethodSection from "./_components/MethodSection";
 import ChooseYourPath from "./_components/ChooseYourPath";
 
 export const metadata: Metadata = {
-  title: "Reconnect Wellness — Doctor-Led Strength Training for Bones & Joints",
+  title: "Reconnect Wellness | Joint Pain & Arthritis Exercise Program",
   description:
-    "Stronger joints. Denser bones. A life without the pain. A doctor-designed strength and nutrition program for arthritis, joint pain, back issues, and osteoporosis.",
+    "Doctor-designed strength & nutrition program for joint pain, arthritis, and bone health. Personalized, evidence-backed exercises.",
 };
 
 /* ── Data ──────────────────────────────────────────────────── */
