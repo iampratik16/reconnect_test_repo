@@ -177,31 +177,37 @@ export default function Nav() {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="container-site flex items-center justify-between h-16 border-b border-line/20"
+              className="container-site flex items-center justify-between h-16 md:h-18 border-b border-line/20"
             >
               <Link
                 href="/"
-                className="flex flex-col leading-tight group"
+                className="flex items-center gap-2.5 group shrink-0"
                 onClick={() => setMobileOpen(false)}
               >
-                <span className="text-h4 font-semibold text-ink group-hover:text-clay transition-colors duration-200">
-                  Reconnect
-                </span>
-                <span className="text-caption text-clay tracking-widest uppercase -mt-0.5">
-                  wellness
-                </span>
+                {/* Logo */}
+                <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-8 w-8 object-contain" />
+                {/* Brand name */}
+                <div className="flex flex-col leading-tight">
+                  <span className="text-[1rem] font-semibold tracking-[0.04em] text-ink group-hover:text-clay transition-colors duration-200" style={{ fontFamily: "var(--font-brand)" }}>
+                    RECONNECT
+                  </span>
+                  <span className="text-[0.65rem] text-clay tracking-widest uppercase font-medium -mt-0.5">
+                    wellness
+                  </span>
+                </div>
               </Link>
+
               <motion.button
                 ref={closeBtnRef}
                 onClick={() => setMobileOpen(false)}
-                className="flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2 hover:bg-clay/5 rounded-lg transition-colors duration-200"
+                className="flex flex-col justify-center items-center gap-1.25 w-10 h-10 hover:bg-clay/5 rounded-lg transition-colors duration-200 shrink-0"
                 aria-label="Close menu"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
-                <span className={`${lineClass} rotate-45 translate-y-[6.5px] origin-center`} />
+                <span className={`${lineClass} rotate-45 translate-y-2 origin-center`} />
                 <span className={`${lineClass} opacity-0 scale-x-0`} />
-                <span className={`${lineClass} -rotate-45 -translate-y-[6.5px] origin-center`} />
+                <span className={`${lineClass} -rotate-45 -translate-y-2 origin-center`} />
                 <span className="sr-only">Close</span>
               </motion.button>
             </motion.div>
@@ -246,7 +252,7 @@ export default function Nav() {
                         initial={{ scaleX: 0, originX: 0 }}
                         animate={{ scaleX: isActive ? 1 : 0 }}
                         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute bottom-[-8px] left-0 h-1 bg-gradient-to-r from-clay to-clay-dark rounded-full"
+                        className="absolute -bottom-2 left-0 h-1 bg-linear-to-r from-clay to-clay-dark rounded-full"
                         style={{ width: "100%" }}
                       />
                     </Link>
