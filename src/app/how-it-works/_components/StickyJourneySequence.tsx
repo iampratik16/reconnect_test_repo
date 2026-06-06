@@ -195,9 +195,9 @@ const STEPS: Step[] = [
    ═══════════════════════════════════════════════════════════ */
 
 // ── Light / clinical palette ──
-const AMBER_ACCENT = "rgba(29,29,31,0.62)";          // deepened amber — reads with weight on white
+const AMBER_ACCENT = "rgba(193,145,47,0.92)";  // honey-gold — beams, pulse dots, informs-next
 const MONO_NODE    = "rgba(29,29,31,0.78)";    // near-black ink — uniform pillar ring/ink
-const MONO_TRACK   = "rgba(29,29,31,0.12)";    // soft ink hairline connector
+const MONO_TRACK   = "rgba(193,145,47,0.22)";  // soft gold hairline connector
 const INK_LABEL    = "rgba(29,29,31,0.55)";    // node label text on light
 
 // viewBox 760 × 382
@@ -862,11 +862,12 @@ function NutritionArt({ animate }: { animate: boolean }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             {/* Plate shot on pure white = card white, so no clip/mask needed —
                 `contain` shows the whole round plate floating on the card.
-                Grayscale keeps it consistent with the monochrome section. */}
+                The food stays in full colour — the one deliberate pop of colour
+                in the otherwise-monochrome section. */}
             <motion.img key={plateImg} src={plateImg} alt="Your plate"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", filter: "grayscale(1) contrast(1.03)" }} />
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }} />
           </AnimatePresence>
         </motion.div>
       </div>
