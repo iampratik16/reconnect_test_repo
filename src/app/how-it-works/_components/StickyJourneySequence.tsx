@@ -123,7 +123,7 @@ const STEPS: Step[] = [
     badge: "Built around you",
     principle: "Personalised",
     title: "Exercise Program",
-    body: "Built from your assessment — diagnosis, imaging, pain map, medications, history. Not a template. Not a cohort. Region-by-region: upper body, lower body, back, and the joint we're protecting.",
+    body: "Built from your assessment — diagnosis, imaging, pain map, medications, history. Not a template. Not a cohort. Region-by-region: upper body, lower body, back, and the joint we're protecting. Track your progress week-to-week in your dashboard.",
     bullets: [
       "Region-by-region prescription",
       "Age- and severity-scaled loads",
@@ -167,7 +167,7 @@ const STEPS: Step[] = [
     badge: "Only if needed",
     principle: "Structured roadmap",
     title: "Mind Coaching",
-    body: "A 16-week cycle with defined milestones, weekly check-ins, and a medical reassessment at the end. If we detect fear or low adherence, a clinical psychologist steps in. You always know where you are.",
+    body: "A 16-week cycle with defined milestones, weekly check-ins, and a medical reassessment at the end. If we detect fear or low adherence, your coach steps in to adjust. You always know where you are.",
     bullets: [
       "Referral only when indicated",
       "Clinical psychologist on hand",
