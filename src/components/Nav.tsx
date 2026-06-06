@@ -173,47 +173,37 @@ export default function Nav() {
             className="fixed inset-0 z-[60] bg-bone flex flex-col xl:hidden overflow-hidden"
           >
             {/* Top bar with close */}
-            <motion.div
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="container-site flex items-center justify-between h-16 md:h-18 border-b border-line/20"
-            >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-line/10">
               <Link
                 href="/"
-                className="flex items-center gap-2.5 group shrink-0"
+                className="flex items-center gap-3 shrink-0"
                 onClick={() => setMobileOpen(false)}
               >
                 {/* Logo */}
-                <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-8 w-8 object-contain" />
+                <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-6 w-6 object-contain" />
                 {/* Brand name */}
-                <div className="flex flex-col leading-tight">
-                  <span className="text-[1rem] font-semibold tracking-[0.04em] text-ink group-hover:text-clay transition-colors duration-200" style={{ fontFamily: "var(--font-brand)" }}>
+                <div className="flex flex-col leading-none">
+                  <span className="text-sm font-bold text-ink" style={{ fontFamily: "var(--font-brand)" }}>
                     RECONNECT
                   </span>
-                  <span className="text-[0.65rem] text-clay tracking-widest uppercase font-medium -mt-0.5">
-                    wellness
+                  <span className="text-xs text-clay font-semibold">
+                    WELLNESS
                   </span>
                 </div>
               </Link>
 
-              <motion.button
+              <button
                 ref={closeBtnRef}
                 onClick={() => setMobileOpen(false)}
-                className="flex flex-col justify-center items-center gap-1.25 w-10 h-10 hover:bg-clay/5 rounded-lg transition-colors duration-200 shrink-0"
+                className="w-8 h-8 flex items-center justify-center"
                 aria-label="Close menu"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
               >
-                <span className={`${lineClass} rotate-45 translate-y-2 origin-center`} />
-                <span className={`${lineClass} opacity-0 scale-x-0`} />
-                <span className={`${lineClass} -rotate-45 -translate-y-2 origin-center`} />
-                <span className="sr-only">Close</span>
-              </motion.button>
-            </motion.div>
+                <span className="text-2xl font-light text-ink">×</span>
+              </button>
+            </div>
 
             {/* Links */}
-            <nav className="container-site flex-1 flex flex-col justify-center gap-8 pb-32">
+            <nav className="px-6 flex-1 flex flex-col justify-center gap-6 pb-32">
               {NAV_LINKS.map((link, i) => {
                 const isActive = pathname === link.href;
                 return (
@@ -222,39 +212,29 @@ export default function Nav() {
                     initial={
                       prefersReduced
                         ? { opacity: 0 }
-                        : { opacity: 0, y: 30, scale: 0.95 }
+                        : { opacity: 0, x: -20 }
                     }
                     animate={
                       prefersReduced
                         ? { opacity: 1 }
-                        : { opacity: 1, y: 0, scale: 1 }
+                        : { opacity: 1, x: 0 }
                     }
                     transition={{
-                      duration: 0.5,
+                      duration: 0.4,
                       ease: [0.16, 1, 0.3, 1],
-                      delay: 0.06 * i,
+                      delay: 0.08 * i,
                     }}
-                    className="relative group"
                   >
                     <Link
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className={`text-h2 font-display block transition-all duration-300 ${
+                      className={`text-3xl font-bold block transition-colors duration-200 ${
                         isActive
                           ? "text-clay"
-                          : "text-ink-soft hover:text-ink"
+                          : "text-ink"
                       }`}
                     >
                       {link.label}
-
-                      {/* Animated underline */}
-                      <motion.div
-                        initial={{ scaleX: 0, originX: 0 }}
-                        animate={{ scaleX: isActive ? 1 : 0 }}
-                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute -bottom-2 left-0 h-1 bg-linear-to-r from-clay to-clay-dark rounded-full"
-                        style={{ width: "100%" }}
-                      />
                     </Link>
                   </motion.div>
                 );
@@ -262,22 +242,17 @@ export default function Nav() {
             </nav>
 
             {/* CTA pinned to bottom */}
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-              className="fixed bottom-0 left-0 right-0 p-6 pb-8 bg-linear-to-t from-bone via-bone to-bone/0"
-            >
+            <div className="fixed bottom-0 left-0 right-0 p-6 bg-bone border-t border-line/10">
               <Button
                 variant="clay"
                 href="/assessment"
                 size="lg"
-                className="w-full justify-center shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full justify-center"
                 arrow
               >
                 Take the free assessment
               </Button>
-            </motion.div>
+            </div>
 
             {/* Anatomical motif */}
             <SpineSvg className="absolute bottom-8 right-8 w-32 opacity-5 text-ink pointer-events-none" />
