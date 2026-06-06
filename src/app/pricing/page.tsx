@@ -257,7 +257,7 @@ export default function PricingPage() {
                       >
                         <td
                           className={`p-5 lg:p-7 text-body-sm ${
-                            isHighlighted ? "font-semibold text-ink" : "text-ink"
+                            isHighlighted ? "font-bold text-ink" : "text-ink"
                           }`}
                         >
                           <span className="flex items-center justify-between">
@@ -315,7 +315,7 @@ export default function PricingPage() {
                         <li
                           key={f}
                           className={`flex items-start gap-3 text-body-sm ${
-                            isHighlighted ? "font-semibold text-ink" : "text-ink"
+                            isHighlighted ? "font-bold text-ink" : "text-ink"
                           }`}
                         >
                           <Check on={true} />

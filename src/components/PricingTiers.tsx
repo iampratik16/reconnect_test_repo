@@ -143,7 +143,7 @@ function TierCard({
             <li
               key={f}
               className={`flex items-start gap-3 text-body-sm ${
-                isHighlighted ? "font-semibold text-ink" : "text-ink"
+                isHighlighted ? "font-bold text-ink" : "text-ink"
               }`}
             >
               <CheckIcon popular={popular} />
