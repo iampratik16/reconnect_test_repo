@@ -32,6 +32,7 @@ import PreventionTimeline from "./_components/PreventionTimeline";
 import ConditionsGrid from "./_components/ConditionsGrid";
 import MethodSection from "./_components/MethodSection";
 import ChooseYourPath from "./_components/ChooseYourPath";
+import FourPillarsShowcase from "@/components/FourPillarsShowcase";
 
 export const metadata: Metadata = {
   title: "Reconnect Wellness | Joint Pain & Arthritis Exercise Program",
@@ -283,6 +284,37 @@ export default function HomePage() {
           7) PROGRAMS — (03) the joint-health spectrum
           ════════════════════════════════════════════════════════ */}
       <ChooseYourPath />
+
+      {/* ═══════════════════════════════════════════════════════
+          TEASER: FOUR PILLARS
+          ═══════════════════════════════════════════════════════ */}
+      <Section bg="bg-bone">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div>
+            <SectionHeader
+              eyebrow="Your daily toolkit"
+              title="What you'll actually use every day."
+              align="left"
+            />
+            <p className="text-body text-ink-soft mt-6 max-w-md">
+              It's not just a program. It's a complete experience designed to keep
+              you engaged, informed, and supported.
+            </p>
+          </div>
+
+          <div>
+            <FourPillarsShowcase variant="teaser" />
+            <Button
+              variant="clay"
+              href={asset("/pricing")}
+              arrow
+              className="mt-8"
+            >
+              Explore pricing
+            </Button>
+          </div>
+        </div>
+      </Section>
 
       {/* ════════════════════════════════════════════════════════
           8) WHAT MAKES US DIFFERENT — DARK contrast moment
