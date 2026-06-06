@@ -137,12 +137,23 @@ function TierCard({
         </p>
       )}
       <ul className="relative flex flex-col gap-3 flex-1">
-        {plan.features.map((f) => (
-          <li key={f} className="flex items-start gap-3 text-body-sm text-ink">
-            <CheckIcon popular={popular} />
-            <span>{f}</span>
-          </li>
-        ))}
+        {plan.features.map((f) => {
+          const isHighlighted = plan.highlightedFeatures?.includes(f);
+          return (
+            <li
+              key={f}
+              className={`flex items-start gap-3 text-body-sm ${
+                isHighlighted ? "font-semibold text-ink" : "text-ink"
+              }`}
+            >
+              <CheckIcon popular={popular} />
+              <span>
+                {isHighlighted && <span className="mr-1">★</span>}
+                {f}
+              </span>
+            </li>
+          );
+        })}
       </ul>
 
       {/* CTA — solid accent on popular, outline otherwise */}

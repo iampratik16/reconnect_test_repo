@@ -246,19 +246,31 @@ export default function PricingPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {allFeatures.map((row, ri) => (
-                    <tr
-                      key={row.label}
-                      className={ri !== allFeatures.length - 1 ? "border-b border-line" : ""}
-                    >
-                      <td className="p-5 lg:p-7 text-body-sm text-ink">{row.label}</td>
-                      {row.byPlan.map((on, ci) => (
-                        <td key={ci} className="p-5 lg:p-7">
-                          <Check on={on} />
+                  {allFeatures.map((row, ri) => {
+                    const isHighlighted = plans.some((p) =>
+                      p.highlightedFeatures?.includes(row.label)
+                    );
+                    return (
+                      <tr
+                        key={row.label}
+                        className={ri !== allFeatures.length - 1 ? "border-b border-line" : ""}
+                      >
+                        <td
+                          className={`p-5 lg:p-7 text-body-sm ${
+                            isHighlighted ? "font-semibold text-ink" : "text-ink"
+                          }`}
+                        >
+                          {isHighlighted && <span className="mr-1">★</span>}
+                          {row.label}
                         </td>
-                      ))}
-                    </tr>
-                  ))}
+                        {row.byPlan.map((on, ci) => (
+                          <td key={ci} className="p-5 lg:p-7">
+                            <Check on={on} />
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
                   <tr className="border-t border-line bg-bone/40">
                     <td className="p-5 lg:p-7"></td>
                     {plans.map((p) => (
@@ -295,12 +307,23 @@ export default function PricingPage() {
                     </span>
                   )}
                   <ul className="flex flex-col gap-2 pt-2">
-                    {cumulativeFeatures(p).map((f) => (
-                      <li key={f} className="flex items-start gap-3 text-body-sm">
-                        <Check on={true} />
-                        <span className="text-ink">{f}</span>
-                      </li>
-                    ))}
+                    {cumulativeFeatures(p).map((f) => {
+                      const isHighlighted = p.highlightedFeatures?.includes(f);
+                      return (
+                        <li
+                          key={f}
+                          className={`flex items-start gap-3 text-body-sm ${
+                            isHighlighted ? "font-semibold text-ink" : "text-ink"
+                          }`}
+                        >
+                          <Check on={true} />
+                          <span>
+                            {isHighlighted && <span className="mr-1">★</span>}
+                            {f}
+                          </span>
+                        </li>
+                      );
+                    })}
                   </ul>
                   <div className="pt-2">
                     <Button

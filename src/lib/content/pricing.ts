@@ -26,6 +26,8 @@ export type Plan = {
   inheritsFrom?: string;
   /** The features THIS tier adds (additive — never the full cumulative list). */
   features: string[];
+  /** Features that should be highlighted with a star (premium-like treatment). */
+  highlightedFeatures?: string[];
   popular: boolean;
 };
 
@@ -48,6 +50,14 @@ export const plans: Plan[] = [
       "Interactive dashboard & progress tracking",
       "Mobile app access (launching 2026)",
       "Personalized coach support & weekly check-ins",
+      "Calorie tracker & personalized food suggestions",
+    ],
+    highlightedFeatures: [
+      "Personalized videos designed for your condition",
+      "Interactive dashboard & progress tracking",
+      "Mobile app access (launching 2026)",
+      "Personalized coach support & weekly check-ins",
+      "Calorie tracker & personalized food suggestions",
     ],
     popular: true,
   },
@@ -61,6 +71,7 @@ export const plans: Plan[] = [
       "Everything in Basic, plus deep psychological input and exclusive 1-on-1 sessions — the full Reconnect experience.",
     inheritsFrom: "Basic",
     features: ["Deep psychological input", "Exclusive 1-on-1 sessions"],
+    highlightedFeatures: ["Deep psychological input", "Exclusive 1-on-1 sessions"],
     popular: false,
   },
 ];
@@ -79,6 +90,7 @@ export const PLAN_FEATURES = [
   "Interactive dashboard & progress tracking",
   "Mobile app access (launching 2026)",
   "Personalized coach support & weekly check-ins",
+  "Calorie tracker & personalized food suggestions",
   "Deep psychological input",
   "Exclusive 1-on-1 sessions",
 ] as const;
