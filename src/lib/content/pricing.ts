@@ -71,6 +71,10 @@ export const PLAN_FEATURES = [
   "Fitness & nutrition guidance",
   "Progress tracking & monthly check-in",
   "Mental-health support",
+  "Personalized videos designed for your condition",
+  "Interactive dashboard & progress tracking",
+  "Mobile app access (launching 2026)",
+  "Personalized coach support & weekly check-ins",
   "Deep psychological input",
   "Exclusive 1-on-1 sessions",
 ] as const;
