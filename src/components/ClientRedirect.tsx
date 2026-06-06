@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { asset } from "@/lib/asset";
 
 /**
  * ClientRedirect — replaces the current history entry with `to` on mount.
@@ -15,14 +16,14 @@ export default function ClientRedirect({ to }: { to: string }) {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace(to);
+    router.replace(asset(to));
   }, [router, to]);
 
   return (
     <section className="min-h-[50vh] flex items-center justify-center bg-bone">
       <p className="text-body text-ink-soft">
         This page has moved.{" "}
-        <a href={to} className="text-clay underline underline-offset-4">
+        <a href={asset(to)} className="text-clay underline underline-offset-4">
           Continue
         </a>
         .
