@@ -260,8 +260,10 @@ export default function PricingPage() {
                             isHighlighted ? "font-semibold text-ink" : "text-ink"
                           }`}
                         >
-                          {isHighlighted && <span className="mr-1">★</span>}
-                          {row.label}
+                          <span className="flex items-center justify-between">
+                            <span>{row.label}</span>
+                            {isHighlighted && <span className="text-clay ml-2 text-lg">★</span>}
+                          </span>
                         </td>
                         {row.byPlan.map((on, ci) => (
                           <td key={ci} className="p-5 lg:p-7">
@@ -317,9 +319,9 @@ export default function PricingPage() {
                           }`}
                         >
                           <Check on={true} />
-                          <span>
-                            {isHighlighted && <span className="mr-1">★</span>}
-                            {f}
+                          <span className="flex-1 flex items-center justify-between">
+                            <span>{f}</span>
+                            {isHighlighted && <span className="text-clay ml-2 text-lg">★</span>}
                           </span>
                         </li>
                       );

@@ -147,9 +147,9 @@ function TierCard({
               }`}
             >
               <CheckIcon popular={popular} />
-              <span>
-                {isHighlighted && <span className="mr-1">★</span>}
-                {f}
+              <span className="flex-1 flex items-center justify-between">
+                <span>{f}</span>
+                {isHighlighted && <span className="text-clay ml-2 text-lg">★</span>}
               </span>
             </li>
           );
