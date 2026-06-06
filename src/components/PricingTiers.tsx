@@ -149,7 +149,7 @@ function TierCard({
               <CheckIcon popular={popular} />
               <span className="flex-1 flex items-center justify-between">
                 <span>{f}</span>
-                {isHighlighted && <span className="text-clay ml-2 text-lg">★</span>}
+                {isHighlighted && <span className="ml-2 text-lg" style={{ color: "#D4A574" }}>★</span>}
               </span>
             </li>
           );
