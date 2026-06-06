@@ -176,20 +176,15 @@ export default function Nav() {
             <div className="flex items-center justify-between px-6 py-4 border-b border-line/10">
               <Link
                 href="/"
-                className="flex items-center gap-3 shrink-0"
+                className="flex items-center gap-2 shrink-0"
                 onClick={() => setMobileOpen(false)}
               >
                 {/* Logo */}
                 <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-6 w-6 object-contain" />
                 {/* Brand name */}
-                <div className="flex flex-col leading-none">
-                  <span className="text-sm font-bold text-ink" style={{ fontFamily: "var(--font-brand)" }}>
-                    RECONNECT
-                  </span>
-                  <span className="text-xs text-clay font-semibold">
-                    WELLNESS
-                  </span>
-                </div>
+                <span className="text-sm font-bold text-ink" style={{ fontFamily: "var(--font-brand)" }}>
+                  RECONNECT
+                </span>
               </Link>
 
               <button
