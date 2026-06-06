@@ -61,7 +61,7 @@ export default function FourPillarsShowcase({
             icon={pillar.icon}
             title={pillar.title}
             description={pillar.description}
-            visualPlaceholder={true}
+            visualPlaceholder={false}
           />
         </Reveal>
       ))}
