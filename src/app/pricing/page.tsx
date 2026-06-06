@@ -10,6 +10,7 @@ import Accordion from "@/components/Accordion";
 import CTASection from "@/components/CTASection";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
 import PricingTiers from "@/components/PricingTiers";
+import FourPillarsShowcase from "@/components/FourPillarsShowcase";
 import { plans, featureMatrix, cumulativeFeatures } from "@/lib/content/pricing";
 
 export const metadata: Metadata = {
@@ -86,7 +87,33 @@ export default function PricingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          2) THREE TIERS
+          2) FOUR PILLARS SHOWCASE
+          ═══════════════════════════════════════════════════════ */}
+      <Section bg="bg-bone">
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className="text-h2 font-display text-ink mb-4">
+              What you'll use every day.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-body-lg text-ink-soft mb-12 max-w-2xl">
+              Before you choose a plan, here's what's actually inside your program.
+            </p>
+          </Reveal>
+
+          <FourPillarsShowcase variant="full" />
+
+          <Reveal delay={0.3}>
+            <p className="text-center text-caption text-ink-soft mt-12">
+              Learn what's in each plan ↓
+            </p>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ═══════════════════════════════════════════════════════
+          3) PRICING TIERS
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
         <PricingTiers ctaLabel="Take the free assessment" ctaHref="/assessment" />
