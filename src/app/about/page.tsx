@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
@@ -7,7 +8,7 @@ import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
 import Pill from "@/components/Pill";
 import CTASection from "@/components/CTASection";
-import { SkeletonSvg, SpineSvg, KneeSvg } from "@/components/AnatomicalArt";
+import { SkeletonSvg, KneeSvg } from "@/components/AnatomicalArt";
 
 export const metadata: Metadata = {
   title: "About Dr. Shruthi",
@@ -39,7 +40,7 @@ const doctorLed = [
 const tracks = [
   { name: "Prevent", note: "For 40+, family history, post-menopausal bone health.", href: "/programs/prevent" },
   { name: "Manage",  note: "For active arthritis, joint pain, back & neck pain, disc bulge.", href: "/programs/manage" },
-  { name: "Recover", note: "For post-surgery, severe OA, fracture recovery.", href: "/programs/recover" },
+  { name: "Strengthen", note: "For post-surgery, severe OA, post-fracture rebuild.", href: "/programs/strengthen" },
 ] as const;
 
 /* ── Page ──────────────────────────────────────────────────── */
@@ -84,7 +85,7 @@ export default function AboutPage() {
               <Reveal delay={0.4}>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Button variant="clay" size="lg" href="/assessment" arrow>
-                    Take free assessment
+                    Take the free assessment
                   </Button>
                   <Button variant="ghost" size="lg" href="/contact">
                     Book consultation
@@ -99,7 +100,7 @@ export default function AboutPage() {
                   <div className="relative rounded-[20px] overflow-hidden shadow-lifted xray-glow">
                     {/* TODO: replace with Dr. Shruthi's preferred high-resolution editorial portrait */}
                     <img
-                      src="/dr-shruthi.jpg"
+                      src={asset("/dr-shruthi.jpg")}
                       alt="Dr. Shruthi Desai, Rheumatologist and founder of Reconnect Wellness"
                       loading="eager"
                       className="w-full h-[420px] md:h-[520px] object-cover"
@@ -157,9 +158,9 @@ export default function AboutPage() {
 
                 <p>
                   The reason it exists is plainer than the methodology. Too many of her patients
-                  arrived at the clinic having been harmed by generic exercise advice — a
-                  YouTube routine that flared a knee, a gym programme that worsened a disc, a
-                  fitness app prescribing impact loading to someone with osteoporosis. The cost
+                  arrived at the clinic having been harmed by generic exercise advice — an
+                  online routine that flared a knee, a gym programme that worsened a disc, a
+                  generic fitness app prescribing impact loading to someone with osteoporosis. The cost
                   of getting it wrong, at this end of medicine, is high. Reconnect is the
                   alternative she wanted to be able to offer them.
                 </p>
@@ -172,25 +173,32 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════════════════════
           3) PHILOSOPHY PULL-QUOTE
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-bone section-py overflow-hidden">
-        <SpineSvg className="watermark text-ink left-[-100px] top-[30px] w-[440px] hidden md:block" />
+      <section className="relative bg-ink section-py overflow-hidden">
+        {/* Oversized opening quotation mark — intentional typographic motif */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -top-10 left-4 md:left-12 text-clay/15 font-display leading-none"
+          style={{ fontSize: "clamp(16rem, 30vw, 34rem)" }}
+        >
+          &ldquo;
+        </span>
 
         <div className="container-site relative">
           <Reveal>
             <div className="max-w-4xl">
               <Eyebrow number="(02)">Philosophy</Eyebrow>
 
-              <blockquote className="mt-10">
-                <p className="text-hero text-ink leading-[1.05]">
-                  We work around the pain,{" "}
-                  <span className="serif-italic text-clay">respect it,</span> and reduce it.
+              <blockquote className="mt-10 relative pl-6 md:pl-10 border-l-2 border-clay">
+                <p className="text-hero text-calcium leading-[1.05]">
+                  Exercise is not artificial. But{" "}
+                  <span className="serif-italic text-clay">inactivity</span> is.
                 </p>
-                <p className="text-h3 font-display text-ink-soft mt-8 max-w-3xl">
-                  Pain-first. Doctor-led. Designed for the body in front of us — never a
-                  template.
+                <p className="text-h3 font-display text-calcium/70 mt-8 max-w-3xl">
+                  It&rsquo;s the medicine that needs you.
                 </p>
-                <footer className="text-caption text-ink-soft mt-8">
-                  — Dr.&nbsp;Shruthi Desai, on the principles behind Reconnect
+                <footer className="text-caption text-calcium/50 mt-10 flex items-center gap-4">
+                  <span className="h-px w-8 bg-clay/60" aria-hidden="true" />
+                  Dr.&nbsp;Shruthi Desai, on the principles behind Reconnect
                 </footer>
               </blockquote>
             </div>
@@ -257,7 +265,7 @@ export default function AboutPage() {
               {tracks.map((t) => (
                 <a
                   key={t.name}
-                  href={t.href}
+                  href={asset(t.href)}
                   className="group glow-card bg-calcium rounded-[18px] p-6 md:p-7 flex flex-col gap-3 h-full"
                 >
                   <div className="flex items-baseline justify-between">
@@ -286,7 +294,7 @@ export default function AboutPage() {
         headline="Want to talk it through?"
         description="Take the assessment, or book a consultation directly with Dr. Shruthi’s team."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"

@@ -110,6 +110,13 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
+/* Offset anchor jumps so section headings clear the fixed nav
+   (h-16 = 64px mobile, h-[72px] = 72px desktop) instead of landing
+   underneath it and clipping the "(01)" eyebrow. */
+html {
+  scroll-padding-top: 88px;
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    PAPER GRAIN / NOISE OVERLAY
@@ -260,6 +267,14 @@ body::after {
 .section-py {
   padding-top: clamp(80px, 10vw, 140px);
   padding-bottom: clamp(80px, 10vw, 140px);
+}
+
+/* CTA band — a closing moment that hands off to the footer. The footer
+   shares the same sage-deep navy, so we trim the CTA's bottom padding to
+   create a deliberate, tighter seam instead of two identical navy slabs
+   separated by a ~280px void (CTA bottom padding + footer top padding). */
+.cta-section {
+  padding-bottom: clamp(56px, 7vw, 96px);
 }
 
 /* Container */

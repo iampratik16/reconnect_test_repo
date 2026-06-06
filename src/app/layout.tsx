@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { SchemaMarkup } from "@/components/SchemaMarkup";
 
 /**
  * Fonts:
@@ -34,11 +35,11 @@ const libreFranklin = Libre_Franklin({
 export const metadata: Metadata = {
   title: {
     default:
-      "Reconnect Wellness | Doctor-Led Strength Training for Joint Pain, Arthritis & Bone Health",
+      "Reconnect Wellness | Joint Pain & Arthritis Exercise Program",
     template: "%s | Reconnect Wellness",
   },
   description:
-    "A personalised, rheumatologist-designed strength and nutrition programme for joint pain, arthritis, back & disc issues, and osteoporosis. Doctor-led, not generic workouts.",
+    "Doctor-designed strength & nutrition program for joint pain, arthritis, and bone health. Personalized, evidence-backed exercises.",
   keywords: [
     "arthritis exercise program",
     "knee pain strength training",
@@ -51,22 +52,32 @@ export const metadata: Metadata = {
     "bone health program",
   ],
   openGraph: {
-    title:
-      "Reconnect Wellness | Stronger Joints. Denser Bones. A Life Without Pain.",
+    title: "Reconnect Wellness | Stronger Joints. Denser Bones.",
     description:
-      "A personalised, doctor-designed strength and nutrition programme for joint pain, arthritis, and osteoporosis.",
+      "Doctor-designed strength & nutrition program for joint pain, arthritis, and bone health. Personalized, evidence-backed.",
     type: "website",
     locale: "en_IN",
     siteName: "Reconnect Wellness",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Reconnect Wellness - Joint Pain & Arthritis Exercise Program",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Reconnect Wellness | Doctor-Led Joint & Bone Health Programs",
+    title: "Reconnect Wellness | Joint Pain & Arthritis Relief",
     description:
-      "Personalised strength training designed by a rheumatologist for joint pain, arthritis, and bone health.",
+      "Doctor-designed strength & nutrition program for arthritis, joint pain, and bone health.",
+    images: ["/og-image.jpg"],
   },
   robots: { index: true, follow: true },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
@@ -78,7 +89,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${geist.variable} ${inter.variable} ${libreFranklin.variable}`}
     >
-      <body className="min-h-dvh flex flex-col bg-bone text-ink antialiased">
+      <head>
+        <SchemaMarkup />
+      </head>
+      <body className="min-h-dvh flex flex-col bg-bone text-ink antialiased overflow-x-hidden">
         <SmoothScroll>
           <Nav />
           <main className="flex-1">{children}</main>

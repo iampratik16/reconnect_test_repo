@@ -7,15 +7,12 @@ import Reveal from "@/components/Reveal";
 import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import Pill from "@/components/Pill";
 import SplitReveal from "@/components/SplitReveal";
-import AnimatedCounter from "@/components/AnimatedCounter";
 import ScrollMarquee from "@/components/ScrollMarquee";
 import BentoGrid, { BentoItem } from "@/components/BentoGrid";
 import JourneyStepper from "@/components/JourneyStepper";
 import CTASection from "@/components/CTASection";
 import SpotlightCard from "@/components/SpotlightCard";
-import TiltCard from "@/components/TiltCard";
 import {
   HandSvg,
   HipSvg,
@@ -24,25 +21,26 @@ import {
   SpineSvg,
 } from "@/components/AnatomicalArt";
 import { sciencePoints } from "@/lib/content/science";
-import { plans } from "@/lib/content/pricing";
+import PricingTiers from "@/components/PricingTiers";
+import { asset } from "@/lib/asset";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
-import SpineConnects from "./_components/SpineConnects";
+import WhyReconnectSection from "./_components/WhyReconnectSection";
+import ScienceSection from "./_components/ScienceSection";
+import PreventionDivergence from "./_components/PreventionDivergence";
+import PreventionTimeline from "./_components/PreventionTimeline";
+import ConditionsGrid from "./_components/ConditionsGrid";
+import MethodSection from "./_components/MethodSection";
+import ChooseYourPath from "./_components/ChooseYourPath";
 
 export const metadata: Metadata = {
-  title: "Reconnect Wellness — Doctor-Led Strength Training for Bones & Joints",
+  title: "Reconnect Wellness | Joint Pain & Arthritis Exercise Program",
   description:
-    "Stronger joints. Denser bones. A life without the pain. A doctor-designed strength and nutrition program for arthritis, joint pain, back issues, and osteoporosis.",
+    "Doctor-designed strength & nutrition program for joint pain, arthritis, and bone health. Personalized, evidence-backed exercises.",
 };
 
 /* ── Data ──────────────────────────────────────────────────── */
 
-const stats = [
-  { value: 500, suffix: "+", label: "Members helped" },
-  { value: 12,  suffix: " wk", label: "Structured programs" },
-  { value: 4.9, suffix: "",    label: "Average rating", decimals: 1 },
-  { value: 3,   suffix: "",    label: "Specialist tracks" },
-];
 
 const proofCards = [
   {
@@ -59,55 +57,29 @@ const proofCards = [
   },
   {
     title: "Structured roadmap",
-    body: "A 12-week cycle with milestones and reassessment — the direction YouTube can’t give you.",
+    body: "A 16-week cycle with milestones and reassessment — the direction a generic app can’t give you.",
   },
 ];
 
 const conditions = [
   { name: "Knee Osteoarthritis",         note: "Stairs, getting up, walking distance",  href: "/programs/manage",  Icon: KneeSvg },
   { name: "Chronic Back Pain",           note: "Posture, stiffness, daily ache",        href: "/programs/manage",  Icon: SpineSvg },
-  { name: "Disc Bulge / Sciatica",       note: "Nerve symptoms, radiating pain",        href: "/programs/recover", Icon: SpineSvg },
+  { name: "Disc Bulge / Sciatica",       note: "Nerve symptoms, radiating pain",        href: "/programs/strengthen", Icon: SpineSvg },
   { name: "Rheumatoid Arthritis",        note: "Autoimmune joint inflammation",         href: "/programs/manage",  Icon: HandSvg },
-  { name: "Osteoporosis",                note: "Bone density, fracture risk",           href: "/programs/recover", Icon: SkeletonSvg },
+  { name: "Osteoporosis",                note: "Bone density, fracture risk",           href: "/programs/strengthen", Icon: SkeletonSvg },
   { name: "Frozen Shoulder",             note: "Stiffness, range of motion loss",       href: "/programs/manage",  Icon: HandSvg },
   { name: "Cervical (Neck) Pain",        note: "Posture-driven cervical strain",        href: "/programs/manage",  Icon: SpineSvg },
   { name: "Post-menopausal Bone Loss",   note: "Density support after menopause",       href: "/programs/prevent", Icon: SkeletonSvg },
   { name: "Joint Stiffness",             note: "Morning stiffness, reduced mobility",   href: "/programs/manage",  Icon: HipSvg },
-  { name: "Hip Pain",                    note: "Hip OA, post-replacement, instability", href: "/programs/recover", Icon: HipSvg },
-];
-
-const tracks = [
-  {
-    slug: "prevent",
-    name: "Prevent",
-    tagline: "Stay ahead of joint and bone problems.",
-    tags: ["Early arthritis", "Bone health", "40+"],
-    image: "/kettlebell-squat.jpg",
-    Icon: SkeletonSvg,
-  },
-  {
-    slug: "manage",
-    name: "Manage",
-    tagline: "Reduce flare-ups and rebuild resilience.",
-    tags: ["Active arthritis", "Joint pain", "Back pain"],
-    image: "/mat-stretching.jpg",
-    Icon: SpineSvg,
-  },
-  {
-    slug: "recover",
-    name: "Recover",
-    tagline: "Rebuild safely under close medical guidance.",
-    tags: ["Post-surgery", "Severe OA", "Rehab"],
-    image: "/trainer-guided-exercise.jpg",
-    Icon: KneeSvg,
-  },
+  { name: "Hip Pain",                    note: "Hip OA, post-replacement, instability", href: "/programs/strengthen", Icon: HipSvg },
 ];
 
 const darkPoints = [
-  { title: "Doctor-led, not influencer-led", body: "Designed and overseen by a rheumatologist with over a decade of clinical practice." },
-  { title: "Personalised to your diagnosis", body: "Programs shaped by imaging, history, and current medication — not a one-size template." },
-  { title: "Pain-first", body: "We work around pain, respect it, reduce it — then build strength on top of it." },
-  { title: "Structured 12-week roadmap", body: "Direction and motivation a generic app or YouTube playlist can’t give." },
+  { title: "Reconnect Strength", body: "Rebuild lost muscle and load-bearing strength — the base everything else is built on." },
+  { title: "Reconnect Joints", body: "Calm arthritis and joint pain, then build the strength that protects them." },
+  { title: "Reconnect Spine", body: "Neck, back, and disc issues met at the source — posture, core, and control." },
+  { title: "Reconnect Pain", body: "We work around pain, respect it, and reduce it — never push through it." },
+  { title: "Reconnect Metabolism", body: "Tackle the blood sugar and inflammation that quietly drive joint and bone loss." },
 ];
 
 /* ── Page ──────────────────────────────────────────────────── */
@@ -115,18 +87,7 @@ const darkPoints = [
 export default function HomePage() {
   return (
     <>
-      {/* ── Resource hints for the 3D spine in section (05) ────────
-         These get hoisted to <head> by React 19 / Next 15 so the
-         browser starts the GLB download in parallel with HTML parse,
-         and the DRACO decoder CDN is already warmed up by the time
-         three.js asks for it. Eliminates the cold-start wait. */}
-      <link
-        rel="preload"
-        as="fetch"
-        href="/models/spine.glb"
-        type="model/gltf-binary"
-        crossOrigin="anonymous"
-      />
+      {/* Spine GLB preload removed with the "Built like a spine" section. */}
       <link rel="preconnect" href="https://www.gstatic.com" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="https://www.gstatic.com" />
       {/* ════════════════════════════════════════════════════════
@@ -185,15 +146,15 @@ export default function HomePage() {
 
               <Reveal delay={0.55}>
                 <p className="text-body-lg text-bone/85 mt-6 max-w-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
-                  A doctor-designed strength and nutrition program for arthritis,
-                  joint pain, back issues, and osteoporosis.
+                  A doctor-designed strength and nutrition program for joint pain,
+                  neck/back issues, chronic body pains, and for stronger bones and muscles.
                 </p>
               </Reveal>
 
               <Reveal delay={0.7}>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Button variant="clay" size="lg" href="/assessment" arrow>
-                    Take free assessment
+                    Take the free assessment
                   </Button>
 
                   {/* Premium glass secondary CTA — visible on any video frame */}
@@ -227,252 +188,101 @@ export default function HomePage() {
 
       </section>
 
-      {/* ════════════════════════════════════════════════════════
-          2) STAT STRIP — animated counters, hairline-separated
-          ════════════════════════════════════════════════════════ */}
-      <section className="border-y border-line bg-bone">
-        <div className="container-site grid grid-cols-2 lg:grid-cols-4 divide-x divide-line">
-          {stats.map((s, i) => (
-            <div key={s.label} className={`py-10 px-4 lg:px-8 ${i === 0 ? "border-l-0" : ""}`}>
-              <p className="text-h2 font-display text-ink leading-none">
-                {s.decimals ? (
-                  <DecimalCounter value={s.value} />
-                ) : (
-                  <AnimatedCounter value={s.value} suffix={s.suffix} />
-                )}
-              </p>
-              <p className="text-caption text-ink-soft uppercase tracking-widest mt-3">
-                {s.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* STAT STRIP removed per client request. */}
 
       {/* ════════════════════════════════════════════════════════
           3) THE DIFFERENTIATOR — (01) Why Reconnect
           ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <SectionHeader
-          title="Not random workouts. A program designed for your body."
-          description="Most fitness apps give you the same plan as the next person. Reconnect doesn’t."
-          align="left"
-          className="mb-14 max-w-4xl"
-        />
+      <WhyReconnectSection />
 
+      {/* ════════════════════════════════════════════════════════
+          4) THE SCIENCE — (02) Cinematic image bento
+          ════════════════════════════════════════════════════════ */}
+      <ScienceSection />
+
+      {/* ════════════════════════════════════════════════════════
+          4b) BUILT FOR PREVENTION — primary highlight, before Conditions
+          ════════════════════════════════════════════════════════ */}
+      <Section bg="bg-bone">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* Proof cards */}
-          <div className="lg:col-span-7">
-            <Stagger className="grid grid-cols-1 sm:grid-cols-2 gap-5" staggerDelay={0.08}>
-              {proofCards.map((c, i) => (
-                <Card key={c.title} padding="md" className="glow-card bg-calcium flex flex-col gap-3 h-full">
-                  <span className="text-eyebrow text-clay">0{i + 1}</span>
-                  <h3 className="text-h4 font-display text-ink">{c.title}</h3>
-                  <p className="text-body-sm text-ink-soft">{c.body}</p>
-                </Card>
-              ))}
-            </Stagger>
+          {/* Prevention divergence: two scroll-drawn paths from age 40 — the
+              widening gap between "do nothing" and "with Reconnect" is the pitch. */}
+          <div className="lg:col-span-5 lg:sticky lg:top-24">
+            <Reveal>
+              <PreventionDivergence />
+            </Reveal>
           </div>
 
-          {/* Founder pull-quote */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-7">
             <Reveal>
-              <blockquote className="border-l-2 border-clay pl-6">
-                <p className="serif-italic text-h3 text-ink leading-snug">
-                  YouTube has endless exercises — but no motivation, and no direction for
-                  where <em className="not-italic font-display">your</em> body is at. We give
-                  you the roadmap.
-                </p>
-                <footer className="text-caption text-ink-soft mt-4">
-                  — Dr.&nbsp;Shruthi Desai
-                </footer>
-              </blockquote>
+              <Eyebrow>Built for prevention</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="text-h2 font-display text-ink mt-6">
+                Built for the prevention of joint pain and arthritis.
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
+                The damage almost never starts with a diagnosis. It starts with the chair.
+              </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <p className="text-body text-ink-soft mt-4 max-w-xl">
+                If you’re somewhere between 30 and 50 — building a career at a desk for ten or
+                twelve hours a day, raising kids, eating on the run, with no real time for the
+                gym — your body is quietly keeping score. The stiff neck. The lower back that
+                aches by evening. The shoulder that never fully loosens. None of it is bad
+                enough to see a doctor for. <em className="serif-italic">Yet.</em> That “yet” is
+                exactly where Reconnect works.
+              </p>
+            </Reveal>
+            <Reveal delay={0.4}>
+              <p className="serif-italic text-h4 text-clay mt-6 max-w-xl">
+                Movement is natural. Sitting still for twelve hours isn’t.
+              </p>
+            </Reveal>
+            <Reveal delay={0.5}>
+              <p className="text-body text-ink-soft mt-4 max-w-xl">
+                Prevention here isn’t a workout plan you’ll quit in three weeks. It’s a safety
+                net — small, doctor-guided changes now (a movement snack every hour, thirty
+                focused minutes you can do at home) so the next decade asks far less of you.
+                Look after it at 40, and your 50s feel better.
+              </p>
+            </Reveal>
+            <Reveal delay={0.6}>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Button variant="clay" href="/programs/prevent" arrow>
+                  Start with prevention
+                </Button>
+                <Button variant="sage-outline" href="/assessment" arrow>
+                  Take the free assessment
+                </Button>
+              </div>
             </Reveal>
           </div>
         </div>
+
+        {/* The story, made human: what tends to happen — and where it can turn */}
+        <PreventionTimeline />
       </Section>
 
       {/* ════════════════════════════════════════════════════════
-          4) THE SCIENCE — (02) BentoGrid 4 cards
+          5) CONDITIONS — editorial masonry grid
           ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          title="Why strength training changes everything."
-          description="The evidence behind every program we design — measurable improvements across pain, bone, muscle, and degeneration."
-          align="left"
-          className="mb-12 max-w-3xl"
-        />
+      <ConditionsGrid />
 
-        <BentoGrid>
-          {/* Card 1 — larger */}
-          <BentoItem colSpan={2} className="p-0">
-            <SpotlightCard className="h-full p-8 md:p-10 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Less pain</p>
-                <KneeSvg className="w-16 text-sage opacity-50" />
-              </div>
-              <p className="text-h3 font-display text-ink mb-3">
-                {sciencePoints[0].description}
-              </p>
-              {sciencePoints[0].stat && (
-                <p className="text-caption text-ink-soft">
-                  Typical reduction in chronic pain scores reported across our 12-week cycles.
-                </p>
-              )}
-            </SpotlightCard>
-          </BentoItem>
-
-          {/* Card 2 */}
-          <BentoItem className="p-0">
-            <SpotlightCard className="h-full p-8 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Denser bones</p>
-                <SkeletonSvg className="w-14 text-sage opacity-50" />
-              </div>
-              <h3 className="text-h4 font-display text-ink mb-2">Bone formation</h3>
-              <p className="text-body-sm text-ink-soft">{sciencePoints[1].description}</p>
-            </SpotlightCard>
-          </BentoItem>
-
-          {/* Card 3 */}
-          <BentoItem className="p-0">
-            <SpotlightCard className="h-full p-8 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Retained muscle</p>
-                <HandSvg className="w-14 text-sage opacity-50" />
-              </div>
-              <h3 className="text-h4 font-display text-ink mb-2">Reverse sarcopenia</h3>
-              <p className="text-body-sm text-ink-soft">{sciencePoints[2].description}</p>
-            </SpotlightCard>
-          </BentoItem>
-
-          {/* Card 4 — wider */}
-          <BentoItem colSpan={2} className="p-0">
-            <SpotlightCard className="h-full p-8 md:p-10 rounded-card">
-              <div className="flex items-start justify-between mb-4">
-                <p className="text-eyebrow text-clay">Prevent degeneration</p>
-                <HipSvg className="w-16 text-sage opacity-50" />
-              </div>
-              <h3 className="text-h3 font-display text-ink mb-3">Joint protection</h3>
-              <p className="text-body text-ink-soft">{sciencePoints[3].description}</p>
-            </SpotlightCard>
-          </BentoItem>
-        </BentoGrid>
-      </Section>
+      {/* "Built like a spine" (Connected by design) section removed per client request. */}
 
       {/* ════════════════════════════════════════════════════════
-          5) CONDITIONS MARQUEE — signature scrolling cards
+          6) THE METHOD — morphing body silhouette
           ════════════════════════════════════════════════════════ */}
-      <section className="bg-bone py-20 md:py-28 overflow-hidden">
-        <div className="container-site mb-12">
-          <SectionHeader
-            title="Built for the conditions you actually live with."
-            description="Find what you’re dealing with — each card links to the right track."
-            align="left"
-          />
-        </div>
-
-        <div className="flex flex-col gap-6">
-          <ScrollMarquee speed={45} direction="left">
-            {conditions.slice(0, 5).map((c) => (
-              <ConditionCard key={c.name} {...c} />
-            ))}
-          </ScrollMarquee>
-
-          <ScrollMarquee speed={45} direction="right">
-            {conditions.slice(5).map((c) => (
-              <ConditionCard key={c.name} {...c} />
-            ))}
-          </ScrollMarquee>
-        </div>
-      </section>
+      <MethodSection />
 
       {/* ════════════════════════════════════════════════════════
-          5b) CONNECTED BY DESIGN — scroll-rotating spine
+          7) PROGRAMS — (03) the joint-health spectrum
           ════════════════════════════════════════════════════════ */}
-      <SpineConnects />
-
-      {/* ════════════════════════════════════════════════════════
-          6) THE JOURNEY — JourneyStepper
-          ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          title="One connected method — always in this order."
-          description="The four pillars are integrated, not bolted on. Assessment always comes first."
-          align="center"
-          className="mb-16"
-        />
-
-        <JourneyStepper />
-
-        <div className="mt-12 flex justify-center">
-          <Button variant="sage-outline" href="/how-it-works" arrow>
-            See how it works
-          </Button>
-        </div>
-      </Section>
-
-      {/* ════════════════════════════════════════════════════════
-          7) PROGRAMS — (03) three image cards
-          ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <SectionHeader
-          title="Choose your path."
-          description="Three tracks for where you are today. Each is personalised after your medical assessment."
-          align="left"
-          className="mb-14"
-        />
-
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
-          {tracks.map((t) => (
-            <TiltCard key={t.slug} className="h-full rounded-[20px]" maxTilt={7} scale={1.025}>
-              <Link
-                href={`/programs/${t.slug}`}
-                className="group glow-card relative rounded-[20px] overflow-hidden bg-calcium flex flex-col h-full"
-              >
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  {/* TODO: replace with consented track photo */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={t.image}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-                  />
-                  {/* Brand wash on hover */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, transparent 40%, rgba(0,41,92,0.55) 100%)",
-                    }}
-                    aria-hidden="true"
-                  />
-                </div>
-
-                <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
-                  <h3 className="text-h3 font-display text-ink">{t.name}</h3>
-                  <p className="text-body text-ink-soft">{t.tagline}</p>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {t.tags.map((tag) => (
-                      <Pill key={tag} variant="sage">
-                        {tag}
-                      </Pill>
-                    ))}
-                  </div>
-                  <span className="text-body-sm font-medium text-clay mt-auto inline-flex items-center gap-2">
-                    Explore {t.name}
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
-                      <path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
-            </TiltCard>
-          ))}
-        </Stagger>
-      </Section>
+      <ChooseYourPath />
 
       {/* ════════════════════════════════════════════════════════
           8) WHAT MAKES US DIFFERENT — DARK contrast moment
@@ -484,7 +294,7 @@ export default function HomePage() {
           <Reveal>
             <h2 className="text-h2 font-display text-bone max-w-3xl">
               This isn’t a fitness app.{" "}
-              <span className="serif-italic text-clay-soft">It’s medicine that moves you.</span>
+              <span className="serif-italic text-clay-soft">It’s science that moves you.</span>
             </h2>
           </Reveal>
 
@@ -515,7 +325,7 @@ export default function HomePage() {
                 {/* TODO: replace with Dr. Shruthi's editorial portrait */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/dr-shruthi.jpg"
+                  src={asset("/dr-shruthi.jpg")}
                   alt="Dr. Shruthi Desai, Rheumatologist"
                   loading="lazy"
                   className="w-full h-[440px] md:h-[560px] object-cover"
@@ -572,136 +382,20 @@ export default function HomePage() {
       </Section>
 
       {/* ════════════════════════════════════════════════════════
-          11) CGM TEASER — slim, clearly secondary
-          ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <Reveal>
-          <div className="bg-sage-tint rounded-[20px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start gap-5 max-w-2xl">
-              <span className="hidden sm:inline-flex shrink-0 w-12 h-12 rounded-full bg-sage text-bone items-center justify-center text-body-sm font-medium">
-                +
-              </span>
-              <div>
-                <p className="text-eyebrow text-sage mb-2">Add-on · metabolic track</p>
-                <h3 className="text-h4 font-display text-ink mb-1">
-                  Managing borderline sugar?
-                </h3>
-                <p className="text-body-sm text-ink-soft">
-                  Ask about our Continuous Glucose Monitoring program — sensor-driven,
-                  doctor-supervised. ₹15,000 for 6 months.
-                </p>
-              </div>
-            </div>
-            <Button variant="sage-outline" href="/cgm" arrow>
-              Learn about CGM
-            </Button>
-          </div>
-        </Reveal>
-      </Section>
-
-      {/* ════════════════════════════════════════════════════════
-          12) PRICING TEASER — 3 compact plans
+          11) PRICING TEASER — editorial tiers (shared component)
           ════════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep">
         <SectionHeader
           title="Plans that fit your needs."
-          description="All plans include a medical assessment and a personalised program. No long-term contracts."
           align="left"
           className="mb-12"
         />
 
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-5" staggerDelay={0.08}>
-          {plans.map((p) => {
-            const isPopular = p.popular;
-            return (
-              <div
-                key={p.name}
-                className={`relative rounded-[18px] p-6 md:p-7 flex flex-col gap-4 h-full hairline ${
-                  isPopular ? "bg-sage-deep text-bone" : "bg-calcium text-ink"
-                }`}
-              >
-                {isPopular && (
-                  <span className="self-start text-caption font-medium bg-clay text-calcium rounded-pill px-3 py-1">
-                    Most popular
-                  </span>
-                )}
-                <div>
-                  <p className={`text-eyebrow ${isPopular ? "text-clay-soft" : "text-clay"}`}>
-                    {p.name}
-                  </p>
-                  <p className={`text-h3 font-display mt-2 ${isPopular ? "text-bone" : "text-ink"}`}>
-                    ₹{p.price.toLocaleString("en-IN")}
-                    <span className={`text-caption font-normal ${isPopular ? "text-bone/60" : "text-ink-soft"}`}>
-                      {p.period}
-                    </span>
-                  </p>
-                </div>
-                <ul className="flex flex-col gap-2.5 text-body-sm flex-1">
-                  {p.features.map((f) => (
-                    <li key={f.label} className="flex items-start gap-2.5">
-                      {f.included ? (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className={`shrink-0 mt-0.5 ${isPopular ? "text-clay-soft" : "text-clay"}`}
-                          aria-label="Included"
-                        >
-                          <path d="M4 10l4 4 8-8" />
-                        </svg>
-                      ) : (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className={`shrink-0 mt-0.5 ${isPopular ? "text-bone/30" : "text-ink-soft/40"}`}
-                          aria-label="Not included"
-                        >
-                          <path d="M6 6l8 8M14 6l-8 8" />
-                        </svg>
-                      )}
-                      <span
-                        className={
-                          f.included
-                            ? isPopular
-                              ? "text-bone"
-                              : "text-ink"
-                            : isPopular
-                              ? "text-bone/40 line-through"
-                              : "text-ink-soft/50 line-through"
-                        }
-                      >
-                        {f.label}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  variant={isPopular ? "clay" : "sage-outline"}
-                  size="md"
-                  href="/pricing"
-                  arrow
-                  className="w-full justify-center"
-                >
-                  See plan
-                </Button>
-              </div>
-            );
-          })}
-        </Stagger>
+        <PricingTiers ctaLabel="See plan" ctaHref="/pricing" />
 
-        <p className="text-caption text-ink-soft mt-6 italic">
-          TODO: confirm pricing with client — founder also referenced a ₹15,000 / 6-month program option.
+        <p className="text-caption text-ink-soft mt-8 text-center max-w-[64rem] mx-auto">
+          Minimum program duration: 4 months. Prices in INR; the assessment is free and runs
+          before you commit to any plan.
         </p>
       </Section>
 
@@ -712,7 +406,7 @@ export default function HomePage() {
         headline="Your joints deserve better than painkillers and rest."
         description="Take a 2-minute assessment and find the right program for your body."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"
@@ -748,11 +442,6 @@ function ConditionCard({
       </div>
     </Link>
   );
-}
-
-function DecimalCounter({ value }: { value: number }) {
-  // Counter primitive integer-rounds; render 4.9 statically (still in-view triggered via parent reveal feel)
-  return <span>{value.toFixed(1)}</span>;
 }
 
 function SplitRevealInline({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {

@@ -5,16 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Button from "@/components/Button";
+import { asset } from "@/lib/asset";
 import { SpineSvg } from "@/components/AnatomicalArt";
 
 /* ── Data ──────────────────────────────────────────────────── */
 
 const NAV_LINKS = [
-  { href: "/programs", label: "Programs" },
-  { href: "/how-it-works", label: "How It Works" },
+  { href: "/approach", label: "Approach" },
+  { href: "/programs/prevent", label: "Prevent" },
   { href: "/about", label: "About Dr.\u00A0Shruthi" },
+  { href: "/team", label: "Our Team" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/faq", label: "FAQ" },
 ] as const;
 
 /* ── Component ─────────────────────────────────────────────── */
@@ -77,7 +78,7 @@ export default function Nav() {
 
   /* ── Hamburger icon lines ────────────────────────────────── */
   const lineClass =
-    "block h-[1.5px] w-6 bg-ink transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]";
+    "block h-[2px] w-6 bg-ink transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]";
 
   return (
     <>
@@ -91,9 +92,9 @@ export default function Nav() {
       >
         <nav className="container-site flex items-center justify-between h-16 md:h-[72px]">
           {/* ── Logo ──────────────────────────────────────── */}
-          <Link href="/" className="flex items-center gap-2.5 group" aria-label="Reconnect home">
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0" aria-label="Reconnect home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo.png" alt="" aria-hidden="true" className="h-9 w-9 object-contain" />
+            <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-9 w-9 object-contain" />
             <span
               className="text-[1.05rem] font-semibold tracking-[0.04em] text-ink leading-none"
               style={{ fontFamily: "var(--font-brand)" }}
@@ -103,7 +104,7 @@ export default function Nav() {
           </Link>
 
           {/* ── Desktop links (center) ────────────────────── */}
-          <ul className="hidden md:flex items-center gap-6 lg:gap-8">
+          <ul className="hidden xl:flex items-center gap-6 2xl:gap-8">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
@@ -121,8 +122,8 @@ export default function Nav() {
           </ul>
 
           {/* ── Desktop CTA (right) ───────────────────────── */}
-          <div className="hidden md:block">
-            <Button variant="clay" href="/assessment" size="md">
+          <div className="hidden xl:block shrink-0">
+            <Button variant="clay" href="/assessment" size="md" className="whitespace-nowrap">
               Take the free assessment
             </Button>
           </div>
@@ -131,7 +132,7 @@ export default function Nav() {
           <button
             ref={toggleRef}
             onClick={toggleMenu}
-            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2"
+            className="xl:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
           >
@@ -168,84 +169,109 @@ export default function Nav() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[60] bg-bone flex flex-col md:hidden"
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[60] bg-bone flex flex-col xl:hidden overflow-hidden"
           >
             {/* Top bar with close */}
-            <div className="container-site flex items-center justify-between h-16">
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="container-site flex items-center justify-between h-16 border-b border-line/20"
+            >
               <Link
                 href="/"
-                className="flex flex-col leading-tight"
+                className="flex flex-col leading-tight group"
                 onClick={() => setMobileOpen(false)}
               >
-                <span className="text-h4 font-semibold text-ink">
+                <span className="text-h4 font-semibold text-ink group-hover:text-clay transition-colors duration-200">
                   Reconnect
                 </span>
-                <span className="text-caption text-ink-soft tracking-widest uppercase -mt-0.5">
+                <span className="text-caption text-clay tracking-widest uppercase -mt-0.5">
                   wellness
                 </span>
               </Link>
-              <button
+              <motion.button
                 ref={closeBtnRef}
                 onClick={() => setMobileOpen(false)}
-                className="flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2"
+                className="flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2 hover:bg-clay/5 rounded-lg transition-colors duration-200"
                 aria-label="Close menu"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <span className={`${lineClass} rotate-45 translate-y-[6.5px] origin-center`} />
                 <span className={`${lineClass} opacity-0 scale-x-0`} />
                 <span className={`${lineClass} -rotate-45 -translate-y-[6.5px] origin-center`} />
                 <span className="sr-only">Close</span>
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
 
             {/* Links */}
-            <nav className="container-site flex-1 flex flex-col justify-center gap-6 pb-32">
-              {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={
-                    prefersReduced
-                      ? { opacity: 0 }
-                      : { opacity: 0, y: 30 }
-                  }
-                  animate={
-                    prefersReduced
-                      ? { opacity: 1 }
-                      : { opacity: 1, y: 0 }
-                  }
-                  transition={{
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: 0.06 * i,
-                  }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`text-h2 font-display block ${
-                      pathname === link.href
-                        ? "text-ink"
-                        : "text-ink-soft hover:text-ink"
-                    } transition-colors duration-200`}
+            <nav className="container-site flex-1 flex flex-col justify-center gap-8 pb-32">
+              {NAV_LINKS.map((link, i) => {
+                const isActive = pathname === link.href;
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={
+                      prefersReduced
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: 30, scale: 0.95 }
+                    }
+                    animate={
+                      prefersReduced
+                        ? { opacity: 1 }
+                        : { opacity: 1, y: 0, scale: 1 }
+                    }
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: 0.06 * i,
+                    }}
+                    className="relative group"
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`text-h2 font-display block transition-all duration-300 ${
+                        isActive
+                          ? "text-clay"
+                          : "text-ink-soft hover:text-ink"
+                      }`}
+                    >
+                      {link.label}
+
+                      {/* Animated underline */}
+                      <motion.div
+                        initial={{ scaleX: 0, originX: 0 }}
+                        animate={{ scaleX: isActive ? 1 : 0 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute bottom-[-8px] left-0 h-1 bg-gradient-to-r from-clay to-clay-dark rounded-full"
+                        style={{ width: "100%" }}
+                      />
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </nav>
 
             {/* CTA pinned to bottom */}
-            <div className="fixed bottom-0 left-0 right-0 p-6 pb-8 bg-bone">
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+              className="fixed bottom-0 left-0 right-0 p-6 pb-8 bg-linear-to-t from-bone via-bone to-bone/0"
+            >
               <Button
                 variant="clay"
                 href="/assessment"
                 size="lg"
-                className="w-full justify-center"
+                className="w-full justify-center shadow-lg hover:shadow-xl transition-all duration-300"
                 arrow
               >
                 Take the free assessment
               </Button>
-            </div>
+            </motion.div>
 
             {/* Anatomical motif */}
             <SpineSvg className="absolute bottom-8 right-8 w-32 opacity-5 text-ink pointer-events-none" />

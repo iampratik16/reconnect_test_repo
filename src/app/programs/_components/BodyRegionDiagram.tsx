@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 type RegionId = "neck" | "shoulder" | "back" | "hip" | "knee";
 
@@ -18,9 +19,10 @@ type Region = {
 };
 
 const REGIONS: Region[] = [
-  // Coordinates tuned to skeleton.png (500×500) inside a 200×200 viewBox.
-  // y=0 is the top of the image; the skeleton spans roughly y=15 (skull)
-  // to y=185 (feet).
+  // Coordinates tuned to bodyregion/human-back-c.png (1:1) inside a 200×200
+  // viewBox. Posterior (back) view: centered full body, head≈y=17 to feet≈y=198,
+  // with the spine running down the midline (cx≈100) — so neck, back and hip all
+  // sit on the real vertebral column. Shoulder & knee offset to viewer-left.
   {
     id: "neck",
     label: "Neck & Cervical",
@@ -30,7 +32,7 @@ const REGIONS: Region[] = [
     track: "/programs/manage",
     trackName: "Manage",
     cx: 100,
-    cy: 30, // at the skull / cervical region
+    cy: 36, // cervical spine, base of skull
   },
   {
     id: "shoulder",
@@ -40,8 +42,8 @@ const REGIONS: Region[] = [
     conditions: ["Frozen shoulder", "Rotator cuff", "Impingement"],
     track: "/programs/manage",
     trackName: "Manage",
-    cx: 126,
-    cy: 50, // right shoulder joint
+    cx: 80,
+    cy: 48, // shoulder joint (viewer-left)
   },
   {
     id: "back",
@@ -52,7 +54,7 @@ const REGIONS: Region[] = [
     track: "/programs/manage",
     trackName: "Manage",
     cx: 100,
-    cy: 68, // mid thoracic spine (between shoulders and waist)
+    cy: 70, // thoracic / lumbar spine — now on the actual vertebral column
   },
   {
     id: "hip",
@@ -60,21 +62,21 @@ const REGIONS: Region[] = [
     short: "Hip",
     blurb: "Hip OA, post-replacement, instability.",
     conditions: ["Hip osteoarthritis", "Post-replacement", "Instability"],
-    track: "/programs/recover",
-    trackName: "Recover",
+    track: "/programs/strengthen",
+    trackName: "Strengthen",
     cx: 100,
-    cy: 98, // pelvis centre (on the iliac crest line)
+    cy: 98, // sacrum / pelvis centre
   },
   {
     id: "knee",
     label: "Knee",
     short: "Knee",
-    blurb: "Knee OA, ligament rehab, post-surgical.",
-    conditions: ["Knee osteoarthritis", "Ligament rehab", "Post-surgical"],
-    track: "/programs/recover",
-    trackName: "Recover",
-    cx: 108,
-    cy: 150, // right knee joint
+    blurb: "Knee OA, ligament rebuild, post-surgical.",
+    conditions: ["Knee osteoarthritis", "Ligament rebuild", "Post-surgical"],
+    track: "/programs/strengthen",
+    trackName: "Strengthen",
+    cx: 92,
+    cy: 140, // knee joint (viewer-left)
   },
 ];
 
@@ -100,10 +102,12 @@ export default function BodyRegionDiagram() {
           aria-hidden="true"
         />
 
-        {/* Anatomical skeleton image (sits behind the SVG dots) */}
+        {/* Translucent anatomical human figure — posterior (back) view, so the
+            spine is real and the back/neck/hip markers land on the actual
+            vertebral column. Sits behind the SVG dots. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/skeleton.png"
+          src={asset("/bodyregion/human-back-c.png")}
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-contain select-none pointer-events-none"
@@ -265,7 +269,7 @@ export default function BodyRegionDiagram() {
             </ul>
 
             <a
-              href={region.track}
+              href={asset(region.track)}
               className="group inline-flex items-center gap-2 text-body font-medium text-clay hover:text-clay-dark transition-colors duration-200 mt-1"
             >
               Explore the {region.trackName} track

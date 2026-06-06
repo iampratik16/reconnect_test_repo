@@ -22,7 +22,7 @@ export const faqs: FAQ[] = [
   {
     question: "How is this different from physiotherapy?",
     answer:
-      "Physiotherapy typically focuses on short-term rehabilitation of a specific injury. Reconnect is a long-term strength and lifestyle program designed by a rheumatologist that addresses the root causes of joint and bone problems through progressive strength training, nutrition, and psychology.",
+      "Physiotherapy typically focuses on short-term rehabilitation of a specific injury. Reconnect is a long-term strength and lifestyle program designed by a rheumatologist that addresses the root causes of joint and bone problems through progressive strength training, nutrition, and mind coaching.",
   },
   {
     question: "Is it suitable for seniors?",

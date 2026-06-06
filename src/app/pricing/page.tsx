@@ -1,24 +1,5 @@
-/*
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║  ⚠️  PRICING TODO — RECONCILE BEFORE LAUNCH                             ║
- * ║                                                                          ║
- * ║  Dr. Shruthi referenced a ₹15,000 / 6-month figure on the founder call. ║
- * ║  The monthly tiers below (Essential ₹2,499, Care ₹4,999, Elite ₹8,999) ║
- * ║  do NOT cleanly map to that.                                             ║
- * ║                                                                          ║
- * ║  Likely resolution: either                                               ║
- * ║    (a) keep monthly tiers AND add a "6-month program" anchored at        ║
- * ║        ₹15,000 (≈ Essential x 6 with a discount), shown as the headline ║
- * ║        commitment plan, or                                               ║
- * ║    (b) restructure the tiers as 6-month bundles (₹15K / ₹30K / ₹54K)    ║
- * ║        and drop monthly altogether.                                      ║
- * ║                                                                          ║
- * ║  Until resolved: monthly tiers shown as primary, CGM 6-month add-on as  ║
- * ║  the only 6-month price visible. FLAG THIS TO THE CLIENT.               ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
- */
-
 import type { Metadata } from "next";
+import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
@@ -28,33 +9,31 @@ import Button from "@/components/Button";
 import Accordion from "@/components/Accordion";
 import CTASection from "@/components/CTASection";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
-import { plans, PLAN_FEATURES } from "@/lib/content/pricing";
+import PricingTiers from "@/components/PricingTiers";
+import { plans, featureMatrix, cumulativeFeatures } from "@/lib/content/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Three plans, all including a medical assessment and a personalised program. Essential, Care (most popular), and Elite — plus a CGM add-on.",
+    "Two monthly plans, both including a medical assessment and a personalised program. Basic (most popular) and Premium, with a minimum 4-month program.",
 };
 
 /* ── Data ──────────────────────────────────────────────────── */
 
 /**
- * Comparison table rows — derived from the canonical PLAN_FEATURES list +
- * each plan's `included` flags so the matrix stays in sync with the cards.
+ * Comparison table rows — derived from the canonical feature matrix so the
+ * yes/no grid stays in sync with the additive card lists.
  */
-const allFeatures = PLAN_FEATURES.map((label) => ({
-  label,
-  byPlan: plans.map((p) => p.features.find((f) => f.label === label)?.included ?? false),
-}));
+const allFeatures = featureMatrix();
 
 const pricingFaqs = [
   {
     q: "How does billing work?",
-    a: "All plans are billed monthly. You're charged at the start of each cycle. No long-term contracts, no lock-ins.",
+    a: "Both plans are billed monthly, with a minimum program duration of 4 months. You're charged at the start of each cycle.",
   },
   {
     q: "Can I pause or cancel my plan?",
-    a: "Yes — both. Pause for travel, surgery recovery, or any other reason; cancel any time before your next billing cycle. We don't believe in trapping members into plans that don't fit their life.",
+    a: "Yes — both. Pause for travel, surgery, or any other reason; cancel any time before your next billing cycle. We don't believe in trapping members into plans that don't fit their life.",
   },
   {
     q: "What exactly is included in the medical assessment?",
@@ -70,11 +49,7 @@ const pricingFaqs = [
   },
   {
     q: "Can I switch plans later?",
-    a: "Yes. Many members start on Essential and move up as they progress, or step down to maintenance after a 12-week cycle. Switch any time with your coach.",
-  },
-  {
-    q: "Is there a one-time program option?",
-    a: "There's a 6-month CGM add-on at ₹15,000 for those layering metabolic monitoring on top of a strength track. We're finalising a 6-month program bundle — ask the team during your assessment.",
+    a: "Yes. Many members start on Basic and move up to Premium as they progress, or step down to maintenance after their 16-week cycle. Switch any time with your coach.",
   },
 ];
 
@@ -102,8 +77,8 @@ export default function PricingPage() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="text-body-lg text-ink-soft mt-8 max-w-2xl">
-                All plans include a medical assessment and a personalised program.
-                No long-term contracts. Pause or cancel any time.
+                Both plans include a medical assessment and a personalised program, billed
+                monthly with a minimum 4-month program.
               </p>
             </Reveal>
           </div>
@@ -114,44 +89,12 @@ export default function PricingPage() {
           2) THREE TIERS
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
-        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch" staggerDelay={0.1}>
-          {plans.map((plan) => (
-            <PlanCard key={plan.name} plan={plan} />
-          ))}
-        </Stagger>
+        <PricingTiers ctaLabel="Take the free assessment" ctaHref="/assessment" />
 
-        <p className="text-caption text-ink-soft mt-8 max-w-3xl">
-          Prices in INR. GST extra where applicable. The assessment is free and runs before
-          you commit to any plan.
+        <p className="text-caption text-ink-soft mt-8 text-center max-w-[64rem] mx-auto">
+          Minimum program duration: 4 months. Prices in INR; GST extra where applicable. The
+          assessment is free and runs before you commit to any plan.
         </p>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
-          3) CGM ADD-ON
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <Reveal>
-          <div className="bg-sage-tint rounded-[20px] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start gap-5 max-w-2xl">
-              <span className="hidden sm:inline-flex shrink-0 w-12 h-12 rounded-full bg-sage text-bone items-center justify-center text-body-sm font-medium">
-                +
-              </span>
-              <div>
-                <p className="text-eyebrow text-sage mb-2">Add-on · 6 months</p>
-                <h3 className="text-h4 font-display text-ink mb-1">
-                  Continuous Glucose Monitoring
-                </h3>
-                <p className="text-body-sm text-ink-soft">
-                  Pair any plan with CGM to manage borderline sugar — blood-sugar patterns drive
-                  systemic inflammation that affects joints and bone. <strong className="text-ink">₹15,000 for 6 months.</strong>
-                </p>
-              </div>
-            </div>
-            <Button variant="sage-outline" href="/cgm" arrow>
-              Learn about CGM
-            </Button>
-          </div>
-        </Reveal>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
@@ -175,37 +118,58 @@ export default function PricingPage() {
             </div>
 
             <div className="lg:col-span-7">
-              <Stagger className="grid grid-cols-1 sm:grid-cols-2 gap-5" staggerDelay={0.08}>
-                {[
-                  {
-                    label: "Doctor-designed",
-                    body: "Every plan starts with a rheumatologist-led assessment — not a chatbot intake.",
-                  },
-                  {
-                    label: "Personalised to your body",
-                    body: "Region-split, age-scaled, severity-aware. Nothing is templated.",
-                  },
-                  {
-                    label: "Pain-first",
-                    body: "We calm pain before we build strength on top of it. Adjusted week-to-week.",
-                  },
-                  {
-                    label: "Structured 12-week roadmap",
-                    body: "Direction, milestones, reassessment. The roadmap a generic app can’t give.",
-                  },
-                ].map((v) => (
-                  <div key={v.label} className="bg-calcium rounded-[16px] p-6 hairline flex flex-col gap-2 h-full">
-                    <h4 className="text-h4 font-display text-ink">{v.label}</h4>
-                    <p className="text-body-sm text-ink-soft">{v.body}</p>
-                  </div>
-                ))}
+              <Stagger className="flex flex-col gap-5" staggerDelay={0.08}>
+                {/* Featured: the medical backbone — the reason the price is what it is. */}
+                <div className="relative bg-clay-soft rounded-[16px] p-7 border border-clay/25 flex flex-col gap-3">
+                  <span className="inline-flex items-center gap-2 text-eyebrow text-clay">
+                    <Check on />
+                    Medically backed
+                  </span>
+                  <h4 className="text-h3 font-display text-ink">
+                    Doctor-designed, with medical oversight underneath.
+                  </h4>
+                  <p className="text-body-sm text-ink-soft max-w-xl">
+                    Every plan starts with a rheumatologist-led assessment — not a chatbot
+                    intake — and a clinician stays accountable for it the whole way through.
+                    This is the difference a generic app structurally cannot offer.
+                  </p>
+                </div>
+
+                {/* The three supporting pillars — each ticked, equal weight. */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                  {[
+                    {
+                      label: "Personalised to your body",
+                      body: "Region-split, age-scaled, severity-aware. Nothing is templated.",
+                    },
+                    {
+                      label: "Relief before strength",
+                      body: "We bring relief first, then build the strength that keeps it away. Adjusted week-to-week.",
+                    },
+                    {
+                      label: "Structured 16-week roadmap",
+                      body: "Direction, milestones, reassessment. The roadmap a generic app can’t give.",
+                    },
+                  ].map((v) => (
+                    <div
+                      key={v.label}
+                      className="bg-calcium rounded-[16px] p-6 hairline flex flex-col gap-2 h-full"
+                    >
+                      <span className="text-clay">
+                        <Check on />
+                      </span>
+                      <h4 className="text-h4 font-display text-ink mt-1">{v.label}</h4>
+                      <p className="text-body-sm text-ink-soft">{v.body}</p>
+                    </div>
+                  ))}
+                </div>
               </Stagger>
 
               {/* Outcome quote */}
               <Reveal delay={0.2}>
                 <blockquote className="mt-8 border-l-2 border-clay pl-6">
                   <p className="serif-italic text-h4 text-ink">
-                    “I was told I needed a knee replacement. After 12 weeks with Reconnect, my pain
+                    “I was told I needed a knee replacement. After 16 weeks with Reconnect, my pain
                     dropped from 8 to 2.”
                   </p>
                   <footer className="text-caption text-ink-soft mt-3">
@@ -243,11 +207,11 @@ export default function PricingPage() {
                         <div className="flex flex-col gap-1">
                           <span className="text-eyebrow text-ink-soft">{p.name}</span>
                           <span className="text-h4 font-display text-ink">
-                            ₹{p.price.toLocaleString("en-IN")}
-                            <span className="text-caption text-ink-soft font-normal">{p.period}</span>
+                            ₹{p.priceTotal.toLocaleString("en-IN")}
+                            <span className="text-caption text-ink-soft font-normal"> / {p.months} mo</span>
                           </span>
                           {p.popular && (
-                            <span className="text-caption text-clay-dark font-medium">Most popular</span>
+                            <span className="text-caption text-clay-dark font-medium">Most chosen</span>
                           )}
                         </div>
                       </th>
@@ -294,22 +258,20 @@ export default function PricingPage() {
                   <div className="flex items-baseline justify-between">
                     <h4 className="text-h4 font-display text-ink">{p.name}</h4>
                     <p className="text-h4 font-display text-ink">
-                      ₹{p.price.toLocaleString("en-IN")}
-                      <span className="text-caption text-ink-soft font-normal">{p.period}</span>
+                      ₹{p.priceTotal.toLocaleString("en-IN")}
+                      <span className="text-caption text-ink-soft font-normal"> / {p.months} mo</span>
                     </p>
                   </div>
                   {p.popular && (
                     <span className="self-start text-caption text-clay-dark bg-clay-soft rounded-pill px-3 py-1">
-                      Most popular
+                      Most chosen
                     </span>
                   )}
                   <ul className="flex flex-col gap-2 pt-2">
-                    {p.features.map((f) => (
-                      <li key={f.label} className="flex items-start gap-3 text-body-sm">
-                        <Check on={f.included} />
-                        <span className={f.included ? "text-ink" : "text-ink-soft/50 line-through"}>
-                          {f.label}
-                        </span>
+                    {cumulativeFeatures(p).map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-body-sm">
+                        <Check on={true} />
+                        <span className="text-ink">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -345,7 +307,7 @@ export default function PricingPage() {
             />
             <p className="text-body-sm text-ink-soft mt-6">
               Not finding yours?{" "}
-              <a href="/contact" className="text-clay font-medium underline-offset-4 hover:underline">
+              <a href={asset("/contact")} className="text-clay font-medium underline-offset-4 hover:underline">
                 Ask the team directly.
               </a>
             </p>
@@ -365,7 +327,7 @@ export default function PricingPage() {
         headline="Start with the assessment — pick the plan after."
         description="The assessment is free. It confirms the right program and the right plan for your body."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"
@@ -375,93 +337,6 @@ export default function PricingPage() {
 }
 
 /* ── Sub-components ────────────────────────────────────────── */
-
-import type { Plan } from "@/lib/content/pricing";
-
-function PlanCard({ plan }: { plan: Plan }) {
-  const isPopular = plan.popular;
-
-  return (
-    <div
-      className={`relative rounded-[20px] p-8 md:p-9 flex flex-col gap-6 h-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isPopular
-          ? "glow-card glow-card-static bg-sage-deep text-bone shadow-lifted md:-mt-4 md:mb-4"
-          : "glow-card bg-calcium text-ink shadow-card"
-      }`}
-    >
-      {/* Subtle clay glow on the popular card */}
-      {isPopular && (
-        <div
-          className="absolute inset-0 rounded-[20px] pointer-events-none"
-          aria-hidden="true"
-          style={{
-            background:
-              "radial-gradient(60% 50% at 50% 0%, rgba(0,100,224,0.20), transparent 70%)",
-          }}
-        />
-      )}
-
-      {isPopular && (
-        <span className="relative self-start text-caption font-medium uppercase tracking-widest bg-clay text-calcium rounded-pill px-3 py-1">
-          Most popular
-        </span>
-      )}
-
-      <div className="relative">
-        <p className={`text-eyebrow ${isPopular ? "text-clay-soft" : "text-clay"}`}>
-          {plan.name}
-        </p>
-        <div className="flex items-baseline gap-1 mt-3">
-          <span className={`text-h2 font-display ${isPopular ? "text-bone" : "text-ink"}`}>
-            ₹{plan.price.toLocaleString("en-IN")}
-          </span>
-          <span className={`text-body-sm ${isPopular ? "text-bone/60" : "text-ink-soft"}`}>
-            {plan.period}
-          </span>
-        </div>
-      </div>
-
-      <p className={`relative text-body-sm ${isPopular ? "text-bone/75" : "text-ink-soft"}`}>
-        {plan.description}
-      </p>
-
-      <div className={`relative border-t ${isPopular ? "border-bone/15" : "border-line"}`} />
-
-      <ul className="relative flex flex-col gap-3 flex-1">
-        {plan.features.map((f) => (
-          <li key={f.label} className="flex items-start gap-3 text-body-sm">
-            <Check on={f.included} variant={isPopular ? "dark" : "light"} />
-            <span
-              className={
-                f.included
-                  ? isPopular
-                    ? "text-bone"
-                    : "text-ink"
-                  : isPopular
-                    ? "text-bone/40 line-through"
-                    : "text-ink-soft/50 line-through"
-              }
-            >
-              {f.label}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="relative pt-2">
-        <Button
-          variant={isPopular ? "clay" : "sage-outline"}
-          size="lg"
-          href="/assessment"
-          arrow
-          className="w-full justify-center"
-        >
-          Take free assessment
-        </Button>
-      </div>
-    </div>
-  );
-}
 
 function Check({ on, variant = "light" }: { on: boolean; variant?: "light" | "dark" }) {
   if (on) {

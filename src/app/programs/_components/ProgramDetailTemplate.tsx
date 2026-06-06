@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Reveal from "@/components/Reveal";
@@ -70,7 +71,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
               <Reveal delay={0.4}>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Button variant="clay" size="lg" href="/assessment" arrow>
-                    Take free assessment
+                    Take the free assessment
                   </Button>
                   <Button variant="ghost" size="lg" href="/programs">
                     Back to all tracks
@@ -83,8 +84,9 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
               <Reveal delay={0.2}>
                 <div className="relative rounded-[20px] overflow-hidden shadow-soft">
                   {/* TODO: replace with Dr. Shruthi's consented patient/clinic photography */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={data.heroImage}
+                    src={asset(data.heroImage)}
                     alt={data.heroImageAlt}
                     loading="lazy"
                     className="w-full h-[360px] md:h-[460px] lg:h-[520px] object-cover"
@@ -96,6 +98,61 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          1b) WHO IS IT FOR?  (optional — Prevent only)
+          ═══════════════════════════════════════════════════════ */}
+      {data.whoIsItFor && (
+        <Section bg="bg-bone">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            <div className="lg:col-span-6">
+              <SectionHeader
+                eyebrow={data.whoIsItFor.eyebrow}
+                title={data.whoIsItFor.title}
+                align="left"
+                className="mb-10"
+              />
+              <div className="flex flex-col gap-8">
+                {data.whoIsItFor.groups.map((g) => (
+                  <div key={g.heading}>
+                    <p className="text-eyebrow text-clay mb-3">{g.heading}</p>
+                    <ul className="flex flex-col gap-2.5">
+                      {g.items.map((item) => (
+                        <li key={item} className="flex items-start gap-3 text-body text-ink-soft">
+                          <CheckMark />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-6">
+              <Reveal delay={0.15}>
+                <div className="grid grid-cols-2 gap-4">
+                  {data.whoIsItFor.images.map((src) => (
+                    <div
+                      key={src}
+                      className="relative overflow-hidden rounded-2xl shadow-soft aspect-square"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={asset(src)}
+                        alt=""
+                        aria-hidden
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </Section>
+      )}
 
       {/* ═══════════════════════════════════════════════════════
           2) IS THIS YOU?
@@ -110,6 +167,20 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
               description="If two or more of these feel familiar, this is your track. The assessment will confirm it."
               align="left"
             />
+            {data.signalsImage && (
+              <Reveal delay={0.2}>
+                <div className="relative mt-8 rounded-2xl overflow-hidden shadow-soft aspect-[4/3]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset(data.signalsImage)}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+              </Reveal>
+            )}
           </div>
 
           <div className="lg:col-span-7">
@@ -132,14 +203,42 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
           3) 12-WEEK ROADMAP (sticky-scroll timeline)
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
-        <SectionHeader
-          eyebrowNumber="(02)"
-          eyebrow="The 12-week roadmap"
-          title="What the cycle actually looks like."
-          description={data.roadmapLead}
-          align="left"
-          className="mb-16 md:mb-20"
-        />
+        {data.roadmapImage ? (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-14 md:mb-20">
+            <div className="lg:col-span-7">
+              <SectionHeader
+                eyebrowNumber="(02)"
+                eyebrow={data.roadmapEyebrow ?? "The 16-week roadmap"}
+                title="What the cycle actually looks like."
+                description={data.roadmapLead}
+                align="left"
+              />
+            </div>
+            <div className="lg:col-span-5">
+              <Reveal delay={0.2}>
+                <div className="relative rounded-2xl overflow-hidden shadow-soft aspect-[5/4]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset(data.roadmapImage)}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        ) : (
+          <SectionHeader
+            eyebrowNumber="(02)"
+            eyebrow={data.roadmapEyebrow ?? "The 16-week roadmap"}
+            title="What the cycle actually looks like."
+            description={data.roadmapLead}
+            align="left"
+            className="mb-16 md:mb-20"
+          />
+        )}
 
         <RoadmapTimeline phases={data.roadmap} />
 
@@ -217,7 +316,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
                 <div className="relative rounded-[20px] overflow-hidden shadow-soft xray-glow-sage">
                   {/* TODO: replace with consented member photo */}
                   <img
-                    src={testimonial.image}
+                    src={asset(testimonial.image)}
                     alt={testimonial.imageAlt}
                     loading="lazy"
                     className="w-full h-[360px] md:h-[460px] object-cover"
@@ -298,7 +397,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
         headline={`Ready to start the ${data.name} track?`}
         description="Two minutes. A handful of questions. We confirm the right track and shape the program around your body."
         primaryHref="/assessment"
-        primaryLabel="Take free assessment"
+        primaryLabel="Take the free assessment"
         secondaryHref="/contact"
         secondaryLabel="Book consultation"
         variant="sage"

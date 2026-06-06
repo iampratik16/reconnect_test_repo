@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
+import { asset } from "@/lib/asset";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
 
 /* ── Data ──────────────────────────────────────────────────── */
@@ -13,14 +14,13 @@ const columns = [
     links: [
       { href: "/programs/prevent", label: "Prevent" },
       { href: "/programs/manage", label: "Manage" },
-      { href: "/programs/recover", label: "Recover" },
-      { href: "/cgm", label: "CGM" },
+      { href: "/programs/strengthen", label: "Strengthen" },
     ],
   },
   {
     heading: "Company",
     links: [
-      { href: "/how-it-works", label: "How It Works" },
+      { href: "/approach", label: "Approach" },
       { href: "/about", label: "About" },
       { href: "/pricing", label: "Pricing" },
     ],
@@ -28,7 +28,7 @@ const columns = [
   {
     heading: "Support",
     links: [
-      { href: "/faq", label: "FAQ" },
+      { href: "/contact#faq", label: "FAQ" },
       { href: "/contact", label: "Contact" },
       { href: "/assessment", label: "Assessment" },
     ],
@@ -123,7 +123,7 @@ export default function Footer() {
             <div className="sm:col-span-2 lg:col-span-1">
               <Link href="/" className="flex items-center gap-2.5 mb-4" aria-label="Reconnect home">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/logo-white.png" alt="" aria-hidden="true" className="h-10 w-10 object-contain" />
+                <img src={asset("/brand/logo-white.png")} alt="" aria-hidden="true" className="h-10 w-10 object-contain" />
                 <span
                   className="text-[1.2rem] font-semibold tracking-[0.04em] text-bone leading-none"
                   style={{ fontFamily: "var(--font-brand)" }}

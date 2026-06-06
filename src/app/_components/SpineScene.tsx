@@ -14,6 +14,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, ContactShadows } from "@react-three/drei";
 import { Box3, Group, Vector3 } from "three";
 import type { Object3D } from "three";
+import { asset } from "@/lib/asset";
 
 type RotationRef = MutableRefObject<number>;
 
@@ -52,7 +53,7 @@ function SpineModel({
   onReady?: () => void;
 }) {
   const groupRef = useRef<Group>(null);
-  const { scene } = useGLTF("/models/spine.glb");
+  const { scene } = useGLTF(asset("/models/spine.glb"));
 
   // Suspense has resolved by the time this component mounts; flip the
   // parent's "ready" flag so the canvas wrapper can fade in.
@@ -101,7 +102,7 @@ function SpineModel({
   );
 }
 
-useGLTF.preload("/models/spine.glb");
+useGLTF.preload(asset("/models/spine.glb"));
 
 export default function SpineScene({
   rotationRef,

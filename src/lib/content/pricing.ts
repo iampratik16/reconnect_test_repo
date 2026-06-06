@@ -1,64 +1,93 @@
-export type PlanFeature = {
-  label: string;
-  included: boolean;
-};
+/**
+ * Pricing content — additive model.
+ *
+ * Cards never show what a plan *doesn't* include (no strikethroughs). Each plan
+ * lists only the features it adds; higher tiers inherit the lower tier's list
+ * via `inheritsFrom` and render an "Everything in {tier}, plus —" header above
+ * their own additions.
+ *
+ * The /pricing comparison table still needs a yes/no matrix across all features,
+ * so PLAN_FEATURES + featureMatrix() derive that from the same source of truth.
+ */
 
 export type Plan = {
   name: string;
-  price: number;
-  period: string;
-  features: PlanFeature[];
-  popular: boolean;
+  /** Program total, e.g. 20000 — the headline figure. */
+  priceTotal: number;
+  /** Equivalent monthly figure, e.g. 4999 — the sub-line. */
+  priceMonthly: number;
+  /** Months in the minimum program. */
+  months: number;
+  /** One-line audience sentence: who this tier is for. */
+  bestFor: string;
+  /** Longer description (used by /pricing cards + meta). */
   description: string;
+  /** If set, this tier inherits the named tier's features and only lists its own additions. */
+  inheritsFrom?: string;
+  /** The features THIS tier adds (additive — never the full cumulative list). */
+  features: string[];
+  popular: boolean;
 };
-
-/**
- * The seven features shown on every plan card, in display order.
- * Each plan declares how many of these are included (from the top).
- */
-export const PLAN_FEATURES = [
-  "Medical Consultation",
-  "Personalized Health Plan",
-  "Fitness & Nutrition Guidance",
-  "Progress Tracking Tools",
-  "Mental Health Support",
-  "Deep Psychological Input",
-  "Exclusive 1-on-1 Sessions",
-] as const;
-
-function buildFeatures(includedCount: number): PlanFeature[] {
-  return PLAN_FEATURES.map((label, i) => ({
-    label,
-    included: i < includedCount,
-  }));
-}
 
 export const plans: Plan[] = [
   {
-    name: "Standard",
-    price: 20000,
-    period: "",
-    features: buildFeatures(4),
-    popular: false,
-    description:
-      "Medical consultation, a personalised plan, and the fitness and nutrition guidance to start strong.",
-  },
-  {
     name: "Basic",
-    price: 30000,
-    period: "",
-    features: buildFeatures(5),
-    popular: true,
+    priceTotal: 20000,
+    priceMonthly: 4999,
+    months: 4,
+    bestFor: "For chronic pain that needs medical accountability to stay on track.",
     description:
-      "Everything in Standard, plus mental-health support so the work is sustainable beyond week three.",
+      "Medical consultation, a personalised plan, fitness and nutrition guidance, progress tracking, and mental-health support.",
+    features: [
+      "Rheumatologist-led medical assessment",
+      "Personalised strength program",
+      "Fitness & nutrition guidance",
+      "Progress tracking & monthly check-in",
+      "Mental-health support",
+    ],
+    popular: true,
   },
   {
     name: "Premium",
-    price: 40000,
-    period: "",
-    features: buildFeatures(7),
-    popular: false,
+    priceTotal: 40000,
+    priceMonthly: 9999,
+    months: 4,
+    bestFor: "For complex or post-surgical cases that want maximum guidance.",
     description:
-      "The full Reconnect experience — deep psychology input and exclusive 1-on-1 sessions on top of everything else.",
+      "Everything in Basic, plus deep psychological input and exclusive 1-on-1 sessions — the full Reconnect experience.",
+    inheritsFrom: "Basic",
+    features: ["Deep psychological input", "Exclusive 1-on-1 sessions"],
+    popular: false,
   },
 ];
+
+/* ── Comparison-table support ──────────────────────────────────
+   The full ordered feature list, and a yes/no matrix per plan derived
+   from each plan's cumulative (inherited + own) features. */
+
+export const PLAN_FEATURES = [
+  "Rheumatologist-led medical assessment",
+  "Personalised strength program",
+  "Fitness & nutrition guidance",
+  "Progress tracking & monthly check-in",
+  "Mental-health support",
+  "Deep psychological input",
+  "Exclusive 1-on-1 sessions",
+] as const;
+
+/** Cumulative feature set for a plan (its own features plus anything inherited). */
+export function cumulativeFeatures(plan: Plan): string[] {
+  const parent = plan.inheritsFrom
+    ? plans.find((p) => p.name === plan.inheritsFrom)
+    : undefined;
+  const inherited = parent ? cumulativeFeatures(parent) : [];
+  return [...inherited, ...plan.features];
+}
+
+/** For each feature in PLAN_FEATURES, whether each plan includes it. */
+export function featureMatrix(): { label: string; byPlan: boolean[] }[] {
+  return PLAN_FEATURES.map((label) => ({
+    label,
+    byPlan: plans.map((p) => cumulativeFeatures(p).includes(label)),
+  }));
+}

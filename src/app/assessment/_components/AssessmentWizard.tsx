@@ -14,7 +14,6 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import {
   motion,
   AnimatePresence,
@@ -30,8 +29,7 @@ type Concern =
   | "arthritis"
   | "disc"
   | "bone-health"
-  | "prevention"
-  | "blood-sugar";
+  | "prevention";
 
 type Severity = "mild" | "moderate" | "severe";
 type Duration = "<3-months" | "3-12-months" | "1-3-years" | "3+years";
@@ -228,7 +226,6 @@ export default function AssessmentWizard() {
             <Confirmation
               recommendation={recommendation}
               name={answers.name}
-              concern={answers.concern}
             />
           )}
         </motion.div>
@@ -285,14 +282,13 @@ export default function AssessmentWizard() {
 
 /* ── Step 0: Primary concern ────────────────────────────────── */
 
-const CONCERN_OPTS: { value: Concern; label: string; sub: string; cgm?: boolean }[] = [
+const CONCERN_OPTS: { value: Concern; label: string; sub: string }[] = [
   { value: "knee",         label: "Knee pain",                sub: "Stairs, getting up, walking distance" },
   { value: "back-neck",    label: "Back or neck pain",         sub: "Chronic ache, posture, stiffness" },
   { value: "arthritis",    label: "Arthritis",                 sub: "Osteoarthritis, rheumatoid, joint inflammation" },
   { value: "disc",         label: "Disc issues",               sub: "Bulge, sciatica, nerve symptoms" },
   { value: "bone-health",  label: "Bone health (osteoporosis)", sub: "Low DEXA, post-menopausal, fracture risk" },
   { value: "prevention",   label: "Prevention",                sub: "Family history, age-related risk, staying ahead" },
-  { value: "blood-sugar",  label: "Managing blood sugar",       sub: "Borderline / pre-diabetic — flagged for CGM", cgm: true },
 ];
 
 function Step0({ answers, update }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void }) {
@@ -311,7 +307,6 @@ function Step0({ answers, update }: { answers: Answers; update: <K extends keyof
             onClick={() => update("concern", opt.value)}
             label={opt.label}
             sub={opt.sub}
-            badge={opt.cgm ? "CGM" : undefined}
           />
         ))}
       </div>
@@ -630,13 +625,10 @@ function Step5({ answers, update }: { answers: Answers; update: <K extends keyof
 function Confirmation({
   recommendation,
   name,
-  concern,
 }: {
-  recommendation: { track: "Prevent" | "Manage" | "Recover" | "CGM"; href: string; reason: string };
+  recommendation: { track: "Prevent" | "Manage" | "Strengthen"; href: string; reason: string };
   name: string;
-  concern: Concern | "";
 }) {
-  const isCGM = recommendation.track === "CGM";
   return (
     <div className="text-center">
       <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-clay-soft text-clay-dark mb-6">
@@ -668,13 +660,6 @@ function Confirmation({
           Explore {recommendation.track}
         </Button>
       </div>
-
-      {concern === "blood-sugar" && !isCGM && (
-        <p className="text-caption text-ink-soft mt-8 max-w-md mx-auto">
-          You also flagged blood-sugar management — ask the team about pairing your track
-          with our <Link href="/cgm" className="text-clay underline-offset-4 hover:underline">CGM program</Link>.
-        </p>
-      )}
     </div>
   );
 }
@@ -683,17 +668,8 @@ function Confirmation({
    RECOMMENDATION LOGIC (deliberately conservative)
    ══════════════════════════════════════════════════════════════ */
 
-function recommend(a: Answers): { track: "Prevent" | "Manage" | "Recover" | "CGM"; href: string; reason: string } {
-  if (a.concern === "blood-sugar") {
-    return {
-      track: "CGM",
-      href: "/cgm",
-      reason:
-        "The CGM program is built for borderline-diabetic and medication-avoidant adults — six months of continuous monitoring and personalised nutrition adjustments.",
-    };
-  }
-
-  // Post-surgical signal in free-text → Recover
+function recommend(a: Answers): { track: "Prevent" | "Manage" | "Strengthen"; href: string; reason: string } {
+  // Post-surgical signal in free-text → Strengthen
   const surgicalSignal = /surger|replacement|post[- ]?op|fracture/i.test(a.treatment);
 
   if (
@@ -702,10 +678,10 @@ function recommend(a: Answers): { track: "Prevent" | "Manage" | "Recover" | "CGM
     surgicalSignal
   ) {
     return {
-      track: "Recover",
-      href: "/programs/recover",
+      track: "Strengthen",
+      href: "/programs/strengthen",
       reason:
-        "Your answers suggest a more cautious, milestone-gated rebuild. The Recover track works closely with your treating doctor and progresses only as your body — and they — allow.",
+        "Your answers suggest a more cautious, milestone-gated rebuild. The Strengthen track works closely with your treating doctor and progresses only as your body — and they — allow.",
     };
   }
 

@@ -40,7 +40,6 @@ const CONCERNS = [
   { v: "disc",        l: "Disc issues" },
   { v: "bone-health", l: "Bone health (osteoporosis)" },
   { v: "prevention",  l: "Prevention / staying ahead" },
-  { v: "cgm",         l: "CGM program (metabolic add-on)" },
   { v: "other",       l: "Something else" },
 ];
 
@@ -48,8 +47,7 @@ const TRACKS = [
   { v: "unsure",  l: "I'm not sure yet" },
   { v: "prevent", l: "Prevent" },
   { v: "manage",  l: "Manage" },
-  { v: "recover", l: "Recover" },
-  { v: "cgm",     l: "CGM (6-month add-on)" },
+  { v: "strengthen", l: "Strengthen" },
 ];
 
 export default function ContactForm() {
@@ -98,8 +96,7 @@ export default function ContactForm() {
               Thank you, {form.name || "friend"}.
             </h3>
             <p className="text-body-lg text-ink-soft mt-5 max-w-md mx-auto">
-              A real person from Dr.&nbsp;Shruthi&rsquo;s team will reply within a working day —
-              usually faster. We read every message.
+              Someone from Dr.&nbsp;Shruthi&rsquo;s team will get in touch. We read every message.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button variant="sage-outline" href="/assessment" arrow>

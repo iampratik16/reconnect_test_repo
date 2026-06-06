@@ -29,9 +29,9 @@ export const journeySteps: JourneyStep[] = [
   },
   {
     number: "04",
-    title: "Psychology",
+    title: "Mind Coaching",
     description:
-      "Mindset coaching to overcome fear of movement, build consistency, and manage chronic pain through mindfulness.",
+      "Mind coaching to break fear-of-movement patterns, build consistency, and retrain how your brain relates to pain.",
     icon: "psychology",
   },
 ];
