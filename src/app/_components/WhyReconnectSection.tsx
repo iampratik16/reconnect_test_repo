@@ -199,7 +199,7 @@ export default function WhyReconnectSection() {
                 {/* Quote text — word-by-word split reveal */}
                 <p className="serif-italic text-h3 text-ink leading-snug">
                   {[
-                    "All around us there", "are", "endless", "exercises", "—", "but", "no",
+                    "All around us there", "are", "endless", "exercise", "programs", "—", "but", "no",
                     "motivation,", "and", "no", "direction", "for", "where",
                   ].map((word, i) => (
                     <AnimWord

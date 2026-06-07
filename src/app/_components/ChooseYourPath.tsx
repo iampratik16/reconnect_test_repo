@@ -85,8 +85,8 @@ const TRACKS: Track[] = [
     image: "/trainer-guided-exercise.jpg",
     accent: "#00295C", // deepest — most clinical, most supervised
     signals: [
-      "You're post-surgery or recently diagnosed with severe OA",
-      "Movement feels risky — you don't want to set yourself back",
+      "Strengthen to build a stronger muscular system for your longevity",
+      "Building real strength for a healthy life",
       "You need a clear, supervised path forward",
     ],
     pillars: [

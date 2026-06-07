@@ -144,7 +144,7 @@ export default function WhyNotGenericApp({
             viewport={{ once: true, margin: "-15% 0px" }}
             transition={{ delay: 0.7, duration: 0.6, ease: EASE }}
           >
-            All around us there are endless exercises — but no motivation, and no direction for
+            All around us there are endless exercise programs — but no motivation, and no direction for
             where <em className="serif-italic text-ink">your</em> body is at. We give
             you the roadmap.
           </motion.blockquote>

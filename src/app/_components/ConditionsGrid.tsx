@@ -271,20 +271,6 @@ export default function ConditionsGrid() {
             </svg>
           </motion.button>
         </div>
-
-        <motion.div
-          className="mt-8 md:mt-10 text-center"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          <p className="text-ink-soft text-sm">
-            Not sure which track?{" "}
-            <Link href="/assessment" className="text-ink font-medium underline underline-offset-4 hover:text-[#C4714A] transition-colors">
-              Take the free assessment →
-            </Link>
-          </p>
-        </motion.div>
       </div>
     </section>
   );

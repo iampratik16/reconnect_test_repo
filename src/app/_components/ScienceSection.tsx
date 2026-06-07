@@ -11,6 +11,7 @@ const cards = [
   {
     img: "/images/science/less-pain.png",
     eyebrow: "Less Pain",
+    statFrom: 50,
     stat: 60,
     statSuffix: "%",
     // Stat flows directly into this sentence — read together as one thought
@@ -22,6 +23,7 @@ const cards = [
   {
     img: "/images/science/denser-bones.png",
     eyebrow: "Denser Bones",
+    statFrom: 1,
     stat: 3,
     statSuffix: "%",
     continuation: "annual bone density gain on average — measurable growth, not just preservation.",
@@ -32,6 +34,7 @@ const cards = [
   {
     img: "/images/science/retained-muscle.png",
     eyebrow: "Retained Muscle",
+    statFrom: 3,
     stat: 5,
     statSuffix: "%",
     continuation: "of muscle lost every decade after 30 — strength training fully reverses this.",
@@ -42,6 +45,7 @@ const cards = [
   {
     img: "/images/science/joint-protection.png",
     eyebrow: "Joint Protection",
+    statFrom: 8,
     stat: 12,
     statSuffix: "",
     continuation: "times more joint load absorbed by strong muscles — less cartilage wear, slower degeneration.",
@@ -127,7 +131,11 @@ function ScienceCard({
               className="font-display leading-none font-bold text-white"
               style={{ fontSize: card.wide ? "clamp(3.5rem, 7vw, 5rem)" : "clamp(3rem, 6vw, 4.25rem)" }}
             >
-              {isInView ? <AnimatedCounter value={card.stat} suffix="" /> : "0"}
+              {isInView ? (
+                <AnimatedCounter value={card.stat} prefix={`${card.statFrom}–`} suffix="" />
+              ) : (
+                `${card.statFrom}–${card.stat}`
+              )}
             </span>
             {card.statSuffix && (
               <span
