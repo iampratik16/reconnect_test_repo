@@ -324,23 +324,36 @@ export default function HomePage() {
 
         <div className="container-site relative">
           <Reveal>
-            <h2 className="text-h2 font-display text-bone max-w-3xl">
+            <p className="text-eyebrow text-clay-soft">Our programs</p>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="text-h2 font-display text-bone max-w-3xl mt-4">
               This isn’t a fitness app.{" "}
               <span className="serif-italic text-clay-soft">It’s science that moves you.</span>
             </h2>
           </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-body-lg text-bone/65 mt-5 max-w-2xl">
+              Five focused programs, one connected method — each designed and overseen by a
+              rheumatologist.
+            </p>
+          </Reveal>
 
-          <Stagger className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10" staggerDelay={0.08}>
+          <Stagger
+            className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
+            staggerDelay={0.08}
+          >
             {darkPoints.map((p, i) => (
-              <div key={p.title} className="flex gap-5">
-                <span className="text-eyebrow text-clay-soft shrink-0 pt-1 w-10">
+              <article
+                key={p.title}
+                className="group relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6 md:p-7 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.06]"
+              >
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-clay-soft/30 bg-clay-soft/10 text-eyebrow text-clay-soft">
                   0{i + 1}
                 </span>
-                <div>
-                  <h4 className="text-h4 font-display text-bone mb-2">{p.title}</h4>
-                  <p className="text-body text-bone/70">{p.body}</p>
-                </div>
-              </div>
+                <h4 className="text-h4 font-display text-bone mt-5 mb-2">{p.title}</h4>
+                <p className="text-body-sm text-bone/70">{p.body}</p>
+              </article>
             ))}
           </Stagger>
         </div>
@@ -357,10 +370,10 @@ export default function HomePage() {
                 {/* TODO: replace with Dr. Shruthi's editorial portrait */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={asset("/dr-shruthi.jpg")}
+                  src={asset("/dr-shruthi2.jpeg")}
                   alt="Dr. Shruthi Desai, Rheumatologist"
                   loading="lazy"
-                  className="w-full h-[440px] md:h-[560px] object-cover"
+                  className="w-full h-[440px] md:h-[560px] object-cover object-top"
                 />
               </div>
             </Reveal>
@@ -377,9 +390,10 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
-                MBBS, MD (Internal Medicine), DM (Rheumatology). Over 12 years in rheumatology.
-                Reconnect was born from her belief that strength training, done right, is the
-                most powerful medicine for joint and bone health.
+                MBBS, MRCP (Internal Medicine), MRCP (SCE) Rheumatology, Fellowship in
+                Rheumatology &amp; Immunology. A physician and rheumatologist trained across the UK
+                and India, she brings together a passion for fitness and the science of medicine
+                to build holistic, personalised care.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
@@ -390,7 +404,7 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.4}>
               <div className="mt-8">
-                <Button variant="sage-outline" href="/about" arrow>
+                <Button variant="sage-outline" href="/reconnect-team" arrow>
                   Read full story
                 </Button>
               </div>
@@ -436,11 +450,9 @@ export default function HomePage() {
           ════════════════════════════════════════════════════════ */}
       <CTASection
         headline="Your joints deserve better than painkillers and rest."
-        description="Take a 2-minute assessment and find the right program for your body."
-        primaryHref="/assessment"
-        primaryLabel="Take the free assessment"
-        secondaryHref="/contact"
-        secondaryLabel="Book consultation"
+        description="Book a consultation and find the right program for your body."
+        primaryHref="/contact"
+        primaryLabel="Book consultation"
         variant="sage"
       />
     </>

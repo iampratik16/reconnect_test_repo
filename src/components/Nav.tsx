@@ -11,10 +11,10 @@ import { SpineSvg } from "@/components/AnatomicalArt";
 /* ── Data ──────────────────────────────────────────────────── */
 
 const NAV_LINKS = [
-  { href: "/approach", label: "Approach" },
   { href: "/programs/prevent", label: "Prevent" },
-  { href: "/about", label: "About Dr.\u00A0Shruthi" },
-  { href: "/team", label: "Our Team" },
+  { href: "/approach", label: "Approach" },
+  { href: "/reconnect-team", label: "Reconnect Team" },
+  { href: "/case-studies", label: "Case Studies" },
   { href: "/pricing", label: "Pricing" },
 ] as const;
 

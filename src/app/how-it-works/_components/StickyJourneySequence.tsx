@@ -222,7 +222,7 @@ const ARCH_NODES = [
   { cx: _PX, cy: _PY, R: _PR, label: ["Mind", "Coaching"],          abbr: "04", light: MONO_NODE, tag: "if needed",   isRoot: false },
 ] as const;
 
-function ProgramArchitecture() {
+export function ProgramArchitecture() {
   const ref    = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const prefersReduced = useReducedMotion();
@@ -633,7 +633,7 @@ function AssessmentArt({ animate }: { animate: boolean }) {
         fontSize={8.5} fill="rgba(29,29,31,0.24)"
         initial={{ opacity: 0 }} animate={animate ? { opacity: 1 } : {}}
         transition={{ delay: 3.14 }}>
-        Dr. Shruthi Desai · DM Rheumatology
+        Dr. Shruthi Desai · MRCP Rheumatology
       </motion.text>
     </svg>
   );
@@ -1100,12 +1100,16 @@ function PsychologyArt({ animate }: { animate: boolean }) {
 export type { Step };
 export { STEPS };
 
-export default function StickyJourneySequence() {
+export default function StickyJourneySequence({
+  showArchitecture = true,
+}: {
+  showArchitecture?: boolean;
+} = {}) {
   const prefersReduced = useReducedMotion();
 
   return (
     <>
-      <ProgramArchitecture />
+      {showArchitecture && <ProgramArchitecture />}
 
       {/* Stacked layout — clean, fully-visible flow. Shown on mobile/tablet,
           and at all sizes when reduced motion is preferred. */}

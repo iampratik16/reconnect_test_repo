@@ -179,7 +179,7 @@ function VisualRx({ animate }: { animate: boolean }) {
         fill={BLUE} opacity={0.4}
         initial={{ opacity: 0 }} animate={animate ? { opacity: 0.4 } : {}}
         transition={{ delay: 1.4 }}>
-        Dr. Shruthi Desai · DM Rheumatology
+        Dr. Shruthi Desai · MRCP Rheumatology
       </motion.text>
     </svg>
   );
