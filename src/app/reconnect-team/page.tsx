@@ -45,36 +45,52 @@ const tracks = [
 
 const team = [
   {
-    name: "Dr. Madhavi",
-    role: "Physiotherapist",
-    pillar: "Physiotherapy",
-    image: "/knee-examination.jpg",
-    objectPosition: "center",
-    bio: "Translates each diagnosis into a safe, progressive movement plan — tuning load, range and tempo to the joint, not the calendar.",
+    name: "Dr. Ajeya B N",
+    role: "Family Physician · MBBS, DNB Family Medicine",
+    pillar: "Medical",
+    image: "/dr-ajeya.jpeg",
+    objectPosition: "center 20%",
+    bio: "A family physician with 10+ years at a leading Bengaluru corporate hospital, managing chronic conditions like diabetes, hypertension and obesity alongside acute in-hospital care. At Reconnect he brings depth in preventive health, vaccinations and long-term screening — keeping every member’s strength program safe within their broader medical picture.",
   },
   {
-    name: "Hemanth Naik",
-    role: "Strength Trainer",
+    name: "Dr. Madhavi Sawaitul",
+    role: "Consultant Physiotherapist · BPTh, MIAP, AIFT, PGDHM",
+    pillar: "Physiotherapy",
+    image: "/dr-madhavi.jpeg",
+    objectPosition: "center 25%",
+    bio: "A consultant physiotherapist with 14+ years in musculoskeletal rehab, spine care, sports injuries and women’s health, with experience at Medanta Mediclinic and CIIMS Hospital. Certified in dry needling, Mulligan manual therapy, kinesiology taping and cupping, she designs structured rehabilitation that reduces pain, restores mobility and builds lasting functional strength.",
+  },
+  {
+    name: "Aishwarya Chavan",
+    role: "Physiotherapist · BPT",
+    pillar: "Physiotherapy",
+    image: "/aishwarya.jpeg",
+    objectPosition: "center 25%",
+    bio: "A physiotherapist across rheumatology, orthopaedics and musculoskeletal rehab — four years at ChanRe Rheumatology & Immunology Hospital and now at Jindal Charitable Hospital. Certified in dry needling and IASTM, she brings hands-on clinical skill to Reconnect’s exercise and recovery programs.",
+  },
+  {
+    name: "Hemanth Naik M",
+    role: "Fitness Trainer · ACE CPT, EREPS Certified",
     pillar: "Strength training",
-    image: "/trainer-guided-exercise.jpg",
-    objectPosition: "center",
-    bio: "Coaches each session on the floor — holding form, pacing the load and making sure every rep is earned safely, not rushed.",
+    image: "/hemanth.jpeg",
+    objectPosition: "center 20%",
+    bio: "A government-certified fitness trainer (ACE, EREPS) with experience at Gold’s Gym, Cult Fitness and Yodha Martial Arts. A national-level wrestler, kickboxer and bodybuilding winner, he specialises in strength training, functional fitness and senior-citizen training — translating doctor-designed programs into safe, effective sessions for beginners, athletes and older adults alike.",
   },
   {
     name: "Renuka Prasad",
     role: "Strength Trainer",
     pillar: "Strength training",
-    image: "/kettlebell-squat.jpg",
-    objectPosition: "center",
+    image: "/renuka.jpeg",
+    objectPosition: "center 20%",
     bio: "Guides members through their progressions week to week, adjusting weight and range so strength builds without flaring the joint.",
   },
   {
-    name: "Pragna",
-    role: "Clinical Nutritionist",
+    name: "Gracy Sridaran",
+    role: "Nutritionist · Dip. Nutrition & Health",
     pillar: "Nutrition",
-    image: "/journey-nutrition.jpg",
-    objectPosition: "center",
-    bio: "Builds bone- and joint-supportive nutrition around your medication and condition — practical, not prescriptive.",
+    image: "/gracy.jpeg",
+    objectPosition: "center 38%",
+    bio: "A nutritionist who pivoted from business to follow her passion for health. She builds personalised, evidence-based nutrition for weight management, diabetes, hypertension and pregnancy — powering Reconnect’s nutrition pillar so every member’s diet supports their joints, bones and recovery from within.",
   },
   {
     name: "Bhavana Kumarswamy",
@@ -87,7 +103,8 @@ const team = [
 ] as const;
 
 const pillarVariant: Record<string, "sage" | "clay" | "bone"> = {
-  Physiotherapy: "clay",
+  Medical: "clay",
+  Physiotherapy: "sage",
   "Strength training": "sage",
   Nutrition: "sage",
   Psychology: "bone",
@@ -175,14 +192,14 @@ export default function ReconnectTeamPage() {
           <SectionHeader
             eyebrowNumber="(01)"
             eyebrow="The wider team"
-            title="Four disciplines, one program."
-            description="Dr. Shruthi sets the medical direction. Physiotherapy, strength training, nutrition and psychology then work as one plan — coordinated, not handed off — so the bones and joints never heal in a silo."
+            title="Five disciplines, one program."
+            description="Dr. Shruthi sets the medical direction. Family medicine, physiotherapy, strength training, nutrition and psychology then work as one plan — coordinated, not handed off — so the bones and joints never heal in a silo."
             align="left"
             className="mb-12 max-w-3xl"
           />
 
           <Stagger
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
             staggerDelay={0.08}
           >
             {team.map((member) => (
