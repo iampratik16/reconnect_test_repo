@@ -153,10 +153,6 @@ export default function HomePage() {
 
               <Reveal delay={0.7}>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <Button variant="clay" size="lg" href="/assessment" arrow>
-                    Take the free assessment
-                  </Button>
-
                   {/* Premium glass secondary CTA — visible on any video frame */}
                   <Link
                     href="/contact"
