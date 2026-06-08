@@ -280,11 +280,11 @@ export default function ContactPage() {
                       i !== ways.length - 1 ? "border-b border-line" : ""
                     }`}
                   >
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <p className={`text-eyebrow ${w.primary ? "text-clay" : "text-ink-soft"}`}>
                         {w.label}
                       </p>
-                      <p className="text-body text-ink mt-2">{w.body}</p>
+                      <p className="text-body text-ink mt-2 break-words">{w.body}</p>
                     </div>
                     <span className="text-body-sm font-medium text-clay shrink-0 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
                       {w.actionLabel}

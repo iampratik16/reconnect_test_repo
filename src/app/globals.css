@@ -84,12 +84,6 @@ html {
   background-color: var(--color-bone);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Clip stray horizontal overflow at the root. Without this, any element a
-     few px past the viewport makes mobile browsers EXPAND the layout viewport
-     (window.innerWidth grows past the visual viewport), which pushes the
-     fixed nav's right-aligned hamburger off-screen. `clip` (not `hidden`)
-     avoids creating a scroll container, so Lenis vertical scrolling is intact. */
-  overflow-x: clip;
 }
 
 body {
@@ -230,6 +224,13 @@ body::after {
 
 .xray-glow {
   position: relative;
+  /* Contain the 140%-wide ::before halo (below) so it can't spill past the
+     viewport on narrow screens. Without this, the halo overflows ~50px on
+     mobile, which expands the mobile layout viewport and pushes the fixed
+     nav's hamburger off-screen. `clip` on this purely-decorative wrapper (never
+     a scroll-pin ancestor) avoids the root-level overflow-x:clip that breaks
+     the `position: sticky` scroll choreography. overflow-y stays visible. */
+  overflow-x: clip;
 }
 
 .xray-glow::before {
