@@ -376,12 +376,10 @@ export default function PricingPage() {
           7) FINAL CTA
           ═══════════════════════════════════════════════════════ */}
       <CTASection
-        headline="Start with the assessment — pick the plan after."
-        description="The assessment is free. It confirms the right program and the right plan for your body."
-        primaryHref="/assessment"
-        primaryLabel="Take the free assessment"
-        secondaryHref="/contact"
-        secondaryLabel="Book consultation"
+        headline="Start with a consultation — pick the plan after."
+        description="Book a consultation. We’ll confirm the right program and the right plan for your body."
+        primaryHref="/contact"
+        primaryLabel="Book consultation"
         variant="sage"
       />
     </>

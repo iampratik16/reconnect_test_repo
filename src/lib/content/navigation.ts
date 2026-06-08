@@ -7,7 +7,7 @@ export const navLinks: NavLink[] = [
   { label: "Programs", href: "/approach" },
   { label: "Prevent", href: "/programs/prevent" },
   { label: "How It Works", href: "/approach#the-journey" },
-  { label: "About Dr. Shruthi", href: "/about" },
+  { label: "Reconnect Team", href: "/reconnect-team" },
   { label: "Pricing", href: "/pricing" },
   { label: "FAQ", href: "/contact#faq" },
 ];

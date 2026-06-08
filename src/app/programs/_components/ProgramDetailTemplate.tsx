@@ -395,11 +395,9 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
           ═══════════════════════════════════════════════════════ */}
       <CTASection
         headline={`Ready to start the ${data.name} track?`}
-        description="Two minutes. A handful of questions. We confirm the right track and shape the program around your body."
-        primaryHref="/assessment"
-        primaryLabel="Take the free assessment"
-        secondaryHref="/contact"
-        secondaryLabel="Book consultation"
+        description="Book a consultation with Dr. Shruthi’s team — we’ll confirm the right track and shape the program around your body."
+        primaryHref="/contact"
+        primaryLabel="Book consultation"
         variant="sage"
       />
     </>

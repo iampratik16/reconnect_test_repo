@@ -17,7 +17,7 @@ import {
   SkeletonSvg,
 } from "@/components/AnatomicalArt";
 import BodyRegionDiagram from "@/app/programs/_components/BodyRegionDiagram";
-import StickyJourneySequence from "@/app/how-it-works/_components/StickyJourneySequence";
+import StickyJourneySequence, { ProgramArchitecture } from "@/app/how-it-works/_components/StickyJourneySequence";
 import WhyNotGenericApp from "@/app/how-it-works/_components/WhyNotGenericApp";
 
 export const metadata: Metadata = {
@@ -54,10 +54,10 @@ const tracks = [
   {
     slug: "strengthen",
     title: "Strengthen",
-    headline: "Rebuild from surgery or severe wear — safely, with oversight.",
+    headline: "Rebuild real strength in your bones and joints — safely, with oversight.",
     description:
-      "For post-surgery or severe degeneration. Rebuild real strength safely under close medical guidance.",
-    tags: ["Post-surgery", "Severe OA", "Strength rebuild"],
+      "For severe degeneration, low bone density, or rebuilding after a setback. Rebuild real strength safely under close medical guidance.",
+    tags: ["Bone & joint strength", "Severe OA", "Strength rebuild"],
     image: "/trainer-guided-exercise.jpg",
     imageAlt: "TODO: replace with consented supervised strength-session photo for the Strengthen track.",
     icon: KneeSvg,
@@ -108,42 +108,6 @@ const conditionGroups = [
   },
 ] as const;
 
-const comparison = {
-  // Row order matters: cells[] map to tracks [Prevent, Manage, Strengthen].
-  // Row 0 ("Who it's for") becomes each card's "this is you" line; the rest
-  // become the card's quick-fact list.
-  rows: [
-    {
-      label: "Who it’s for",
-      cells: [
-        "Adults 40+, early signs, family history",
-        "Living with arthritis, joint or back pain",
-        "Post-surgery, severe degeneration",
-      ],
-    },
-    {
-      label: "Intensity",
-      cells: ["Moderate, progressive", "Low-to-moderate, pain-respecting", "Low, milestone-gated"],
-    },
-    {
-      label: "Typical conditions",
-      cells: [
-        "Osteopenia, early OA, posture loss",
-        "Knee/back OA, disc bulge, RA",
-        "Post-replacement, severe OA, post-fracture rebuild",
-      ],
-    },
-    {
-      label: "Primary goal",
-      cells: [
-        "Build bone density and protect joints early",
-        "Calm pain, then rebuild around it",
-        "Restore safe range, strength, and confidence",
-      ],
-    },
-  ],
-} as const;
-
 const expectation = [
   {
     when: "Week 1",
@@ -173,42 +137,18 @@ export default function ApproachPage() {
   return (
     <>
       {/* ═══════════════════════════════════════════════════════
-          1) HERO — full-bleed bone with x-ray glow + watermark
+          1) HERO — program architecture diagram (the new opening)
           ═══════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-bone pt-28 md:pt-44 pb-20 md:pb-32">
+      <section className="relative overflow-hidden bg-bone pt-28 md:pt-40 pb-20 md:pb-28">
         <SkeletonSvg className="watermark text-ink right-[-120px] top-[60px] w-[520px] hidden md:block" />
 
         <div className="container-site relative">
-          <div className="xray-glow max-w-4xl">
-            <Reveal>
-              <Eyebrow>Programs &amp; how it works</Eyebrow>
-            </Reveal>
+          <Reveal>
+            <Eyebrow>Programs &amp; how it works</Eyebrow>
+          </Reveal>
 
-            <Reveal delay={0.1}>
-              <h1 className="text-hero text-ink mt-6">
-                One method.{" "}
-                <span className="serif-italic text-clay">Three starting points.</span>
-              </h1>
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <p className="text-body-lg text-ink-soft mt-8 max-w-2xl">
-                Every member begins with a medical assessment. From there, every track runs the
-                same connected journey — Assessment → Exercise → Nutrition → Mind Coaching — tuned
-                to your exact condition, age, and severity.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.3}>
-              <div className="mt-10 flex flex-wrap items-center gap-4">
-                <Button variant="clay" size="lg" href="/assessment" arrow>
-                  Take the free assessment
-                </Button>
-                <Button variant="ghost" size="lg" href="#three-tracks">
-                  See the tracks
-                </Button>
-              </div>
-            </Reveal>
+          <div className="mt-8">
+            <ProgramArchitecture />
           </div>
         </div>
       </section>
@@ -388,143 +328,11 @@ export default function ApproachPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
-          6) SELF-SELECT COMPARISON TABLE
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          eyebrowNumber="(04)"
-          eyebrow="Find your starting point"
-          title="Still not sure which one is you?"
-          description="Most people recognise themselves in one of these. And if you don’t — the free assessment decides it for you."
-          align="left"
-          className="mb-12"
-        />
-
-        {/* Track cards — Manage is the highlighted default ("most start here"). */}
-        <Stagger
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start"
-          staggerDelay={0.1}
-        >
-          {tracks.map((t, ti) => {
-            const isDefault = t.slug === "manage";
-            const whoFor = comparison.rows[0].cells[ti];
-            const facts = comparison.rows.slice(1).map((row) => ({
-              label: row.label,
-              value: row.cells[ti],
-            }));
-            return (
-              <div
-                key={t.slug}
-                className={`relative flex flex-col h-full rounded-[22px] p-7 md:p-8 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isDefault
-                    ? "bg-calcium text-ink shadow-lifted lg:-mt-4 lg:mb-4"
-                    : "bg-calcium text-ink shadow-card hairline"
-                }`}
-              >
-                {/* Default: accent ring + glow + badge */}
-                {isDefault && (
-                  <>
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 rounded-[22px] pointer-events-none"
-                      style={{
-                        padding: 1.5,
-                        background:
-                          "linear-gradient(160deg, var(--color-clay), rgba(0,100,224,0.15) 55%, transparent)",
-                        WebkitMask:
-                          "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-                        WebkitMaskComposite: "xor",
-                        maskComposite: "exclude",
-                      }}
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-x-0 top-0 h-32 rounded-t-[22px] pointer-events-none"
-                      style={{
-                        background:
-                          "radial-gradient(70% 90% at 50% 0%, rgba(0,100,224,0.10), transparent 70%)",
-                      }}
-                    />
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 text-caption font-medium uppercase tracking-[0.12em] bg-clay text-calcium rounded-pill px-4 py-1 shadow-soft whitespace-nowrap">
-                      Most start here
-                    </span>
-                  </>
-                )}
-
-                {/* Track name + "this is you if" trigger */}
-                <p className="relative text-eyebrow text-clay">{t.title}</p>
-                <p className="relative text-h4 font-display text-ink mt-3 leading-snug">
-                  {whoFor}.
-                </p>
-
-                <div className="relative border-t border-line mt-6 mb-5" />
-
-                {/* Quick facts from the comparison rows */}
-                <dl className="relative flex flex-col gap-4 flex-1">
-                  {facts.map((f) => (
-                    <div key={f.label}>
-                      <dt className="text-caption uppercase tracking-[0.1em] text-ink-soft/70">
-                        {f.label}
-                      </dt>
-                      <dd className="text-body-sm text-ink mt-1">{f.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <div className="relative pt-7">
-                  <Button
-                    variant={isDefault ? "clay" : "sage-outline"}
-                    size="md"
-                    href={`/programs/${t.slug}`}
-                    arrow
-                    className="w-full justify-center"
-                  >
-                    Explore {t.title}
-                  </Button>
-                </div>
-              </div>
-            );
-          })}
-        </Stagger>
-
-        {/* Assessment escape hatch — the real decider, given its own moment. */}
-        <Reveal>
-          <div className="relative mt-10 rounded-[22px] bg-sage-deep text-bone overflow-hidden">
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(60% 120% at 12% 0%, rgba(0,100,224,0.22), transparent 60%)",
-              }}
-            />
-            <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 md:p-10">
-              <div className="max-w-xl">
-                <p className="text-eyebrow text-clay-soft">Not sure? You don’t have to be.</p>
-                <p className="text-h4 font-display text-bone mt-3">
-                  The free assessment maps you to the right track in minutes.
-                </p>
-                <p className="text-body-sm text-bone/65 mt-2">
-                  A rheumatologist reviews your history, pain, and goals — then tells you exactly
-                  where to start. No guessing, no commitment.
-                </p>
-              </div>
-              <div className="shrink-0">
-                <Button variant="clay" size="lg" href="/assessment" arrow>
-                  Take the free assessment
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
           8) THE CONNECTED JOURNEY — big numbered sticky-scroll sequence
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep" id="the-journey">
         <SectionHeader
-          eyebrowNumber="(05)"
+          eyebrowNumber="(04)"
           eyebrow="The connected journey"
           title="Four pillars. Doctor-led, personalised, and always in this order."
           description="Each pillar is integrated — not bolted on. Assessment governs all of them. Exercise respects your pain. Nutrition fights it. Mind coaching holds it together."
@@ -532,20 +340,20 @@ export default function ApproachPage() {
           className="mb-16 md:mb-20"
         />
 
-        <StickyJourneySequence />
+        <StickyJourneySequence showArchitecture={false} />
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
           9) "WHY NOT JUST A FREE APP?" CALLOUT
           ═══════════════════════════════════════════════════════ */}
-      <WhyNotGenericApp eyebrowNumber="(06)" />
+      <WhyNotGenericApp eyebrowNumber="(05)" />
 
       {/* ═══════════════════════════════════════════════════════
           10) EXPECTATION TIMELINE — week 1, 4-6, month 2, month 3
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone-deep">
         <SectionHeader
-          eyebrowNumber="(07)"
+          eyebrowNumber="(06)"
           eyebrow="What to expect"
           title="The 16-week shape."
           description="Measured language — trajectories, not promises. Outcomes always sit alongside, not instead of, your existing medical care."
@@ -581,12 +389,10 @@ export default function ApproachPage() {
           11) FINAL CTA
           ═══════════════════════════════════════════════════════ */}
       <CTASection
-        headline="The right track starts with the right assessment."
-        description="Two minutes. A handful of questions. We’ll point you at the program your body actually needs."
-        primaryHref="/assessment"
-        primaryLabel="Take the free assessment"
-        secondaryHref="/contact"
-        secondaryLabel="Book consultation"
+        headline="The right track starts with a conversation."
+        description="Book a consultation — we’ll confirm the right program for your body and answer your questions."
+        primaryHref="/contact"
+        primaryLabel="Book consultation"
         variant="sage"
       />
     </>

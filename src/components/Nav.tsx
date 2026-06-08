@@ -6,15 +6,16 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Button from "@/components/Button";
 import { asset } from "@/lib/asset";
+import { getLenisInstance } from "@/lib/lenis";
 import { SpineSvg } from "@/components/AnatomicalArt";
 
 /* ── Data ──────────────────────────────────────────────────── */
 
 const NAV_LINKS = [
-  { href: "/approach", label: "Approach" },
   { href: "/programs/prevent", label: "Prevent" },
-  { href: "/about", label: "About Dr.\u00A0Shruthi" },
-  { href: "/team", label: "Our Team" },
+  { href: "/approach", label: "Approach" },
+  { href: "/reconnect-team", label: "Reconnect Team" },
+  { href: "/case-studies", label: "Case Studies" },
   { href: "/pricing", label: "Pricing" },
 ] as const;
 
@@ -51,20 +52,35 @@ export default function Nav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [mobileOpen]);
 
-  /* Lock body scroll when overlay open */
+  /* Lock body scroll + pause Lenis when overlay open.
+     Pausing Lenis is essential on touch devices: otherwise the micro-movement
+     of a finger tap is read by Lenis as a scroll gesture and preventDefault()'d,
+     which cancels the click on the menu links (the menu closes but never
+     navigates). Stopping Lenis while open makes the links tap through reliably. */
   useEffect(() => {
+    const lenis = getLenisInstance();
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
+      lenis?.stop();
     } else {
       document.body.style.overflow = "";
+      lenis?.start();
     }
     return () => {
       document.body.style.overflow = "";
+      getLenisInstance()?.start();
     };
   }, [mobileOpen]);
 
-  /* Focus management */
+  /* Focus management — move focus only when the menu actually opens/closes
+     via user action. Skip the initial mount so the hamburger isn't
+     auto-focused (which stole focus and flashed a focus ring on page load). */
+  const firstFocusRun = useRef(true);
   useEffect(() => {
+    if (firstFocusRun.current) {
+      firstFocusRun.current = false;
+      return;
+    }
     if (mobileOpen) {
       closeBtnRef.current?.focus();
     } else {
@@ -170,6 +186,7 @@ export default function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            data-lenis-prevent
             className="fixed inset-0 z-[60] bg-bone flex flex-col xl:hidden overflow-hidden"
           >
             {/* Top bar with close */}

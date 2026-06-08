@@ -185,11 +185,9 @@ export default function TeamPage() {
           ═══════════════════════════════════════════════════════ */}
       <CTASection
         headline="Meet the team that builds your plan."
-        description="Take the assessment, or book a consultation to talk it through with someone from the team."
-        primaryHref="/assessment"
-        primaryLabel="Take the free assessment"
-        secondaryHref="/contact"
-        secondaryLabel="Book consultation"
+        description="Book a consultation to talk it through with someone from the team."
+        primaryHref="/contact"
+        primaryLabel="Book consultation"
         variant="sage"
       />
     </>
