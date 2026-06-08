@@ -10,7 +10,7 @@
  *   • Display explicit consent text and capture consent timestamp.
  *   • Move any file uploads to signed-URL storage; never POST PHI to a
  *     public/unauthenticated endpoint.
- *   • Restrict access to Dr. Shruthi's clinical team only.
+ *   • Restrict access to the clinical team only.
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -25,11 +25,13 @@ import Button from "@/components/Button";
 
 type Concern =
   | "knee"
-  | "back-neck"
   | "arthritis"
-  | "disc"
+  | "spinal"
   | "bone-health"
-  | "prevention";
+  | "prevention"
+  | "chronic-pain"
+  | "weight-loss"
+  | "recurrent-joints";
 
 type Severity = "mild" | "moderate" | "severe";
 type Duration = "<3-months" | "3-12-months" | "1-3-years" | "3+years";
@@ -50,8 +52,6 @@ type Answers = {
   treatment: string;
   imaging: Imaging[];
   diet: Diet | "";
-  allergies: string;
-  preferences: string;
   name: string;
   email: string;
   phone: string;
@@ -68,19 +68,28 @@ const initial: Answers = {
   treatment: "",
   imaging: [],
   diet: "",
-  allergies: "",
-  preferences: "",
   name: "",
   email: "",
   phone: "",
 };
 
-const STEP_COUNT = 6;
+/* ── Step model ────────────────────────────────────────────────
+   The wizard renders an ordered list of "step keys". The list is
+   computed from the answers so steps can be conditionally skipped
+   (e.g. Prevention skips the severity/duration step). Position,
+   numbering and progress are all derived from this active list, so
+   the user always sees correct counts like "Step 2 of 5".          */
+
+type StepKey = "concern" | "severity" | "activity" | "medical" | "nutrition" | "contact";
+
+const ALL_STEPS: StepKey[] = ["concern", "severity", "activity", "medical", "nutrition", "contact"];
+
+const pad = (n: number) => String(n).padStart(2, "0");
 
 /* ── Wizard ────────────────────────────────────────────────── */
 
 export default function AssessmentWizard() {
-  const [step, setStep] = useState(0); // 0..5 → 6 = confirmation
+  const [pos, setPos] = useState(0); // position within activeSteps; === totalSteps → confirmation
   const [direction, setDirection] = useState<1 | -1>(1);
   const [answers, setAnswers] = useState<Answers>(initial);
   const [error, setError] = useState<string>("");
@@ -109,38 +118,68 @@ export default function AssessmentWizard() {
     setError("");
   };
 
-  /* ── Per-step validation ─────────────────────────────────── */
-  const validate = useCallback((s: number): string => {
-    if (s === 0 && !answers.concern) return "Pick the option closest to what you're dealing with.";
-    if (s === 1) {
-      if (!answers.severity) return "Tell us how severe it feels.";
-      if (!answers.duration) return "How long has it been going on?";
+  /* ── Active steps (Prevention skips severity/duration) ───── */
+  const activeSteps = useMemo<StepKey[]>(
+    () => ALL_STEPS.filter((k) => !(k === "severity" && answers.concern === "prevention")),
+    [answers.concern]
+  );
+  const totalSteps = activeSteps.length;
+  const atConfirmation = pos >= totalSteps;
+  const currentKey: StepKey | null = atConfirmation ? null : activeSteps[pos];
+
+  /* ── Per-step validation (keyed, not index-based) ────────── */
+  const validateKey = useCallback((key: StepKey): string => {
+    switch (key) {
+      case "concern":
+        if (!answers.concern) return "Pick the option closest to what you're dealing with.";
+        return "";
+      case "severity":
+        if (!answers.severity) return "Tell us how severe it feels.";
+        if (!answers.duration) return "How long has it been going on?";
+        return "";
+      case "activity":
+        if (!answers.activity) return "Roughly how active are you week-to-week?";
+        if (!answers.experience) return "Have you trained with weights before? Any answer is fine.";
+        return "";
+      case "medical":
+        if (!answers.ageBand) return "Pick your age band.";
+        return "";
+      case "nutrition":
+        if (!answers.diet) return "Tell us how you eat.";
+        return "";
+      case "contact":
+        if (!answers.name.trim()) return "We need a name to reply.";
+        if (!/^\S+@\S+\.\S+$/.test(answers.email)) return "Please enter a valid email.";
+        if (answers.phone.replace(/\D/g, "").length < 7) return "Please enter a valid phone number.";
+        return "";
     }
-    if (s === 2) {
-      if (!answers.activity) return "Roughly how active are you week-to-week?";
-      if (!answers.experience) return "Have you trained with weights before? Any answer is fine.";
-    }
-    if (s === 3 && !answers.ageBand) return "Pick your age band.";
-    if (s === 4 && !answers.diet) return "Tell us how you eat.";
-    if (s === 5) {
-      if (!answers.name.trim()) return "We need a name to reply.";
-      if (!/^\S+@\S+\.\S+$/.test(answers.email)) return "Please enter a valid email.";
-      if (answers.phone.replace(/\D/g, "").length < 7) return "Please enter a valid phone number.";
-    }
-    return "";
   }, [answers]);
 
+  /* ── Submit (final step) ─────────────────────────────────── */
+  const handleSubmit = useCallback(() => {
+    const e = validateKey("contact");
+    if (e) { setError(e); return; }
+
+    // TODO: replace with secured backend POST
+    if (typeof window !== "undefined") {
+      console.log("[assessment submit — DEV ONLY]", answers);
+    }
+    setDirection(1);
+    setPos(totalSteps);
+  }, [validateKey, answers, totalSteps]);
+
   const next = useCallback(() => {
-    const e = validate(step);
+    if (!currentKey) return;
+    const e = validateKey(currentKey);
     if (e) { setError(e); return; }
     setDirection(1);
-    setStep((s) => Math.min(STEP_COUNT, s + 1));
-  }, [step, validate]);
+    setPos((p) => Math.min(totalSteps, p + 1));
+  }, [currentKey, validateKey, totalSteps]);
 
   const back = useCallback(() => {
     setError("");
     setDirection(-1);
-    setStep((s) => Math.max(0, s - 1));
+    setPos((p) => Math.max(0, p - 1));
   }, []);
 
   /* ── Keyboard: Enter advances (except in textareas), Escape goes back ── */
@@ -148,45 +187,33 @@ export default function AssessmentWizard() {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
       const isTextarea = tag === "TEXTAREA";
-      if (e.key === "Enter" && !isTextarea && step < STEP_COUNT) {
+      if (e.key === "Enter" && !isTextarea && pos < totalSteps) {
         e.preventDefault();
-        next();
-      } else if (e.key === "Escape" && step > 0 && step < STEP_COUNT) {
+        if (pos === totalSteps - 1) handleSubmit();
+        else next();
+      } else if (e.key === "Escape" && pos > 0 && pos < totalSteps) {
         e.preventDefault();
         back();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [step, next, back]);
+  }, [pos, totalSteps, next, back, handleSubmit]);
 
-  /* ── Submit ──────────────────────────────────────────────── */
-  const handleSubmit = () => {
-    const e = validate(5);
-    if (e) { setError(e); return; }
-
-    // TODO: replace with secured backend POST
-    if (typeof window !== "undefined") {
-      // eslint-disable-next-line no-console
-      console.log("[assessment submit — DEV ONLY]", answers);
-    }
-    setDirection(1);
-    setStep(STEP_COUNT);
-  };
-
-  /* ── Track recommendation ────────────────────────────────── */
+  /* ── Program recommendation ──────────────────────────────── */
   const recommendation = useMemo(() => recommend(answers), [answers]);
 
   /* ── Render ──────────────────────────────────────────────── */
-  const progress = step === STEP_COUNT ? 100 : Math.round((step / STEP_COUNT) * 100);
+  const progress = atConfirmation ? 100 : Math.round((pos / totalSteps) * 100);
+  const stepEyebrow = `${pad(pos + 1)} of ${pad(totalSteps)}`;
 
   return (
     <div className="max-w-3xl mx-auto">
       {/* Progress */}
-      {step < STEP_COUNT && (
+      {!atConfirmation && (
         <div className="mb-10 md:mb-14">
           <div className="flex items-center justify-between text-caption text-ink-soft mb-3">
-            <span>Step {step + 1} of {STEP_COUNT}</span>
+            <span>Step {pos + 1} of {totalSteps}</span>
             <span>{progress}%</span>
           </div>
           <div className="relative h-[3px] rounded-full bg-line overflow-hidden">
@@ -203,7 +230,7 @@ export default function AssessmentWizard() {
       {/* Step content */}
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
-          key={step}
+          key={atConfirmation ? "confirmation" : pos}
           custom={direction}
           initial={
             prefersReduced ? { opacity: 0 } : { opacity: 0, x: direction * 24 }
@@ -216,13 +243,13 @@ export default function AssessmentWizard() {
           }
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          {step === 0 && <Step0 answers={answers} update={update} />}
-          {step === 1 && <Step1 answers={answers} update={update} />}
-          {step === 2 && <Step2 answers={answers} update={update} />}
-          {step === 3 && <Step3 answers={answers} update={update} toggleImaging={toggleImaging} />}
-          {step === 4 && <Step4 answers={answers} update={update} />}
-          {step === 5 && <Step5 answers={answers} update={update} />}
-          {step === STEP_COUNT && (
+          {currentKey === "concern" && <Step0 answers={answers} update={update} eyebrow={stepEyebrow} />}
+          {currentKey === "severity" && <Step1 answers={answers} update={update} eyebrow={stepEyebrow} />}
+          {currentKey === "activity" && <Step2 answers={answers} update={update} eyebrow={stepEyebrow} />}
+          {currentKey === "medical" && <Step3 answers={answers} update={update} toggleImaging={toggleImaging} eyebrow={stepEyebrow} />}
+          {currentKey === "nutrition" && <Step4 answers={answers} update={update} eyebrow={stepEyebrow} />}
+          {currentKey === "contact" && <Step5 answers={answers} update={update} eyebrow={stepEyebrow} />}
+          {atConfirmation && (
             <Confirmation
               recommendation={recommendation}
               name={answers.name}
@@ -233,7 +260,7 @@ export default function AssessmentWizard() {
 
       {/* Error banner */}
       <AnimatePresence>
-        {error && step < STEP_COUNT && (
+        {error && !atConfirmation && (
           <motion.p
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
@@ -247,11 +274,11 @@ export default function AssessmentWizard() {
       </AnimatePresence>
 
       {/* Nav buttons */}
-      {step < STEP_COUNT && (
+      {!atConfirmation && (
         <div className="mt-10 md:mt-14 flex items-center justify-between gap-4 border-t border-line pt-6">
           <button
             onClick={back}
-            disabled={step === 0}
+            disabled={pos === 0}
             className="text-body-sm font-medium text-ink-soft hover:text-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-200"
           >
             ← Back
@@ -261,7 +288,7 @@ export default function AssessmentWizard() {
             Press <kbd className="px-1.5 py-0.5 rounded bg-bone-deep border border-line">Enter</kbd> to continue
           </p>
 
-          {step < STEP_COUNT - 1 ? (
+          {pos < totalSteps - 1 ? (
             <Button variant="clay" size="lg" onClick={next} arrow>
               Continue
             </Button>
@@ -282,20 +309,22 @@ export default function AssessmentWizard() {
 
 /* ── Step 0: Primary concern ────────────────────────────────── */
 
-const CONCERN_OPTS: { value: Concern; label: string; sub: string }[] = [
-  { value: "knee",         label: "Knee pain",                sub: "Stairs, getting up, walking distance" },
-  { value: "back-neck",    label: "Back or neck pain",         sub: "Chronic ache, posture, stiffness" },
-  { value: "arthritis",    label: "Arthritis",                 sub: "Osteoarthritis, rheumatoid, joint inflammation" },
-  { value: "disc",         label: "Disc issues",               sub: "Bulge, sciatica, nerve symptoms" },
+const CONCERN_OPTS: { value: Concern; label: string; sub: string; badge?: string }[] = [
+  { value: "knee",         label: "Knee pain",                  sub: "Stairs, getting up, walking distance" },
+  { value: "arthritis",    label: "Arthritis",                  sub: "Osteoarthritis, rheumatoid, joint inflammation" },
+  { value: "spinal",       label: "Spinal issues",              sub: "Back pain, neck pain, disc bulge, sciatica" },
   { value: "bone-health",  label: "Bone health (osteoporosis)", sub: "Low DEXA, post-menopausal, fracture risk" },
-  { value: "prevention",   label: "Prevention",                sub: "Family history, age-related risk, staying ahead" },
+  { value: "prevention",   label: "Prevention",                 sub: "Family history, age-related risk, staying ahead" },
+  { value: "chronic-pain", label: "Chronic body pain",          sub: "Fibromyalgia, widespread aches, persistent discomfort" },
+  { value: "weight-loss",  label: "Weight loss",                sub: "Metabolism, lifestyle-related weight management" },
+  { value: "recurrent-joints", label: "Recurrent joint pains",  sub: "Flare-ups, multiple joints, pain that comes and goes" },
 ];
 
-function Step0({ answers, update }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void }) {
+function Step0({ answers, update, eyebrow }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void; eyebrow: string }) {
   return (
     <fieldset>
       <StepHeader
-        eyebrow="01 of 06"
+        eyebrow={eyebrow}
         title="What brings you in today?"
         hint="Pick the one closest to what you're dealing with. We'll go deeper from here."
       />
@@ -307,6 +336,7 @@ function Step0({ answers, update }: { answers: Answers; update: <K extends keyof
             onClick={() => update("concern", opt.value)}
             label={opt.label}
             sub={opt.sub}
+            badge={opt.badge}
           />
         ))}
       </div>
@@ -316,12 +346,12 @@ function Step0({ answers, update }: { answers: Answers; update: <K extends keyof
 
 /* ── Step 1: Severity, duration, pain slider ────────────────── */
 
-function Step1({ answers, update }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void }) {
+function Step1({ answers, update, eyebrow }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void; eyebrow: string }) {
   return (
     <fieldset className="flex flex-col gap-10">
       <div>
         <StepHeader
-          eyebrow="02 of 06"
+          eyebrow={eyebrow}
           title="How does it feel, and how long has it been?"
           hint="Honest answers help the doctor design around the real picture."
         />
@@ -393,11 +423,11 @@ function Step1({ answers, update }: { answers: Answers; update: <K extends keyof
 
 /* ── Step 2: Activity + lifting experience ──────────────────── */
 
-function Step2({ answers, update }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void }) {
+function Step2({ answers, update, eyebrow }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void; eyebrow: string }) {
   return (
     <fieldset className="flex flex-col gap-10">
       <StepHeader
-        eyebrow="03 of 06"
+        eyebrow={eyebrow}
         title="How active are you, right now?"
         hint="There are no wrong answers here. We meet you where you are."
       />
@@ -450,17 +480,19 @@ function Step3({
   answers,
   update,
   toggleImaging,
+  eyebrow,
 }: {
   answers: Answers;
   update: <K extends keyof Answers>(k: K, v: Answers[K]) => void;
   toggleImaging: (v: Imaging) => void;
+  eyebrow: string;
 }) {
   return (
     <fieldset className="flex flex-col gap-10">
       <StepHeader
-        eyebrow="04 of 06"
+        eyebrow={eyebrow}
         title="A bit about your medical context."
-        hint="Everything you share is reviewed only by Dr. Shruthi's clinical team."
+        hint="Everything you share is reviewed only by our clinical team."
       />
 
       <div>
@@ -478,7 +510,7 @@ function Step3({
       </div>
 
       <div>
-        <SubLabel>Current treatment or medication <span className="text-ink-soft/60 font-normal">(optional)</span></SubLabel>
+        <SubLabel>Current treatment or medication <span className="text-ink-soft font-semibold">(optional)</span></SubLabel>
         <textarea
           value={answers.treatment}
           onChange={(e) => update("treatment", e.target.value)}
@@ -489,7 +521,7 @@ function Step3({
       </div>
 
       <div>
-        <SubLabel>Relevant imaging you have <span className="text-ink-soft/60 font-normal">(optional)</span></SubLabel>
+        <SubLabel>Relevant imaging you have <span className="text-ink-soft font-semibold">(optional)</span></SubLabel>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
           {[
             { v: "dexa" as const, l: "DEXA" },
@@ -520,11 +552,11 @@ function Step3({
 
 /* ── Step 4: Nutrition pre-questionnaire ────────────────────── */
 
-function Step4({ answers, update }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void }) {
+function Step4({ answers, update, eyebrow }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void; eyebrow: string }) {
   return (
     <fieldset className="flex flex-col gap-10">
       <StepHeader
-        eyebrow="05 of 06"
+        eyebrow={eyebrow}
         title="A few things about how you eat."
         hint="Your nutrition plan is built off this — we tune it to your plate, not the other way around."
       />
@@ -547,40 +579,18 @@ function Step4({ answers, update }: { answers: Answers; update: <K extends keyof
           ))}
         </div>
       </div>
-
-      <div>
-        <SubLabel>Allergies or foods you avoid <span className="text-ink-soft/60 font-normal">(optional)</span></SubLabel>
-        <input
-          value={answers.allergies}
-          onChange={(e) => update("allergies", e.target.value)}
-          placeholder="e.g. lactose intolerant, no shellfish, gluten sensitivity"
-          className="mt-3 w-full rounded-[14px] bg-calcium border border-line text-body text-ink p-4 outline-none focus:border-clay transition-colors duration-200"
-        />
-      </div>
-
-      <div>
-        <SubLabel>Food preferences or context <span className="text-ink-soft/60 font-normal">(optional)</span></SubLabel>
-        <textarea
-          value={answers.preferences}
-          onChange={(e) => update("preferences", e.target.value)}
-          rows={3}
-          placeholder="e.g. cook most meals at home, travel weekly for work, prefer South Indian breakfasts…"
-          className="mt-3 w-full rounded-[14px] bg-calcium border border-line text-body text-ink p-4 outline-none focus:border-clay transition-colors duration-200"
-        />
-      </div>
     </fieldset>
   );
 }
 
 /* ── Step 5: Contact ────────────────────────────────────────── */
 
-function Step5({ answers, update }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void }) {
+function Step5({ answers, update, eyebrow }: { answers: Answers; update: <K extends keyof Answers>(k: K, v: Answers[K]) => void; eyebrow: string }) {
   return (
     <fieldset className="flex flex-col gap-8">
       <StepHeader
-        eyebrow="06 of 06"
+        eyebrow={eyebrow}
         title="Where can we send your recommendation?"
-        hint="A real person from Dr. Shruthi's team reviews every assessment within a working day."
       />
 
       <div className="grid grid-cols-1 gap-5">
@@ -626,7 +636,7 @@ function Confirmation({
   recommendation,
   name,
 }: {
-  recommendation: { track: "Prevent" | "Manage" | "Strengthen"; href: string; reason: string };
+  recommendation: Recommendation;
   name: string;
 }) {
   return (
@@ -639,8 +649,8 @@ function Confirmation({
 
       <p className="text-eyebrow text-clay">Thank you, {name || "friend"}</p>
       <h2 className="text-h2 font-display text-ink mt-4">
-        Based on what you shared, we&rsquo;d start you on{" "}
-        <span className="serif-italic text-clay">{recommendation.track}.</span>
+        Based on your answers, we recommend the{" "}
+        <span className="serif-italic text-clay">{recommendation.program}</span> program for you.
       </h2>
 
       <p className="text-body-lg text-ink-soft mt-6 max-w-xl mx-auto">
@@ -648,8 +658,7 @@ function Confirmation({
       </p>
 
       <p className="text-body-sm text-ink-soft mt-4 max-w-xl mx-auto">
-        Dr.&nbsp;Shruthi&rsquo;s team will review your full assessment and confirm — or
-        adjust — this recommendation within a working day.
+        Our clinical team will review your assessment within one working day.
       </p>
 
       <div className="flex flex-wrap justify-center gap-4 mt-10">
@@ -657,7 +666,7 @@ function Confirmation({
           Book consultation
         </Button>
         <Button variant="sage-outline" size="lg" href={recommendation.href} arrow>
-          Explore {recommendation.track}
+          Explore the program
         </Button>
       </div>
     </div>
@@ -665,53 +674,71 @@ function Confirmation({
 }
 
 /* ══════════════════════════════════════════════════════════════
-   RECOMMENDATION LOGIC (deliberately conservative)
+   RECOMMENDATION LOGIC — concern → specific Reconnect program
    ══════════════════════════════════════════════════════════════ */
 
-function recommend(a: Answers): { track: "Prevent" | "Manage" | "Strengthen"; href: string; reason: string } {
-  // Post-surgical signal in free-text → Strengthen
-  const surgicalSignal = /surger|replacement|post[- ]?op|fracture/i.test(a.treatment);
+type Recommendation = { program: string; href: string; reason: string };
 
-  if (
-    a.severity === "severe" ||
-    a.pain >= 7 ||
-    surgicalSignal
-  ) {
-    return {
-      track: "Strengthen",
-      href: "/programs/strengthen",
-      reason:
-        "Your answers suggest a more cautious, milestone-gated rebuild. The Strengthen track works closely with your treating doctor and progresses only as your body — and they — allow.",
-    };
+function recommend(a: Answers): Recommendation {
+  switch (a.concern) {
+    case "knee":
+    case "arthritis":
+    case "recurrent-joints":
+      return {
+        program: "Reconnect Joints",
+        href: "/programs",
+        reason:
+          "Reconnect Joints calms recurring joint pain first, then builds the strength that protects your joints for the long run.",
+      };
+    case "spinal":
+      return {
+        program: "Reconnect Spine",
+        href: "/programs",
+        reason:
+          "Reconnect Spine meets neck, back, and disc issues at the source — posture, core, and control — to ease pain and rebuild stability.",
+      };
+    case "bone-health":
+    case "prevention":
+      return {
+        program: "Reconnect Strength",
+        href: "/programs/strengthen",
+        reason:
+          "Reconnect Strength builds load-bearing strength and bone density, helping you stay ahead of degeneration before problems set in.",
+      };
+    case "chronic-pain":
+      return {
+        program: "Reconnect Pain",
+        href: "/programs",
+        reason:
+          "Reconnect Pain works around widespread, persistent pain — respecting it and easing it while rebuilding capacity, never pushing through.",
+      };
+    case "weight-loss":
+      return {
+        program: "Reconnect Metabolism",
+        href: "/programs",
+        reason:
+          "Reconnect Metabolism pairs strength and nutrition to tackle the blood sugar and inflammation behind stubborn weight — sustainable, lifestyle-led change.",
+      };
+    default:
+      return {
+        program: "Reconnect Strength",
+        href: "/programs",
+        reason:
+          "Reconnect Strength builds the load-bearing foundation your body relies on — a strong starting point while our clinical team tailors the details.",
+      };
   }
-
-  if (a.concern === "prevention" || a.concern === "bone-health") {
-    return {
-      track: "Prevent",
-      href: "/programs/prevent",
-      reason:
-        "The Prevent track is designed for early signs, family history, and bone-health goals — building strength and density before problems set in.",
-    };
-  }
-
-  return {
-    track: "Manage",
-    href: "/programs/manage",
-    reason:
-      "The Manage track is built for living arthritis, joint pain, and back issues — calming pain first, then building a stronger body around it.",
-  };
 }
 
 /* ══════════════════════════════════════════════════════════════
    SHARED UI PIECES
    ══════════════════════════════════════════════════════════════ */
 
-function StepHeader({ eyebrow, title, hint }: { eyebrow: string; title: string; hint: string }) {
+function StepHeader({ eyebrow, title, hint }: { eyebrow: string; title: string; hint?: string }) {
   return (
     <div className="flex flex-col gap-3">
       <p className="text-eyebrow text-clay">{eyebrow}</p>
       <h2 className="text-h2 font-display text-ink leading-tight">{title}</h2>
-      <p className="text-body text-ink-soft max-w-2xl">{hint}</p>
+      {hint && <p className="text-body text-ink-soft max-w-2xl">{hint}</p>}
     </div>
   );
 }

@@ -21,7 +21,6 @@ import {
   SpineSvg,
 } from "@/components/AnatomicalArt";
 import { sciencePoints } from "@/lib/content/science";
-import PricingTiers from "@/components/PricingTiers";
 import { asset } from "@/lib/asset";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
@@ -148,7 +147,7 @@ export default function HomePage() {
               <Reveal delay={0.55}>
                 <p className="text-body-lg text-bone/85 mt-6 max-w-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
                   A doctor-designed strength and nutrition program for joint pain,
-                  neck/back issues, chronic body pains, and for stronger bones and muscles.
+                  neck or back issues, chronic body pains, and for stronger bones and muscles.
                 </p>
               </Reveal>
 
@@ -225,7 +224,7 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
-                The damage almost never starts with a diagnosis. It starts with the chair.
+                The damage almost never starts with a diagnosis. It starts with the way we live.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
@@ -255,9 +254,6 @@ export default function HomePage() {
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Button variant="clay" href="/programs/prevent" arrow>
                   Start with prevention
-                </Button>
-                <Button variant="sage-outline" href="/assessment" arrow>
-                  Take the free assessment
                 </Button>
               </div>
             </Reveal>
@@ -427,23 +423,7 @@ export default function HomePage() {
         <TestimonialsSlider />
       </Section>
 
-      {/* ════════════════════════════════════════════════════════
-          11) PRICING TEASER — editorial tiers (shared component)
-          ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          title="Plans that fit your needs."
-          align="left"
-          className="mb-12"
-        />
-
-        <PricingTiers ctaLabel="See plan" ctaHref="/pricing" />
-
-        <p className="text-caption text-ink-soft mt-8 text-center max-w-[64rem] mx-auto">
-          Minimum program duration: 4 months. Prices in INR; the assessment is free and runs
-          before you commit to any plan.
-        </p>
-      </Section>
+      {/* Pricing teaser removed from home per client request. */}
 
       {/* ════════════════════════════════════════════════════════
           13) FINAL CTA
