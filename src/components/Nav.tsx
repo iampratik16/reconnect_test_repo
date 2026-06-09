@@ -92,9 +92,15 @@ export default function Nav() {
     setMobileOpen((prev) => !prev);
   }, []);
 
+  /* Over the dark homepage hero (transparent header, not yet scrolled) the
+     logo + hamburger must be light to stay visible. Everywhere else — light
+     page backgrounds, or the frosted header after scrolling — they stay dark. */
+  const overHero = pathname === "/" && !scrolled;
+
   /* ── Hamburger icon lines ────────────────────────────────── */
-  const lineClass =
-    "block h-[2px] w-6 bg-ink transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]";
+  const lineClass = `block h-[2px] w-6 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+    overHero ? "bg-bone" : "bg-ink"
+  }`;
 
   return (
     <>
@@ -105,6 +111,9 @@ export default function Nav() {
             ? "frosted border-b border-line"
             : "bg-transparent border-b border-transparent"
         }`}
+        // Respect the notch / status-bar inset on notched phones so the logo
+        // isn't tucked under it. Resolves to 0 on non-notched devices/desktop.
+        style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
         <nav className="container-site flex items-center justify-between h-16 md:h-[72px]">
           {/* ── Logo ──────────────────────────────────────── */}
@@ -112,7 +121,11 @@ export default function Nav() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset("/brand/logo.png")} alt="" aria-hidden="true" className="h-9 w-9 object-contain" />
             <span
-              className="text-[1.05rem] font-semibold tracking-[0.04em] text-ink leading-none"
+              className={`text-[1.05rem] font-semibold tracking-[0.04em] leading-none transition-colors duration-300 ${
+                overHero
+                  ? "text-bone drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)]"
+                  : "text-ink"
+              }`}
               style={{ fontFamily: "var(--font-brand)" }}
             >
               RECONNECT
@@ -151,6 +164,9 @@ export default function Nav() {
             className="xl:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 -mr-2"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
+            // When light over the hero, a soft shadow keeps the bars legible
+            // even on bright video frames.
+            style={overHero ? { filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.55))" } : undefined}
           >
             <span
               className={`${lineClass} origin-center ${

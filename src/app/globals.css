@@ -293,6 +293,24 @@ body::after {
   padding-right: clamp(20px, 3vw, 40px);
 }
 
+/* ── Hero background video ───────────────────────────────────────
+   The source clip has baked-in pillarbox bars around a portrait subject.
+   On wide (desktop) viewports we scale up hard to crop the bars out. On a
+   narrow phone viewport object-fit:cover already crops the side bars, so we
+   ease the scale right back — otherwise the hard 1.85x zoom over-crops and
+   shows the wrong part of the frame. Pair with object-cover + 100% w/h. */
+.hero-video {
+  object-position: center;
+  transform: scale(1.85);
+  transform-origin: center center;
+}
+@media (max-width: 768px) {
+  .hero-video {
+    object-position: 60% center;
+    transform: scale(1.12);
+  }
+}
+
 /* Hairline border */
 .hairline {
   border: 1px solid var(--color-line);

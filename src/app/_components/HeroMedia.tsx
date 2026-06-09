@@ -23,8 +23,7 @@ export default function HeroMedia() {
         src={asset("/hero-poster.jpg")}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover object-center"
-        style={{ transform: "scale(1.85)", transformOrigin: "center center" }}
+        className="hero-video absolute inset-0 w-full h-full object-cover"
       />
     );
   }
@@ -39,12 +38,11 @@ export default function HeroMedia() {
       playsInline
       preload="auto"
       aria-hidden="true"
-      className="absolute inset-0 w-full h-full object-cover object-center"
-      // Source video has baked-in black pillarbox bars around a
-      // portrait-oriented subject — we crop them out with a hard
-      // scale-up. Adjust the multiplier if the bars return after
-      // swapping the source file.
-      style={{ transform: "scale(1.85)", transformOrigin: "center center" }}
+      // `.hero-video` (globals.css) handles object-position + the responsive
+      // crop scale: hard 1.85x on desktop to hide baked-in pillarbox bars,
+      // eased to 1.12x on mobile (object-cover already crops the side bars)
+      // so the subjects aren't over-cropped.
+      className="hero-video absolute inset-0 w-full h-full object-cover"
     />
   );
 }

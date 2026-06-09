@@ -93,7 +93,7 @@ export default function HomePage() {
           1) HERO — full-bleed video, bottom-anchored editorial copy,
                     floating glass credibility chip, scroll indicator.
           ════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[100svh] overflow-hidden bg-sage-deep">
+      <section className="relative min-h-[86svh] md:min-h-[100svh] overflow-hidden bg-sage-deep">
         {/* ── Background video ─────────────────────────────────── */}
         <div className="absolute inset-0">
           <HeroMedia />
