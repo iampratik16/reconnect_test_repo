@@ -374,7 +374,9 @@ export default function HomePage() {
                   src={asset("/dr-shruthi2.jpeg")}
                   alt="Dr. Shruthi Desai, Rheumatologist"
                   loading="lazy"
-                  className="w-full h-[440px] md:h-[560px] object-cover object-top"
+                  // Portrait image: natural aspect (h-auto) at every breakpoint so
+                  // the whole image shows uncropped on phones, all tablets and desktop.
+                  className="w-full h-auto"
                 />
               </div>
             </Reveal>

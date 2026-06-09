@@ -169,11 +169,11 @@ export default function ReconnectTeamPage() {
                       src={asset("/dr-shruthi2.jpeg")}
                       alt="Dr. Shruthi Desai, Rheumatologist and founder of Reconnect Wellness"
                       loading="eager"
-                      // Tablet (md → lg, single-column): show the whole portrait
-                      // image (h-auto, natural aspect) instead of cropping. Mobile
-                      // keeps a tighter crop; desktop keeps the fixed-height crop
-                      // for the side-by-side editorial column.
-                      className="w-full h-[420px] md:h-auto lg:h-[520px] object-cover object-top"
+                      // Portrait image (851x1280): render at natural aspect (h-auto)
+                      // at every breakpoint so the whole image is always visible and
+                      // never cropped — on phones, all tablet sizes, and the desktop
+                      // editorial column alike.
+                      className="w-full h-auto"
                     />
                   </div>
                   <figcaption className="text-caption text-ink-soft mt-4 max-w-xs">
