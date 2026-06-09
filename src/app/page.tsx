@@ -202,7 +202,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Prevention divergence: two scroll-drawn paths from age 40 — the
               widening gap between "do nothing" and "with Reconnect" is the pitch. */}
-          <div className="lg:col-span-7 lg:sticky lg:top-24">
+          <div className="lg:col-span-6 lg:sticky lg:top-24">
             <Reveal>
               {/* Divergence chart, pre-composed to a 4:5 frame (dark padding baked
                   into the PNG) so it fills the card edge-to-edge with no letterbox. */}
@@ -218,7 +218,7 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-6">
             <Reveal>
               <Eyebrow>Built for prevention</Eyebrow>
             </Reveal>
