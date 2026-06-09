@@ -657,10 +657,6 @@ function Confirmation({
         {recommendation.reason}
       </p>
 
-      <p className="text-body-sm text-ink-soft mt-4 max-w-xl mx-auto">
-        Our clinical team will review your assessment within one working day.
-      </p>
-
       <div className="flex flex-wrap justify-center gap-4 mt-10">
         <Button variant="clay" size="lg" href="/contact" arrow>
           Book consultation

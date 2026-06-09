@@ -26,7 +26,6 @@ import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
 import WhyReconnectSection from "./_components/WhyReconnectSection";
 import ScienceSection from "./_components/ScienceSection";
-import PreventionDivergence from "./_components/PreventionDivergence";
 import PreventionTimeline from "./_components/PreventionTimeline";
 import ConditionsGrid from "./_components/ConditionsGrid";
 import MethodSection from "./_components/MethodSection";
@@ -203,13 +202,23 @@ export default function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Prevention divergence: two scroll-drawn paths from age 40 — the
               widening gap between "do nothing" and "with Reconnect" is the pitch. */}
-          <div className="lg:col-span-5 lg:sticky lg:top-24">
+          <div className="lg:col-span-7 lg:sticky lg:top-24">
             <Reveal>
-              <PreventionDivergence />
+              {/* Divergence chart, pre-composed to a 4:5 frame (dark padding baked
+                  into the PNG) so it fills the card edge-to-edge with no letterbox. */}
+              <figure className="relative rounded-[20px] overflow-hidden shadow-card aspect-[4/5]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={asset("/prevention-divergence.png")}
+                  alt="From age 40, two paths diverge: with Reconnect, joint mobility and comfort hold and rise; on the standard path they decline into stiffness and pain."
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </figure>
             </Reveal>
           </div>
 
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-5">
             <Reveal>
               <Eyebrow>Built for prevention</Eyebrow>
             </Reveal>
