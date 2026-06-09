@@ -67,7 +67,7 @@ export default function AboutPage() {
               </Reveal>
               <Reveal delay={0.2}>
                 <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
-                  MBBS, MRCP (Internal Medicine), MRCP (SCE) Rheumatology, Fellowship in Rheumatology &amp; Immunology.
+                  MBBS, MRCP (Internal Medicine), MRCP (SCE) Rheumatology, Fellowship in Rheumatology &amp; Immunology.{" "}
                   <br className="hidden sm:block" />
                   Rheumatologist. Non-surgical. The doctor who designed Reconnect.
                 </p>
