@@ -25,7 +25,6 @@ import { asset } from "@/lib/asset";
 import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
 import WhyReconnectSection from "./_components/WhyReconnectSection";
-import ScienceSection from "./_components/ScienceSection";
 import PreventionTimeline from "./_components/PreventionTimeline";
 import ConditionsGrid from "./_components/ConditionsGrid";
 import MethodSection from "./_components/MethodSection";
@@ -189,11 +188,6 @@ export default function HomePage() {
           3) THE DIFFERENTIATOR — (01) Why Reconnect
           ════════════════════════════════════════════════════════ */}
       <WhyReconnectSection />
-
-      {/* ════════════════════════════════════════════════════════
-          4) THE SCIENCE — (02) Cinematic image bento
-          ════════════════════════════════════════════════════════ */}
-      <ScienceSection />
 
       {/* ════════════════════════════════════════════════════════
           4b) BUILT FOR PREVENTION — primary highlight, before Conditions
