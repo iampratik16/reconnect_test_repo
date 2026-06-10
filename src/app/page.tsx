@@ -234,12 +234,11 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.3}>
               <p className="text-body text-ink-soft mt-4 max-w-xl">
-                If you’re somewhere between 30 and 50 — building a career at a desk for ten or
-                twelve hours a day, raising kids, eating on the run, with no real time for the
-                gym — your body is quietly keeping score. The stiff neck. The lower back that
-                aches by evening. The shoulder that never fully loosens. None of it is bad
-                enough to see a doctor for. <em className="serif-italic">Yet.</em> That “yet” is
-                exactly where Reconnect works.
+                If you’re somewhere between 30 and 50 — building a career, raising kids,
+                eating on the run, with no real time for the exercise - your body is quietly
+                keeping score. The stiff neck. The lower back that aches by evening. The
+                shoulder that never fully loosens. None of it is bad enough to see a doctor
+                for. <em className="serif-italic">Yet.</em> That “yet” is exactly where Reconnect works.
               </p>
             </Reveal>
             <Reveal delay={0.4}>

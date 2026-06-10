@@ -9,7 +9,7 @@ import Section from "@/components/Section";
 const proofCards = [
   {
     title: "Doctor-led",
-    body: "Program designed by a doctor — medicines sit behind every prescription.",
+    body: "Program designed by a doctor.",
   },
   {
     title: "Personalised to your condition",
@@ -21,7 +21,7 @@ const proofCards = [
   },
   {
     title: "Structured roadmap",
-    body: "A 16-week cycle with milestones and reassessment — the direction a generic app can't give you.",
+    body: "A 16-week cycle with milestones and reassessment.",
   },
 ];
 

@@ -244,16 +244,6 @@ export default function ScienceSection() {
           ))}
         </div>
 
-        {/* Footnote */}
-        <motion.p
-          className="mt-6 text-[11px] text-center"
-          style={{ color: "rgba(255,255,255,0.22)" }}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.9 }}
-        >
-          Based on peer-reviewed literature and outcomes reported across Reconnect 16-week program cycles.
-        </motion.p>
       </div>
     </section>
   );
