@@ -370,7 +370,7 @@ export default function HomePage() {
                 {/* TODO: replace with Dr. Shruthi's editorial portrait */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={asset("/dr-shruthi2.jpeg")}
+                  src={asset("/another_shruthi.jpeg")}
                   alt="Dr. Shruthi Desai, Rheumatologist"
                   loading="lazy"
                   // Portrait image: natural aspect (h-auto) at every breakpoint so
@@ -396,12 +396,6 @@ export default function HomePage() {
                 Rheumatology &amp; Immunology. A physician and rheumatologist trained across the UK
                 and India, she brings together a passion for fitness and the science of medicine
                 to build holistic, personalised care.
-              </p>
-            </Reveal>
-            <Reveal delay={0.3}>
-              <p className="text-body text-ink-soft mt-4 max-w-xl">
-                Non-surgical — surgical cases are referred to orthopaedics. Reconnect works
-                alongside your treating doctor, never instead of them.
               </p>
             </Reveal>
             <Reveal delay={0.4}>

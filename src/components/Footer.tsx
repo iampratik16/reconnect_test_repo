@@ -163,10 +163,6 @@ export default function Footer() {
         {/* ═══ C) Newsletter Row ═══════════════════════════════ */}
         <div className="border-t border-bone/10">
           <div className="container-site py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <p className="serif-italic text-body text-bone/80">
-              Insights that move you forward&nbsp;&mdash;&nbsp;no&nbsp;noise.
-            </p>
-
             {subscribed ? (
               <div className="flex items-center gap-2 text-bone/80">
                 <CheckIcon className="w-5 h-5 text-clay" />
@@ -198,10 +194,6 @@ export default function Footer() {
         {/* ═══ D) Bottom Bar ═══════════════════════════════════ */}
         <div className="border-t border-bone/10">
           <div className="container-site py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-caption text-bone/40">
-              Rheumatologist-led · Non-surgical · Bones &amp; joints.
-            </p>
-
             {/* Social icons */}
             <div className="flex items-center gap-4">
               <a
