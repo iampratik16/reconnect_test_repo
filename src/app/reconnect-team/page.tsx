@@ -38,7 +38,7 @@ const team = [
     role: "Consultant Neurosurgeon",
     pillar: "Medical",
     image: "/anmol.jpeg",
-    objectPosition: "center 20%",
+    objectPosition: "center 30%",
     bio: "Dr. Anmol Nagaraj is a highly experienced neurosurgeon specializing in minimally invasive brain and spine surgery. With over a decade of expertise, he has trained and worked at prestigious institutions including Rutgers University (USA), Kasturba Medical College, and Manipal Hospitals. His areas of interest include neuro-oncology, neurovascular disorders, skull base surgery, neurotrauma, and advanced spine procedures. Combining clinical excellence with a strong research background, Dr. Anmol is committed to delivering innovative, patient-centered care for complex neurological conditions.",
   },
   {
@@ -86,7 +86,7 @@ const team = [
     role: "Dietitian & Nutrition Expert",
     pillar: "Nutrition",
     image: "/prajna.jpeg",
-    objectPosition: "center 20%",
+    objectPosition: "center 35%",
     bio: "Prajna Bhandary is an experienced clinical dietitian and nutrition expert with over eight years of practice in personalized nutrition and therapeutic diet planning. As Chief Dietitian at VSH Hospital, she specializes in managing diabetes, cardiovascular diseases, kidney disorders, and lifestyle-related conditions through evidence-based nutritional care. With advanced qualifications in Dietetics, Applied Nutrition, and Diabetes Education, Prajna is passionate about helping individuals achieve sustainable health outcomes through practical, personalized dietary strategies and nutrition education.",
   },
   {
