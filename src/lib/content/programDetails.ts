@@ -227,7 +227,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         q: "How much time per week?",
-        a: "Designed to suite your physical fitness level.",
+        a: "Designed to suit your physical fitness level.",
       },
       {
         q: "Can I keep my current gym or yoga routine?",
