@@ -206,15 +206,6 @@ export default function ConditionsGrid() {
             </div>
           </div>
 
-          <motion.p
-            className="text-ink-soft text-sm max-w-xs leading-relaxed"
-            initial={{ opacity: 0, y: 8 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease, delay: 0.25 }}
-          >
-            A bird&rsquo;s-eye view of what we work with. Swipe through &mdash; each links to the
-            right specialist track.
-          </motion.p>
         </div>
 
         {/* ── Swipe carousel ──────────────────────────────────── */}

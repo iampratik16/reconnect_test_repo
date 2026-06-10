@@ -260,17 +260,6 @@ export default function ChooseYourPath() {
                   </ul>
                 </div>
 
-                {/* 4 — in 16 weeks */}
-                <div className="mt-5 border-t border-line px-6 pt-5 md:px-7">
-                  <p className="text-eyebrow text-ink-soft mb-2">In 16 weeks</p>
-                  <p className="flex gap-2 text-body text-ink">
-                    <span style={{ color: t.accent }} aria-hidden="true">
-                      →
-                    </span>
-                    {t.outcome}
-                  </p>
-                </div>
-
                 {/* 6 — CTA */}
                 <div className="px-6 pb-6 pt-6 md:px-7 md:pb-7">
                   <Link
