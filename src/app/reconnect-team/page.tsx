@@ -18,25 +18,6 @@ export const metadata: Metadata = {
 
 /* ── Data ──────────────────────────────────────────────────── */
 
-const doctorLed = [
-  {
-    title: "Medical assessment first",
-    body: "Every program begins with a rheumatologist-led intake. Nothing is prescribed without understanding the body it’s for.",
-  },
-  {
-    title: "Program tuned to diagnosis",
-    body: "The exercise, the load, the progression — all shaped by your condition, your imaging, your pain map. Not your height and weight.",
-  },
-  {
-    title: "Works alongside your medication",
-    body: "We don’t modify your prescriptions. The program runs alongside the care your physician is already providing — never instead of it.",
-  },
-  {
-    title: "Coordinates with your treating doctor",
-    body: "Where appropriate, we share progress notes and respect any restrictions your surgeon or physician has set.",
-  },
-] as const;
-
 const tracks = [
   { name: "Prevent", note: "For 40+, family history, post-menopausal bone health.", href: "/programs/prevent" },
   { name: "Manage",  note: "For active arthritis, joint pain, back & neck pain, disc bulge.", href: "/programs/manage" },
@@ -136,14 +117,13 @@ export default function ReconnectTeamPage() {
                 <p className="text-body-lg text-ink-soft mt-6 max-w-xl">
                   MBBS, MRCP (Internal Medicine), MRCP (SCE) Rheumatology, Fellowship in Rheumatology &amp; Immunology.{" "}
                   <br className="hidden sm:block" />
-                  Rheumatologist. Non-surgical. The doctor who designed Reconnect.
+                  The doctor who designed Reconnect.
                 </p>
               </Reveal>
 
               <Reveal delay={0.3}>
                 <div className="flex flex-wrap gap-2 mt-8">
                   <Pill variant="sage">Rheumatology</Pill>
-                  <Pill variant="sage">Non-surgical</Pill>
                   <Pill variant="sage">Bones &amp; joints</Pill>
                   <Pill variant="sage">Personalised strength</Pill>
                 </div>
@@ -320,9 +300,6 @@ export default function ReconnectTeamPage() {
                   Exercise is not artificial. But{" "}
                   <span className="serif-italic text-clay">inactivity</span> is.
                 </p>
-                <p className="text-h3 font-display text-calcium/70 mt-8 max-w-3xl">
-                  It&rsquo;s the medicine that needs you.
-                </p>
                 <footer className="text-caption text-calcium/50 mt-10 flex items-center gap-4">
                   <span className="h-px w-8 bg-clay/60" aria-hidden="true" />
                   Dr.&nbsp;Shruthi Desai, on the principles behind Reconnect
@@ -334,45 +311,7 @@ export default function ReconnectTeamPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          5) WHAT "DOCTOR-LED" MEANS — practice list
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          <div className="lg:col-span-5">
-            <SectionHeader
-              eyebrowNumber="(04)"
-              eyebrow="In practice"
-              title={`What “doctor-led” actually means.`}
-              description="It’s not a label — it’s a way of working that shows up at every step."
-              align="left"
-            />
-          </div>
-
-          <div className="lg:col-span-7">
-            <Stagger className="flex flex-col" staggerDelay={0.08}>
-              {doctorLed.map((item, i) => (
-                <div
-                  key={item.title}
-                  className={`flex gap-6 py-7 ${
-                    i !== doctorLed.length - 1 ? "border-b border-line" : ""
-                  }`}
-                >
-                  <span className="text-eyebrow text-clay shrink-0 pt-1 w-10">
-                    0{i + 1}
-                  </span>
-                  <div>
-                    <h4 className="text-h4 font-display text-ink mb-2">{item.title}</h4>
-                    <p className="text-body text-ink-soft">{item.body}</p>
-                  </div>
-                </div>
-              ))}
-            </Stagger>
-          </div>
-        </div>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
-          6) WHY BONES & JOINTS — tracks + all-ages framing
+          5) WHY BONES & JOINTS — tracks + all-ages framing
           ═══════════════════════════════════════════════════════ */}
       <section className="relative bg-bone section-py overflow-hidden">
         <KneeSvg className="watermark text-ink right-[-80px] bottom-[60px] w-[420px] hidden md:block" />
@@ -382,7 +321,7 @@ export default function ReconnectTeamPage() {
             eyebrowNumber="(05)"
             eyebrow="Why bones & joints"
             title="The one thing we do, for every age."
-            description="Bone and joint health is not just a problem for the elderly. It is a 40-year arc — and the early years are when you have the most leverage."
+            description="Bone and joint health is not just a problem for the elderly. It is a 30-year arc — and the early years are when you have the most leverage."
             align="left"
             className="mb-12 max-w-3xl"
           />
