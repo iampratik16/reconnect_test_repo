@@ -298,11 +298,6 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
             </Card>
           ))}
         </Stagger>
-
-        <p className="text-caption text-ink-soft mt-8 max-w-2xl">
-          Reconnect works alongside your existing medical care. We do not modify prescriptions
-          or claim cures — outcomes describe typical trajectories observed in our members.
-        </p>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════

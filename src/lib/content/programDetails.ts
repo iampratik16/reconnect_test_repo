@@ -149,7 +149,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       {
         label: "Weeks 1–4",
         title: "Foundation & assessment",
-        body: "Rheumatologist-led intake, baseline strength testing, posture and joint screening. Movement re-education before loading anything.",
+        body: "Doctor-led intake, baseline strength testing, posture and joint screening. Movement re-education before loading anything.",
         focus: ["Posture", "Joint screening", "Movement quality"],
       },
       {
@@ -182,7 +182,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Exercise",
-        body: "Moderate intensity, progressive. Heavier loading is introduced gradually once movement quality is solid. Bone-stimulating patterns prioritised.",
+        body: "Moderate intensity, progressive. Heavier loading is introduced gradually once movement quality is good. Bone-stimulating patterns prioritised.",
       },
       {
         name: "Nutrition",
@@ -190,12 +190,11 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Mind Coaching",
-        body: "Referral only if we detect a block — typically adherence dips or post-menopausal mood shifts. Never reflexive.",
+        body: "Referral only if we detect a block.",
       },
     ],
 
-    outcomesIntro:
-      "What members on this track typically experience after a 16-week cycle. Trajectories — not promises — and they sit alongside, not instead of, your existing medical care.",
+    outcomesIntro: "",
     outcomes: [
       {
         label: "Strength gained",
@@ -228,7 +227,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         q: "How much time per week?",
-        a: "Three sessions of ~45 minutes, plus a brief daily movement habit. Designed to fit a working week.",
+        a: "Designed to suite your physical fitness level.",
       },
       {
         q: "Can I keep my current gym or yoga routine?",

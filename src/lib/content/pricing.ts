@@ -66,7 +66,7 @@ export const plans: Plan[] = [
     priceTotal: 40000,
     priceMonthly: 10000,
     months: 4,
-    bestFor: "For complex or post-surgical cases that want maximum guidance.",
+    bestFor: "For complex cases that want maximum guidance.",
     description:
       "Everything in Basic, plus deep psychological input and exclusive 1-on-1 sessions — the full Reconnect experience.",
     inheritsFrom: "Basic",
