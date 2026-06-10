@@ -35,7 +35,7 @@ export const plans: Plan[] = [
   {
     name: "Basic",
     priceTotal: 20000,
-    priceMonthly: 4999,
+    priceMonthly: 5000,
     months: 4,
     bestFor: "For chronic pain that needs medical accountability to stay on track.",
     description:
@@ -64,7 +64,7 @@ export const plans: Plan[] = [
   {
     name: "Premium",
     priceTotal: 40000,
-    priceMonthly: 9999,
+    priceMonthly: 10000,
     months: 4,
     bestFor: "For complex or post-surgical cases that want maximum guidance.",
     description:

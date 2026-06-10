@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { asset } from "@/lib/asset";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
 import Reveal from "@/components/Reveal";
 import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
-import Accordion from "@/components/Accordion";
 import CTASection from "@/components/CTASection";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
 import PricingTiers from "@/components/PricingTiers";
@@ -26,33 +24,6 @@ export const metadata: Metadata = {
  * yes/no grid stays in sync with the additive card lists.
  */
 const allFeatures = featureMatrix();
-
-const pricingFaqs = [
-  {
-    q: "How does billing work?",
-    a: "Both plans are billed monthly, with a minimum program duration of 4 months. You're charged at the start of each cycle.",
-  },
-  {
-    q: "Can I pause or cancel my plan?",
-    a: "Yes — both. Pause for travel, surgery, or any other reason; cancel any time before your next billing cycle. We don't believe in trapping members into plans that don't fit their life.",
-  },
-  {
-    q: "What exactly is included in the medical assessment?",
-    a: "A rheumatologist-led intake covering your history, current medications, recent imaging, and a pain map by joint and region. This is what every program is built on — without it, nothing else starts.",
-  },
-  {
-    q: "Do I need a referral from my doctor?",
-    a: "No referral required. If you're already under specialist care, we ask for context and coordinate with your treating doctor where appropriate.",
-  },
-  {
-    q: "Is Reconnect a replacement for my current medical treatment?",
-    a: "No. Reconnect works alongside your existing medical care. We don't modify prescriptions. As pain and function improve, your treating physician may choose to taper medication — that decision is theirs.",
-  },
-  {
-    q: "Can I switch plans later?",
-    a: "Yes. Many members start on Basic and move up to Premium as they progress, or step down to maintenance after their 16-week cycle. Switch any time with your coach.",
-  },
-];
 
 /* ── Page ──────────────────────────────────────────────────── */
 
@@ -75,12 +46,6 @@ export default function PricingPage() {
                 Plans that fit{" "}
                 <span className="serif-italic text-clay">your needs.</span>
               </h1>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <p className="text-body-lg text-ink-soft mt-8 max-w-2xl">
-                Both plans include a medical assessment and a personalised program, billed
-                monthly with a minimum 4-month program.
-              </p>
             </Reveal>
           </div>
         </div>
@@ -117,11 +82,6 @@ export default function PricingPage() {
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
         <PricingTiers ctaLabel="Take the free assessment" ctaHref="/assessment" />
-
-        <p className="text-caption text-ink-soft mt-8 text-center max-w-[64rem] mx-auto">
-          Minimum program duration: 4 months. Prices in INR; GST extra where applicable. The
-          assessment is free and runs before you commit to any plan.
-        </p>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
@@ -137,11 +97,6 @@ export default function PricingPage() {
                 title="Why this isn’t the price of a fitness app."
                 align="left"
               />
-              <p className="text-body text-ink-soft mt-6 max-w-md">
-                Generic apps cost less because they give everyone the same thing. Reconnect costs
-                more because the program is built for the body in front of us — by a rheumatologist,
-                with medical oversight running underneath.
-              </p>
             </div>
 
             <div className="lg:col-span-7">
@@ -343,33 +298,6 @@ export default function PricingPage() {
             </div>
           </div>
         </Reveal>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
-          6) PRICING FAQ
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          <div className="lg:col-span-4">
-            <SectionHeader
-              eyebrowNumber="(03)"
-              eyebrow="Pricing questions"
-              title="The ones we hear most."
-              align="left"
-            />
-            <p className="text-body-sm text-ink-soft mt-6">
-              Not finding yours?{" "}
-              <a href={asset("/contact")} className="text-clay font-medium underline-offset-4 hover:underline">
-                Ask the team directly.
-              </a>
-            </p>
-          </div>
-          <div className="lg:col-span-8">
-            <Accordion
-              items={pricingFaqs.map((f) => ({ trigger: f.q, content: <p>{f.a}</p> }))}
-            />
-          </div>
-        </div>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════

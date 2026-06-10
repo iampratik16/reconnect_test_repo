@@ -177,8 +177,8 @@ const faqGroups: FaqGroup[] = [
         q: "How much does it cost? What plans are available?",
         a: (
           <p>
-            Two monthly plans with a minimum 4-month program: Basic (₹4,999/mo — most popular)
-            and Premium (₹9,999/mo).{" "}
+            Two monthly plans with a minimum 4-month program: Basic (₹5,000/mo — most popular)
+            and Premium (₹10,000/mo).{" "}
             <Link
               href="/pricing"
               className="text-clay font-medium underline-offset-4 hover:underline"
