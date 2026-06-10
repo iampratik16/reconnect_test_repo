@@ -10,14 +10,11 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Pill from "@/components/Pill";
 import CTASection from "@/components/CTASection";
-import JourneyStepper from "@/components/JourneyStepper";
 import {
   KneeSvg,
   SpineSvg,
   SkeletonSvg,
 } from "@/components/AnatomicalArt";
-import BodyRegionDiagram from "@/app/programs/_components/BodyRegionDiagram";
-import StickyJourneySequence from "@/app/how-it-works/_components/StickyJourneySequence";
 import CareModel from "./_components/CareModel";
 import WhyNotGenericApp from "@/app/how-it-works/_components/WhyNotGenericApp";
 
@@ -304,47 +301,6 @@ export default function ApproachPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
-          5) HOW EVERY PROGRAM IS BUILT — journey + body diagram
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <SectionHeader
-          eyebrowNumber="(03)"
-          eyebrow="The method"
-          title="How every program is built."
-          description="The same four-step journey runs under every track. The assessment always comes first — nothing is generic, nothing is skipped."
-          align="left"
-          className="mb-14 md:mb-20"
-        />
-
-        <JourneyStepper className="mb-20" />
-
-        {/* Body region diagram — skeleton + focus card sit side-by-side inside */}
-        <Card padding="lg" className="bg-calcium">
-          <Eyebrow>Where does it hurt?</Eyebrow>
-          <h3 className="text-h3 font-display text-ink mt-4 mb-6">
-            Action starts where the problem is.
-          </h3>
-          <BodyRegionDiagram />
-        </Card>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
-          8) THE CONNECTED JOURNEY — big numbered sticky-scroll sequence
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep" id="the-journey">
-        <SectionHeader
-          eyebrowNumber="(04)"
-          eyebrow="The connected journey"
-          title="Four pillars. Doctor-led, personalised, and always in this order."
-          description="Each pillar is integrated — not bolted on. Assessment governs all of them. Exercise respects your pain. Nutrition fights it. Mind coaching holds it together."
-          align="left"
-          className="mb-16 md:mb-20"
-        />
-
-        <StickyJourneySequence showArchitecture={false} />
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
           9) "WHY NOT JUST A FREE APP?" CALLOUT
           ═══════════════════════════════════════════════════════ */}
       <WhyNotGenericApp eyebrowNumber="(05)" />
@@ -357,7 +313,6 @@ export default function ApproachPage() {
           eyebrowNumber="(06)"
           eyebrow="What to expect"
           title="The 16-week shape."
-          description="Measured language — trajectories, not promises. Outcomes always sit alongside, not instead of, your existing medical care."
           align="left"
           className="mb-16"
         />
@@ -378,12 +333,6 @@ export default function ApproachPage() {
             </div>
           ))}
         </Stagger>
-
-        <p className="text-caption text-ink-soft italic mt-8 max-w-2xl border-l border-line pl-5">
-          Reconnect is non-surgical. We coordinate with your treating doctor and never modify
-          prescriptions. Stories shared across the site are with explicit consent; outcomes
-          vary by individual.
-        </p>
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
