@@ -126,7 +126,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       ],
       images: [
         "/prevent/who-1.webp",
-        "/prevent/who-2.webp",
+        "/lady.png",
         "/prevent/who-3.webp",
         "/prevent/who-4.webp",
       ],

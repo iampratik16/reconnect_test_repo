@@ -91,6 +91,12 @@ export default function RootLayout({
     >
       <head>
         <SchemaMarkup />
+        {/* Google Material Symbols — used for the approach-page care-model icons. */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
       </head>
       <body className="min-h-dvh flex flex-col bg-bone text-ink antialiased overflow-x-hidden">
         <SmoothScroll>

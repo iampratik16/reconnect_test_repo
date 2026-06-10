@@ -17,7 +17,8 @@ import {
   SkeletonSvg,
 } from "@/components/AnatomicalArt";
 import BodyRegionDiagram from "@/app/programs/_components/BodyRegionDiagram";
-import StickyJourneySequence, { ProgramArchitecture } from "@/app/how-it-works/_components/StickyJourneySequence";
+import StickyJourneySequence from "@/app/how-it-works/_components/StickyJourneySequence";
+import CareModel from "./_components/CareModel";
 import WhyNotGenericApp from "@/app/how-it-works/_components/WhyNotGenericApp";
 
 export const metadata: Metadata = {
@@ -147,8 +148,8 @@ export default function ApproachPage() {
             <Eyebrow>Programs &amp; how it works</Eyebrow>
           </Reveal>
 
-          <div className="mt-8">
-            <ProgramArchitecture />
+          <div className="mt-10">
+            <CareModel />
           </div>
         </div>
       </section>
