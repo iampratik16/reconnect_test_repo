@@ -198,14 +198,15 @@ export default function HomePage() {
               widening gap between "do nothing" and "with Reconnect" is the pitch. */}
           <div className="lg:col-span-6 lg:sticky lg:top-24">
             <Reveal>
-              {/* Divergence chart, pre-composed to a 4:5 frame (dark padding baked
-                  into the PNG) so it fills the card edge-to-edge with no letterbox. */}
-              <figure className="relative rounded-[20px] overflow-hidden shadow-card aspect-[4/5]">
+              {/* Divergence chart — stretched to fill the 4:5 frame edge-to-edge
+                  (object-fill) so there are no black borders and every label stays
+                  visible (object-cover would crop the side labels). */}
+              <figure className="relative rounded-[20px] overflow-hidden shadow-card aspect-[4/5] bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={asset("/prevention-divergence.png")}
-                  alt="From age 40, two paths diverge: with Reconnect, joint mobility and comfort hold and rise; on the standard path they decline into stiffness and pain."
-                  className="w-full h-full object-cover"
+                  src={asset("/prevention-divergence-v2.jpg")}
+                  alt="From age 30, two paths diverge: with strength training, joint mobility and comfort hold and rise to strong and capable; with immobility they decline to stiffer and in more pain."
+                  className="w-full h-full object-fill"
                   loading="lazy"
                 />
               </figure>
