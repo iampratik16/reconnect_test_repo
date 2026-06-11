@@ -131,10 +131,6 @@ export default function Footer() {
                   RECONNECT
                 </span>
               </Link>
-              <p className="text-body-sm text-bone/60 max-w-xs">
-                Rheumatologist-led strength training that works alongside your
-                medication, not instead of&nbsp;it.
-              </p>
             </div>
 
             {/* Link columns */}
