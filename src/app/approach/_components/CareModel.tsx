@@ -66,7 +66,7 @@ const PILLARS: Pillar[] = [
   {
     icon: "monitoring",
     title: "Tracking plans",
-    image: "/dc4.png",
+    image: "/dc9.jpg",
     items: [
       "Online follow up by doctors, trainers and other specialists",
       "Tracking weight, BMI and other health related parameters",
