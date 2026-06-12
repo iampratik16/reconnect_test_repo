@@ -155,7 +155,7 @@ export default function ChooseYourPath() {
             <div className="mb-3 grid grid-cols-3 gap-x-6 text-caption font-medium uppercase tracking-[0.12em] text-ink-soft">
               <span className="text-center">Staying ahead</span>
               <span />
-              <span className="text-center">Rebuilding after injury</span>
+              <span className="text-center">Rebuilt</span>
             </div>
             <div className="relative grid grid-cols-3 gap-x-6">
               {/* gradient line — runs from the first dot to the last */}
