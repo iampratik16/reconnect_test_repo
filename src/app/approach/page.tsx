@@ -99,7 +99,7 @@ const conditionGroups = [
     title: "Strength & Rebuild",
     image: "/conditions/strength.png",
     items: [
-      { name: "Severe osteoarthritis support", track: "/programs/strengthen" },
+      { name: "helps to treat fibromyalgia", track: "/programs/strengthen" },
       { name: "Deconditioning / sarcopenia", track: "/programs/manage" },
     ],
   },
