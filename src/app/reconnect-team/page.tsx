@@ -193,7 +193,7 @@ export default function ReconnectTeamPage() {
             eyebrowNumber="(01)"
             eyebrow="The wider team"
             title="Five disciplines, one program."
-            description="Dr. Shruthi sets the medical direction. Family medicine, physiotherapy, strength training, nutrition and psychology then work as one plan — coordinated, not handed off — so the bones and joints never heal in a silo."
+            description="Family medicine, physiotherapy, strength training, nutrition and psychology then work as one plan — coordinated, integrated."
             align="left"
             className="mb-12 max-w-3xl"
           />

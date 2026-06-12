@@ -16,7 +16,6 @@ import {
   SkeletonSvg,
 } from "@/components/AnatomicalArt";
 import CareModel from "./_components/CareModel";
-import WhyNotGenericApp from "@/app/how-it-works/_components/WhyNotGenericApp";
 
 export const metadata: Metadata = {
   title: "Programs & How It Works",
@@ -70,8 +69,8 @@ const conditionGroups = [
       { name: "Knee osteoarthritis", track: "/programs/manage" },
       { name: "Rheumatoid arthritis", track: "/programs/manage" },
       { name: "Joint pain & stiffness", track: "/programs/manage" },
-      { name: "Frozen shoulder", track: "/programs/manage" },
-      { name: "Hip pain", track: "/programs/manage" },
+      { name: "fibromyalgia", track: "/programs/manage" },
+      { name: "spondylitis", track: "/programs/manage" },
     ],
   },
   {
@@ -101,6 +100,8 @@ const conditionGroups = [
     items: [
       { name: "helps to treat fibromyalgia", track: "/programs/strengthen" },
       { name: "Deconditioning / sarcopenia", track: "/programs/manage" },
+      { name: "loose weight", track: "/programs/strengthen" },
+      { name: "prolonged immobility", track: "/programs/strengthen" },
     ],
   },
 ] as const;
@@ -159,7 +160,7 @@ export default function ApproachPage() {
             eyebrowNumber="(01)"
             eyebrow="The Tracks"
             title="Choose your starting point. We’ll do the rest."
-            description="Three condition-focused tracks. Each one is personalised after your assessment — no template, no guesswork."
+            description="Three condition-focused tracks. Each one is personalised after your assessment."
             align="left"
           />
         </div>
@@ -299,10 +300,6 @@ export default function ApproachPage() {
         </Stagger>
       </Section>
 
-      {/* ═══════════════════════════════════════════════════════
-          9) "WHY NOT JUST A FREE APP?" CALLOUT
-          ═══════════════════════════════════════════════════════ */}
-      <WhyNotGenericApp eyebrowNumber="(05)" />
 
       {/* ═══════════════════════════════════════════════════════
           10) EXPECTATION TIMELINE — week 1, 4-6, month 2, month 3
