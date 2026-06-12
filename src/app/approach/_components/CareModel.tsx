@@ -28,7 +28,7 @@ const PILLARS: Pillar[] = [
     image: "/dc1.png",
     items: [
       "One-to-one online Consultation with doctor",
-      "Blood and other investigations",
+      "Physical consultation only if we think its required",
       "Diagnostic work up",
       "Prescribing medicines as required",
       "Personalised treatment plan",

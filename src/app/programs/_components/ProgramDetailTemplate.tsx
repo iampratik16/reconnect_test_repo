@@ -54,9 +54,11 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
                   {renderPromise(data.promise, data.italicWord)}
                 </h1>
               </Reveal>
-              <Reveal delay={0.2}>
-                <p className="text-body-lg text-ink-soft mt-8 max-w-2xl">{data.subhead}</p>
-              </Reveal>
+              {data.subhead && (
+                <Reveal delay={0.2}>
+                  <p className="text-body-lg text-ink-soft mt-8 max-w-2xl">{data.subhead}</p>
+                </Reveal>
+              )}
 
               <Reveal delay={0.3}>
                 <div className="mt-8 flex flex-wrap gap-2">
@@ -242,37 +244,41 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
 
         <RoadmapTimeline phases={data.roadmap} />
 
-        <p className="text-body-sm text-ink-soft italic mt-12 max-w-2xl border-l border-line pl-5">
-          {data.bodyRegionNote}
-        </p>
+        {data.bodyRegionNote && (
+          <p className="text-body-sm text-ink-soft italic mt-12 max-w-2xl border-l border-line pl-5">
+            {data.bodyRegionNote}
+          </p>
+        )}
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
           4) FOUR PILLARS — adapted for this severity
           ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          eyebrowNumber="(03)"
-          eyebrow="The four pillars"
-          title="The same method — tuned for you."
-          description={data.pillarsIntro}
-          align="left"
-          className="mb-12"
-        />
+      {data.pillars.length > 0 && (
+        <Section bg="bg-bone-deep">
+          <SectionHeader
+            eyebrowNumber="(03)"
+            eyebrow="The four pillars"
+            title="The same method — tuned for you."
+            description={data.pillarsIntro}
+            align="left"
+            className="mb-12"
+          />
 
-        <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {data.pillars.map((p, i) => (
-            <Card key={p.name} padding="lg" className="bg-calcium flex flex-col gap-3 h-full">
-              <div className="flex items-center justify-between">
-                <span className="text-eyebrow text-clay">0{i + 1}</span>
-                <span className="text-caption text-ink-soft">{p.name}</span>
-              </div>
-              <h4 className="text-h3 font-display text-ink">{p.name}</h4>
-              <p className="text-body text-ink-soft">{p.body}</p>
-            </Card>
-          ))}
-        </Stagger>
-      </Section>
+          <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {data.pillars.map((p, i) => (
+              <Card key={p.name} padding="lg" className="bg-calcium flex flex-col gap-3 h-full">
+                <div className="flex items-center justify-between">
+                  <span className="text-eyebrow text-clay">0{i + 1}</span>
+                  <span className="text-caption text-ink-soft">{p.name}</span>
+                </div>
+                <h4 className="text-h3 font-display text-ink">{p.name}</h4>
+                <p className="text-body text-ink-soft">{p.body}</p>
+              </Card>
+            ))}
+          </Stagger>
+        </Section>
+      )}
 
       {/* ═══════════════════════════════════════════════════════
           5) EXPECTED OUTCOMES
@@ -357,33 +363,35 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
       {/* ═══════════════════════════════════════════════════════
           7) TRACK-SPECIFIC FAQ
           ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          <div className="lg:col-span-4">
-            <SectionHeader
-              eyebrowNumber="(05)"
-              eyebrow="Questions about this track"
-              title="The ones we hear most."
-              align="left"
-            />
-            <p className="text-body-sm text-ink-soft mt-6">
-              Not finding yours?{" "}
-              <Link href="/contact" className="text-clay font-medium underline-offset-4 hover:underline">
-                Ask Dr.&nbsp;Shruthi directly.
-              </Link>
-            </p>
-          </div>
+      {data.faqs.length > 0 && (
+        <Section bg="bg-bone">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+            <div className="lg:col-span-4">
+              <SectionHeader
+                eyebrowNumber="(05)"
+                eyebrow="Questions about this track"
+                title="The ones we hear most."
+                align="left"
+              />
+              <p className="text-body-sm text-ink-soft mt-6">
+                Not finding yours?{" "}
+                <Link href="/contact" className="text-clay font-medium underline-offset-4 hover:underline">
+                  Ask Dr.&nbsp;Shruthi directly.
+                </Link>
+              </p>
+            </div>
 
-          <div className="lg:col-span-8">
-            <Accordion
-              items={data.faqs.map((f) => ({
-                trigger: f.q,
-                content: <p>{f.a}</p>,
-              }))}
-            />
+            <div className="lg:col-span-8">
+              <Accordion
+                items={data.faqs.map((f) => ({
+                  trigger: f.q,
+                  content: <p>{f.a}</p>,
+                }))}
+              />
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      )}
 
       {/* ═══════════════════════════════════════════════════════
           8) FINAL CTA

@@ -23,7 +23,7 @@ export default function RoadmapTimeline({ phases }: RoadmapTimelineProps) {
             </div>
             <div className="flex-1 border-l border-line pl-6">
               <h4 className="text-h3 font-display text-ink mb-2">{p.title}</h4>
-              <p className="text-body text-ink-soft mb-4">{p.body}</p>
+              {p.body && <p className="text-body text-ink-soft mb-4">{p.body}</p>}
               <div className="flex flex-wrap gap-2">
                 {p.focus.map((f) => (
                   <span
@@ -168,7 +168,9 @@ function PhaseCard({ phase, index }: { phase: RoadmapPhase; index: number }) {
       </span>
 
       <h4 className="relative text-h2 font-display text-ink mb-4">{phase.title}</h4>
-      <p className="relative text-body-lg text-ink-soft mb-6 max-w-xl">{phase.body}</p>
+      {phase.body && (
+        <p className="relative text-body-lg text-ink-soft mb-6 max-w-xl">{phase.body}</p>
+      )}
 
       <div className="relative flex flex-wrap gap-2">
         {phase.focus.map((f) => (

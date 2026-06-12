@@ -178,7 +178,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     pillars: [
       {
         name: "Medical",
-        body: "Baseline screen + periodic reassessment. We coordinate with your physician on any existing supplementation (Vitamin D, calcium, HRT) — we never change prescriptions, we work alongside them.",
+        body: "Baseline screen + periodic reassessment.",
       },
       {
         name: "Exercise",
@@ -223,7 +223,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         q: "I’m post-menopausal. Will this help bone density?",
-        a: "Resistance training is one of the most reliable non-pharmacological levers for bone density, especially post-menopause. We coordinate with your treating physician on any supplementation or HRT you’re on.",
+        a: "Resistance training is one of the most reliable non-pharmacological levers for bone density, especially post-menopause.",
       },
       {
         q: "How much time per week?",
@@ -242,8 +242,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     name: "Manage",
     promise: "Calm the pain first. Then build a stronger body around it.",
     italicWord: "first",
-    subhead:
-      "For those living with arthritis, joint pain, back or neck pain, or disc issues. Take the knee story: the right medical measure calms the pain — then a full-body program is built around the joint to reduce flare-ups and rebuild resilience.",
+    subhead: "",
     whoFor: ["Active arthritis", "Chronic joint pain", "Back / neck pain", "Disc bulge"],
     heroImage: "/mat-stretching.jpg",
     heroImageAlt: "TODO: replace with consented Manage-track member photo — guided session for active joint pain.",
@@ -265,25 +264,25 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       {
         label: "Weeks 1–4",
         title: "Settle the pain",
-        body: "Coordinate with your physician on the right medical measure for flare control. Gentle, pain-respecting movement to restore baseline.",
+        body: "",
         focus: ["Flare control", "Pain mapping", "Gentle range"],
       },
       {
         label: "Weeks 4–8",
         title: "Activate & build",
-        body: "Switch on the muscles around the painful joint — quads for knees, glutes for hips, deep core for backs. Targeted, low load.",
+        body: "",
         focus: ["Target muscle wake-up", "Joint stability", "Low-load strength"],
       },
       {
         label: "Weeks 8–12",
         title: "Muscles activating — start loading",
-        body: "Now the supporting muscles are firing, we load progressively. Standing strength, real-life patterns, full-body work that protects the joint.",
+        body: "",
         focus: ["Progressive load", "Standing strength", "Full-body integration"],
       },
       {
         label: "Weeks 12–16",
         title: "Resilience & sustain",
-        body: "Higher capacity, fewer flare-ups, a routine you can carry. Periodic medical reassessment to confirm progress and adjust.",
+        body: "",
         focus: ["Flare prevention", "Endurance", "Independent training"],
       },
     ],
@@ -291,24 +290,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       "Exercise is split across upper body, lower body, back, and the target joint — sequenced to start exactly where the problem is.",
 
     pillarsIntro: "How the four pillars are tuned for active pain:",
-    pillars: [
-      {
-        name: "Medical",
-        body: "Rheumatologist-led intake, imaging review, medication audit. We coordinate with your treating physician — never replace them, never modify prescriptions unilaterally.",
-      },
-      {
-        name: "Exercise",
-        body: "Pain-first sequencing: calm, activate, then load. Intensity is low-to-moderate and scaled to flare status week-to-week.",
-      },
-      {
-        name: "Nutrition",
-        body: "Anti-inflammatory pattern, protein adequacy, weight-management support where it eases joint load. Veg / non-veg adapted.",
-      },
-      {
-        name: "Mind Coaching",
-        body: "Many members carry fear of movement or pain catastrophising. If we detect it, we refer in a clinical psychologist — it’s as load-bearing as the exercise.",
-      },
-    ],
+    pillars: [],
 
     outcomesIntro:
       "What members on this track typically experience over a 16-week cycle. Trajectories — not promises — and the program works alongside, not instead of, your existing medical care.",
@@ -333,24 +315,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
 
     testimonialName: "Meera Raghavan",
 
-    faqs: [
-      {
-        q: "I’m on long-term painkillers — will I have to stop?",
-        a: "No. We don’t change your medication. We work alongside your treating physician; as pain reduces, they may choose to taper — that conversation is theirs.",
-      },
-      {
-        q: "I’ve been told I need a knee replacement. Should I still try?",
-        a: "Many members in this position improve enough to delay or avoid surgery — others use the program to enter surgery stronger and rebuild faster. The assessment will tell us which path is realistic for you.",
-      },
-      {
-        q: "What if my pain flares mid-program?",
-        a: "Flares are expected. The program adjusts intensity in the week of a flare and steps back up as it settles. We do not push through pain.",
-      },
-      {
-        q: "Is this safe for rheumatoid arthritis?",
-        a: "Yes, with the right modifications. We coordinate with your rheumatologist on disease activity and adjust load and timing accordingly.",
-      },
-    ],
+    faqs: [],
   },
 
   /* ═════════ STRENGTHEN ═════════ */
@@ -359,8 +324,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     name: "Strengthen",
     promise: "Rebuild real strength — carefully, with your doctor in the loop.",
     italicWord: "carefully",
-    subhead:
-      "For post-surgery, severe joint degeneration, or rebuilding after a fracture. The most cautious progression we offer — non-surgical ourselves, coordinating closely with your treating doctor at every stage.",
+    subhead: "",
     whoFor: ["Post-surgery", "Severe osteoarthritis", "Post-fracture rebuild", "Deconditioning"],
     heroImage: "/trainer-guided-exercise.jpg",
     heroImageAlt: "TODO: replace with consented Strengthen-track member photo — supervised, doctor-guided strength session.",
@@ -373,7 +337,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       "Severe OA limits what you can do — daily walks, stairs, standing.",
       "You’re post-fracture (often osteoporosis-related) and need to rebuild safely.",
       "Months of inactivity have left you deconditioned — sarcopenia, balance loss.",
-      "Your treating doctor would happily share your case with a structured program.",
+      "Your bone strength propers",
     ],
 
     roadmapLead:
@@ -382,36 +346,35 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       {
         label: "Weeks 1–4",
         title: "Protect & restore range",
-        body: "Coordinate with your treating doctor on current restrictions. Restore joint range gently, retrain the muscles that switched off during inactivity.",
+        body: "",
         focus: ["Protected range", "Muscle re-activation", "Doctor coordination"],
       },
       {
         label: "Weeks 4–8",
         title: "Activate & build base",
-        body: "Low-load strength work on supporting muscles. Walking volume and balance training. Confidence in basic movement returns.",
+        body: "",
         focus: ["Supporting muscles", "Walking volume", "Balance"],
       },
       {
         label: "Weeks 8–12",
         title: "Load — milestone-gated",
-        body: "Progressive loading begins, but only once range, pain, and your doctor’s sign-off allow it. Standing strength, controlled compound patterns.",
+        body: "",
         focus: ["Progressive load", "Standing strength", "Compound patterns"],
       },
       {
         label: "Weeks 12–16",
         title: "Independence",
-        body: "Build a routine you can sustain solo, with periodic medical reassessment. Hand-off the maintenance plan to your treating doctor.",
+        body: "",
         focus: ["Independent training", "Maintenance plan", "Doctor hand-off"],
       },
     ],
-    bodyRegionNote:
-      "Exercise is split across upper body, lower body, back, and the target joint or surgical site — always starting where you’re cleared to start.",
+    bodyRegionNote: "",
 
     pillarsIntro: "How the four pillars are tuned for cautious rebuilds:",
     pillars: [
       {
         name: "Medical",
-        body: "We coordinate with your treating surgeon or physician throughout — current restrictions, imaging, sign-offs. We are non-surgical; we refer surgery questions back to them.",
+        body: "We coordinate with your treating surgeon or physician throughout.",
       },
       {
         name: "Exercise",
@@ -423,12 +386,11 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Mind Coaching",
-        body: "Surgery and severe degeneration carry real psychological weight. If fear of re-injury or low mood is holding back progress, we refer in a clinical psychologist.",
+        body: "Only if we detect a severe issue.",
       },
     ],
 
-    outcomesIntro:
-      "What members on this track typically experience. The slowest, most careful trajectory we offer — alongside, never instead of, your treating doctor’s care.",
+    outcomesIntro: "",
     outcomes: [
       {
         label: "Safe range restored",
@@ -450,23 +412,6 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
 
     testimonialName: "Rajesh Sharma",
 
-    faqs: [
-      {
-        q: "I’m three weeks post-surgery. Is it too early?",
-        a: "Usually yes — we typically begin once your surgeon has cleared you for active rehabilitation. The assessment confirms timing in coordination with them.",
-      },
-      {
-        q: "Do you work with my surgeon or physiotherapist?",
-        a: "Yes. We see it as complementary. We share progress notes and respect any restrictions they’ve set.",
-      },
-      {
-        q: "I have severe OA but want to avoid surgery — can you help?",
-        a: "Often, yes. Many members improve enough to delay or avoid surgery. We are honest when surgery is the more reasonable path and we refer it back to your doctor.",
-      },
-      {
-        q: "What if my doctor advises against strength training?",
-        a: "We follow their lead. We won’t override clinical advice. Where there’s ambiguity, we’ll happily share our plan with them so they can review it.",
-      },
-    ],
+    faqs: [],
   },
 };
