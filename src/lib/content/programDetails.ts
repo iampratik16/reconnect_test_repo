@@ -190,7 +190,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Mind Coaching",
-        body: "Referral only if we detect a block.",
+        body: "Mind coach to improve consistency and remove any mental block",
       },
     ],
 

@@ -22,7 +22,6 @@ import {
 } from "@/components/AnatomicalArt";
 import { sciencePoints } from "@/lib/content/science";
 import { asset } from "@/lib/asset";
-import TestimonialsSlider from "./_components/TestimonialsSlider";
 import HeroMedia from "./_components/HeroMedia";
 import WhyReconnectSection from "./_components/WhyReconnectSection";
 import PreventionTimeline from "./_components/PreventionTimeline";
@@ -402,20 +401,6 @@ export default function HomePage() {
             </Reveal>
           </div>
         </div>
-      </Section>
-
-      {/* ════════════════════════════════════════════════════════
-          10) TESTIMONIALS — (06) slider of 3
-          ════════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          title="Real people, real outcomes."
-          description="Three members on three different tracks. Stories shared with consent."
-          align="left"
-          className="mb-14"
-        />
-
-        <TestimonialsSlider />
       </Section>
 
       {/* Pricing teaser removed from home per client request. */}
