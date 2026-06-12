@@ -374,7 +374,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     pillars: [
       {
         name: "Medical",
-        body: "We coordinate with your treating surgeon or physician throughout.",
+        body: "Doctor led periodic assesments and mecical care ",
       },
       {
         name: "Exercise",
