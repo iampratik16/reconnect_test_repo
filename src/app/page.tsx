@@ -364,7 +364,7 @@ export default function HomePage() {
                 {/* TODO: replace with Dr. Shruthi's editorial portrait */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={asset("/another_shruthi.jpeg")}
+                  src={asset("/shruthi99.jpeg")}
                   alt="Dr. Shruthi Desai, Rheumatologist"
                   loading="lazy"
                   // Portrait image: natural aspect (h-auto) at every breakpoint so

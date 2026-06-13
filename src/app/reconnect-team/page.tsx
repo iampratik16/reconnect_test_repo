@@ -42,6 +42,14 @@ const team = [
     bio: "Dr. Anmol Nagaraj is a highly experienced neurosurgeon specializing in minimally invasive brain and spine surgery. With over a decade of expertise, he has trained and worked at prestigious institutions including Rutgers University (USA), Kasturba Medical College, and Manipal Hospitals. His areas of interest include neuro-oncology, neurovascular disorders, skull base surgery, neurotrauma, and advanced spine procedures. Combining clinical excellence with a strong research background, Dr. Anmol is committed to delivering innovative, patient-centered care for complex neurological conditions.",
   },
   {
+    name: "Dr. Deepak Rudrappa",
+    role: "Consultant Orthopaedic Surgeon · MBBS, MS Orthopaedics (RGUHS)",
+    pillar: "Medical",
+    image: "/rudrappa.jpeg",
+    objectPosition: "center 20%",
+    bio: "A senior orthopaedic surgeon with 20 years of experience, currently Senior Consultant at Manipal Hospital, Yeshwanthpur, and running his own private Orthopaedic and ENT centre. Trained in minimal invasive orthopaedic surgery, joint reconstruction and replacement, arthroscopy of all major joints, and sports medicine — including a fellowship at the Stockholm Sports Trauma Research Centre, Sweden. Brings broad surgical depth across trauma, spine, and joint care to guide safe, evidence-based musculoskeletal programs.",
+  },
+  {
     name: "Dr. Madhavi Sawaitul",
     role: "Consultant Physiotherapist · BPTh, MIAP, AIFT, PGDHM",
     pillar: "Physiotherapy",
