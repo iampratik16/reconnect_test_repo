@@ -6,9 +6,11 @@
  * created automatically on the first submission.
  *
  * ── SETUP (one time) ───────────────────────────────────────────────────────
- *  1. Open the leads spreadsheet:
- *     https://docs.google.com/spreadsheets/d/1cK5rErFfU4cq2ru09qWIRTlYbYrpgOsQU5b2-kHMeKU/edit
- *  2. Extensions ▸ Apps Script. Delete any boilerplate and paste THIS file.
+ *  1. Open https://script.google.com (or Extensions ▸ Apps Script from the
+ *     sheet). Delete the default `myFunction` boilerplate and paste THIS file.
+ *     This script opens the sheet BY ID (SPREADSHEET_ID below), so it works
+ *     whether the project is standalone or bound to the sheet.
+ *  2. Confirm SPREADSHEET_ID matches your leads sheet (it already does).
  *  3. Click Save.
  *  4. Deploy ▸ New deployment ▸ (gear) Web app.
  *        • Description:    Reconnect leads
@@ -52,6 +54,8 @@ var FIELDS = [
   ['User Agent',          'userAgent'],
 ];
 
+// The leads spreadsheet (from its URL: /spreadsheets/d/<THIS ID>/edit).
+var SPREADSHEET_ID = '1cK5rErFfU4cq2ru09qWIRTlYbYrpgOsQU5b2-kHMeKU';
 var SHEET_NAME = 'Leads';
 
 function doPost(e) {
@@ -75,7 +79,7 @@ function doGet() {
 }
 
 function getSheet_() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
   if (sheet.getLastRow() === 0) {
     var headers = FIELDS.map(function (f) { return f[0]; });
