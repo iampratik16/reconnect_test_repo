@@ -14,6 +14,7 @@
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Button from "@/components/Button";
+import { submitLead } from "@/lib/leads";
 
 type Form = {
   name: string;
@@ -68,9 +69,18 @@ export default function ContactForm() {
     if (form.phone && form.phone.replace(/\D/g, "").length < 7) return setError("That phone number doesn't look right.");
     if (!form.message.trim()) return setError("Add a quick note so we know how to help.");
 
-    // TODO: replace with secured backend POST
-    // eslint-disable-next-line no-console
-    console.log("[contact submit — DEV ONLY]", form);
+    // Send to the leads spreadsheet (best-effort) with human-readable labels.
+    const concernLabel = CONCERNS.find((c) => c.v === form.concern)?.l ?? form.concern;
+    const trackLabel = TRACKS.find((t) => t.v === form.track)?.l ?? form.track;
+    void submitLead({
+      source: "Contact form",
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      concern: concernLabel,
+      track: trackLabel,
+      message: form.message,
+    });
     setSent(true);
   };
 

@@ -20,6 +20,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import Button from "@/components/Button";
+import { submitLead } from "@/lib/leads";
 
 /* ── Types ─────────────────────────────────────────────────── */
 
@@ -160,10 +161,24 @@ export default function AssessmentWizard() {
     const e = validateKey("contact");
     if (e) { setError(e); return; }
 
-    // TODO: replace with secured backend POST
-    if (typeof window !== "undefined") {
-      console.log("[assessment submit — DEV ONLY]", answers);
-    }
+    // Send the assessment lead + clinical context to the leads spreadsheet.
+    void submitLead({
+      source: "Assessment",
+      name: answers.name,
+      email: answers.email,
+      phone: answers.phone,
+      concern: answers.concern,
+      severity: answers.severity,
+      pain: answers.pain,
+      duration: answers.duration,
+      activity: answers.activity,
+      experience: answers.experience,
+      ageBand: answers.ageBand,
+      treatment: answers.treatment,
+      imaging: answers.imaging.join(", "),
+      diet: answers.diet,
+      recommendedTrack: recommend(answers).program,
+    });
     setDirection(1);
     setPos(totalSteps);
   }, [validateKey, answers, totalSteps]);

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import { asset } from "@/lib/asset";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
+import { submitLead } from "@/lib/leads";
 
 /* ── Data ──────────────────────────────────────────────────── */
 
@@ -109,7 +110,7 @@ export default function Footer() {
   const handleSubscribe = (e: FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    // In production this would call an API
+    void submitLead({ source: "Newsletter", email });
     setSubscribed(true);
   };
 
