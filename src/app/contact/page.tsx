@@ -8,7 +8,7 @@ import ContactForm from "./_components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Dr. Shruthi's team. Book a consultation, ask about a program, or message us — someone from the team will get in touch.",
+    "Get in touch with our team. Book a consultation, ask about a program, or message us — someone from the team will get in touch.",
 };
 
 type Way = {
@@ -22,22 +22,22 @@ type Way = {
 const ways: Way[] = [
   {
     label: "Book a consultation",
-    body: "A 20-minute call with Dr. Shruthi’s team to talk through your situation. The fastest way to know if Reconnect is right for you.",
+    body: "A 20-minute call with our clinical team to talk through your situation. The fastest way to know if Reconnect is right for you.",
     actionLabel: "Open booking →",
     href: "#contact-form",
     primary: true,
   },
   {
     label: "Email",
-    body: "hello@reconnectwellness.in",
-    actionLabel: "hello@reconnectwellness.in",
-    href: "mailto:hello@reconnectwellness.in",
+    body: "drshruthi@reconnect.health",
+    actionLabel: "drshruthi@reconnect.health",
+    href: "mailto:drshruthi@reconnect.health",
   },
   {
     label: "WhatsApp / phone",
     body: "Quickest for short questions — usually answered within a few working hours.",
-    actionLabel: "+91 ⟪TODO⟫",
-    href: "tel:+91",
+    actionLabel: "+91 80889 11265",
+    href: "tel:+918088911265",
   },
   {
     label: "Instagram",
@@ -47,8 +47,8 @@ const ways: Way[] = [
   },
   {
     label: "LinkedIn",
-    body: "Connect with Dr. Shruthi professionally.",
-    actionLabel: "Dr. Shruthi Desai",
+    body: "Connect with our team professionally.",
+    actionLabel: "Reconnect Wellness",
     href: "https://linkedin.com",
   },
 ];
