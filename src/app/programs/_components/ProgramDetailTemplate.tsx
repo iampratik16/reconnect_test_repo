@@ -185,8 +185,8 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
             )}
           </div>
 
-          <div className="lg:col-span-7 flex justify-end">
-            <Stagger className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-3 max-w-md" staggerDelay={0.06}>
+          <div className="lg:col-span-7">
+            <Stagger className="grid grid-cols-1 sm:grid-cols-2 auto-rows-fr gap-3" staggerDelay={0.06}>
               {data.signals.map((signal) => (
                 <div
                   key={signal}
