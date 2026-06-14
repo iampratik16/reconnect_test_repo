@@ -134,7 +134,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
 
     signalsHeadline: "Is this you?",
     signals: [
-      "You’re 40+ and want to stay ahead of joint wear.",
+      "You’re 30+ and want to stay ahead of joint wear.",
       "A parent or sibling has arthritis or osteoporosis.",
       "You’ve had occasional knee, back, or neck stiffness — nothing clinical yet.",
       "You’re post-menopausal and worried about bone density.",
@@ -332,9 +332,9 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
 
     signalsHeadline: "Is this you?",
     signals: [
-      "You’ve had a recent joint replacement or other orthopaedic surgery.",
+      "You’ve had a recent joint replacement or orthopaedic procedure.",
       "You’ve been told strength training is allowed, but you don’t know where to start.",
-      "Severe OA limits what you can do — daily walks, stairs, standing.",
+      "Pain limits what you can do — daily walks, stairs, standing.",
       "You’re post-fracture (often osteoporosis-related) and need to rebuild safely.",
       "Months of inactivity have left you deconditioned — sarcopenia, balance loss.",
       "Your bone strength propers",
@@ -378,7 +378,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Exercise",
-        body: "Lowest intensity tier, milestone-gated. Nothing progresses without checkpoints. Most personalised programming of any track.",
+        body: "Moderate intensity tier, milestone-gated. Nothing progresses without checkpoints. Most personalised programming of any track.",
       },
       {
         name: "Nutrition",
