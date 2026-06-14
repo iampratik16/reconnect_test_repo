@@ -25,7 +25,7 @@ const PILLARS: Pillar[] = [
   {
     icon: "clinical_notes",
     title: "Medical Assessment",
-    image: "/dc1.png",
+    image: "/doctor-led-xx.jpeg",
     items: [
       "One-to-one online Consultation with doctor",
       "Physical consultation only if we think its required",
@@ -38,7 +38,7 @@ const PILLARS: Pillar[] = [
   {
     icon: "exercise",
     title: "Physical Fitness",
-    image: "/dc2.png",
+    image: "/patientXX.jpeg",
     items: [
       "Assessing prior fitness level",
       "Designing and formulating exercise plan",
@@ -66,7 +66,7 @@ const PILLARS: Pillar[] = [
   {
     icon: "monitoring",
     title: "Tracking plans",
-    image: "/dc9.jpg",
+    image: "/patient_YYY.jpeg",
     items: [
       "Online follow up by doctors, trainers and other specialists",
       "Tracking weight, BMI and other health related parameters",
