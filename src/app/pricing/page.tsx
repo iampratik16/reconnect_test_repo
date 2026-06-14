@@ -81,7 +81,7 @@ export default function PricingPage() {
           3) PRICING TIERS
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
-        <PricingTiers ctaLabel="Take the free assessment" ctaHref="/assessment" />
+        <PricingTiers ctaLabel="Book consultation" ctaHref="/contact" />
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
