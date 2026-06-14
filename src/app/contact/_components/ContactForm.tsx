@@ -101,12 +101,6 @@ export default function ContactForm() {
     // Standard email format — rejects obviously malformed / random input.
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim()))
       return setError("Please enter a valid email address.");
-    // Indian mobile: exactly 10 digits starting 6–9 (tolerate +91 / 0 prefixes).
-    let phoneDigits = form.phone.replace(/\D/g, "");
-    if (phoneDigits.length === 12 && phoneDigits.startsWith("91")) phoneDigits = phoneDigits.slice(2);
-    if (phoneDigits.length === 11 && phoneDigits.startsWith("0")) phoneDigits = phoneDigits.slice(1);
-    if (!/^[6-9]\d{9}$/.test(phoneDigits))
-      return setError("Enter a valid 10-digit mobile number (starting 6–9).");
     if (!form.message.trim()) return setError("Add a quick note so we know how to help.");
 
     // Send to the leads spreadsheet (best-effort) with human-readable labels.
@@ -208,8 +202,8 @@ export default function ContactForm() {
               <Image
                 src="/qr-reconnect.png"
                 alt="Reconnect UPI QR code — scan to pay with any UPI app"
-                width={280}
-                height={262}
+                width={270}
+                height={279}
                 className="rounded-[16px]"
               />
               <p className="text-body-sm text-ink-soft max-w-sm">
@@ -252,7 +246,7 @@ export default function ContactForm() {
               <Field label="Email" type="email" value={form.email} onChange={(v) => update("email", v)} placeholder="you@example.com" autoComplete="email" required />
             </div>
 
-            <Field label="Phone" type="tel" value={form.phone} onChange={(v) => update("phone", v)} placeholder="10-digit mobile" autoComplete="tel" inputMode="numeric" required />
+            <Field label="Phone" type="tel" value={form.phone} onChange={(v) => update("phone", v)} placeholder="Your phone number" autoComplete="tel" inputMode="tel" required />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <Select
@@ -313,9 +307,9 @@ export default function ContactForm() {
 }
 
 /* ── Consultation date picker ──────────────────────────────────
-   Hand-built calendar (no library). Past dates are disabled; today is
-   outlined; the chosen date is filled. Mounts only after submit, so the
-   client-only `new Date()` can't cause a hydration mismatch.            */
+   Hand-built calendar (no library). Today and past dates are disabled
+   (bookings start tomorrow); the chosen date is filled. Mounts only after
+   submit, so the client-only `new Date()` can't cause a hydration mismatch. */
 
 function ConsultationCalendar({
   value,
@@ -387,21 +381,20 @@ function ConsultationCalendar({
           if (d === null) return <span key={`pad-${i}`} aria-hidden="true" />;
           const date = new Date(view.y, view.m, d);
           date.setHours(0, 0, 0, 0);
-          const isPast = date.getTime() < today.getTime();
+          // Bookings start tomorrow — today and any earlier date are disabled.
+          const isDisabled = date.getTime() <= today.getTime();
           const isSelected = !!value && date.getTime() === value.getTime();
-          const isToday = date.getTime() === today.getTime();
 
           let cls = "flex aspect-square items-center justify-center rounded-full text-body-sm transition-colors";
-          if (isPast) cls += " text-ink-soft/30 cursor-not-allowed";
+          if (isDisabled) cls += " text-ink-soft/30 cursor-not-allowed";
           else if (isSelected) cls += " bg-clay text-calcium font-medium";
-          else if (isToday) cls += " border border-clay text-clay font-medium hover:bg-clay/10";
           else cls += " text-ink hover:bg-clay/10";
 
           return (
             <button
               type="button"
               key={d}
-              disabled={isPast}
+              disabled={isDisabled}
               aria-pressed={isSelected}
               onClick={() => onChange(date)}
               className={cls}
