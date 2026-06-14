@@ -122,8 +122,8 @@ export default function ContactForm() {
               <Image
                 src="/qr-reconnect.png"
                 alt="QR code — scan to book your Reconnect consultation"
-                width={220}
-                height={288}
+                width={260}
+                height={243}
                 className="rounded-[16px] hairline shadow-card bg-white"
               />
               <p className="text-caption text-ink-soft">Scan to book your consultation</p>
