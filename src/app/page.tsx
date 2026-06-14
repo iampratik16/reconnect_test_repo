@@ -91,7 +91,7 @@ export default function HomePage() {
           1) HERO — full-bleed video, bottom-anchored editorial copy,
                     floating glass credibility chip, scroll indicator.
           ════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[86svh] md:min-h-[100svh] overflow-hidden bg-sage-deep">
+      <section className="relative min-h-[86svh] md:min-h-[100svh] overflow-hidden bg-sage-deep flex flex-col justify-end pt-24 md:pt-0">
         {/* ── Background video ─────────────────────────────────── */}
         <div className="absolute inset-0">
           <HeroMedia />
@@ -118,8 +118,9 @@ export default function HomePage() {
           />
         </div>
 
-        {/* ═══ Bottom-anchored content ═════════════════════════════ */}
-        <div className="absolute inset-x-0 bottom-0 z-10">
+        {/* ═══ Bottom-anchored content — flows in a flex column so it can't
+            overlap the nav on short screens (the section grows instead). ═══ */}
+        <div className="relative z-10 w-full">
           <div className="container-site pb-12 md:pb-20 lg:pb-24">
             <div className="max-w-3xl">
               <h1
