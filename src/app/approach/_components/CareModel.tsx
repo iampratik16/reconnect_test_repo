@@ -138,6 +138,19 @@ export default function CareModel() {
                         </li>
                       ))}
                     </ol>
+                    {/* Inline image for mobile/tablet — each pillar shows its own
+                        image right after its text. Desktop uses the sticky
+                        crossfade column on the right instead. */}
+                    <div className="lg:hidden pb-6">
+                      <div className="relative rounded-[20px] overflow-hidden shadow-lifted aspect-square bg-bone-deep">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={asset(p.image)}
+                          alt={p.title}
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                      </div>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -148,7 +161,7 @@ export default function CareModel() {
 
       {/* Active pillar image — all four preloaded & stacked so switching is a
           flash-free crossfade (no lazy load, no remount). */}
-      <div className="lg:sticky lg:top-28">
+      <div className="hidden lg:block lg:sticky lg:top-28">
         <div className="relative rounded-[20px] overflow-hidden shadow-lifted aspect-square bg-bone-deep">
           {PILLARS.map((p, i) => (
             // eslint-disable-next-line @next/next/no-img-element
