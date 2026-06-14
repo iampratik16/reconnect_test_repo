@@ -107,7 +107,7 @@ export default function ContactForm() {
               Thank you, {form.name || "friend"}.
             </h3>
             <p className="text-body-lg text-ink-soft mt-5 max-w-md mx-auto">
-              Someone from our team will get in touch. We read every message.
+              Once we confirm the payment, we will connect back.
             </p>
 
             {/* Booking QR — scan to book the consultation */}
