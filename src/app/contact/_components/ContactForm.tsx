@@ -6,11 +6,12 @@
  * `submit` only console-logs and shows the success state. Before launch:
  *   • POST to a server route / form service with TLS.
  *   • Add CAPTCHA or rate-limiting (Hcaptcha / Cloudflare Turnstile).
- *   • Forward to Dr. Shruthi's team inbox with a structured subject.
+ *   • Forward to the clinical team inbox with a structured subject.
  *   • Store any clinical context (concern, track) under the same medical-data
  *     handling policy as the assessment endpoint.
  */
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Button from "@/components/Button";
@@ -106,8 +107,21 @@ export default function ContactForm() {
               Thank you, {form.name || "friend"}.
             </h3>
             <p className="text-body-lg text-ink-soft mt-5 max-w-md mx-auto">
-              Someone from Dr.&nbsp;Shruthi&rsquo;s team will get in touch. We read every message.
+              Once we confirm the payment, we will connect back.
             </p>
+
+            {/* Booking QR — scan to book the consultation */}
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <Image
+                src="/qr-reconnect.png"
+                alt="QR code — scan to book your Reconnect consultation"
+                width={220}
+                height={288}
+                className="rounded-[16px] hairline shadow-card bg-white"
+              />
+              <p className="text-caption text-ink-soft">Scan to book your consultation</p>
+            </div>
+
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button variant="sage-outline" href="/assessment" arrow>
                 Take the assessment
@@ -183,7 +197,7 @@ export default function ContactForm() {
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
               <p className="text-caption text-ink-soft max-w-xs">
-                Your message is reviewed only by Dr.&nbsp;Shruthi&rsquo;s clinical team.
+                Your message is reviewed only by our clinical team.
                 Full privacy copy TODO.
               </p>
               <Button variant="clay" size="lg" type="submit" arrow>
