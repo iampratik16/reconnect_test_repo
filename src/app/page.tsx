@@ -300,7 +300,7 @@ export default function HomePage() {
             <FourPillarsShowcase variant="teaser" />
             <Button
               variant="clay"
-              href={asset("/pricing")}
+              href="/pricing"
               arrow
               className="mt-8"
             >

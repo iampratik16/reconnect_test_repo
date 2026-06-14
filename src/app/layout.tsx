@@ -33,6 +33,9 @@ const libreFranklin = Libre_Franklin({
 });
 
 export const metadata: Metadata = {
+  // Canonical site origin — makes relative OG/Twitter image + canonical URLs
+  // resolve to the live custom domain.
+  metadataBase: new URL("https://reconnect.health"),
   title: {
     default:
       "Reconnect Wellness | Joint Pain & Arthritis Exercise Program",

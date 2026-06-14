@@ -29,7 +29,8 @@ jobs:
         run: STATIC_EXPORT=1 npm run build
         env:
           NODE_ENV: production
-          NEXT_PUBLIC_BASE_PATH: /reconnect_website
+          # Served from the ROOT of the custom domain (reconnect.health), so no
+          # NEXT_PUBLIC_BASE_PATH — assets resolve from "/".
           # Google Apps Script Web App that records form submissions to the
           # leads sheet (public by nature — NEXT_PUBLIC_* is exposed client-side).
           NEXT_PUBLIC_LEADS_ENDPOINT: https://script.google.com/macros/s/AKfycbweC7RwlimNZiVs-iH2GFLjl4eVt5vLnrpGpdrWYkedyQ9DXpm0Rgq-1sZ9xBDNKeMy/exec

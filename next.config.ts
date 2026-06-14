@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
 const isExport = process.env.STATIC_EXPORT === "1";
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig: NextConfig = {
   // ── Static export mode (GitHub Pages demo) ──────────────────────
@@ -10,11 +9,10 @@ const nextConfig: NextConfig = {
   ...(isExport
     ? {
         output: "export" as const,
-        // Custom loader prepends basePath to every <Image> src (unoptimized
-        // images don't get basePath automatically on a subpath export).
+        // Custom loader returns raw asset paths (no runtime optimization in
+        // export mode). Served from the domain ROOT (reconnect.health) — no
+        // basePath / assetPrefix.
         images: { loader: "custom" as const, loaderFile: "./image-loader.ts" },
-        basePath: basePath || undefined,
-        assetPrefix: basePath || undefined,
         trailingSlash: true, // /about → /about/index.html (Pages-friendly)
         // Demo build: don't let type/lint noise block the export.
         typescript: { ignoreBuildErrors: true },

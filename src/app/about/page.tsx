@@ -265,7 +265,7 @@ export default function AboutPage() {
               {tracks.map((t) => (
                 <a
                   key={t.name}
-                  href={asset(t.href)}
+                  href={t.href}
                   className="group glow-card bg-calcium rounded-[18px] p-6 md:p-7 flex flex-col gap-3 h-full"
                 >
                   <div className="flex items-baseline justify-between">
