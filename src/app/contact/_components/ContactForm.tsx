@@ -66,8 +66,15 @@ export default function ContactForm() {
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (!form.name.trim()) return setError("Tell us your name.");
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) return setError("Please enter a valid email.");
-    if (form.phone && form.phone.replace(/\D/g, "").length < 7) return setError("That phone number doesn't look right.");
+    // Standard email format — rejects obviously malformed / random input.
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim()))
+      return setError("Please enter a valid email address.");
+    // Indian mobile: exactly 10 digits starting 6–9 (tolerate +91 / 0 prefixes).
+    let phoneDigits = form.phone.replace(/\D/g, "");
+    if (phoneDigits.length === 12 && phoneDigits.startsWith("91")) phoneDigits = phoneDigits.slice(2);
+    if (phoneDigits.length === 11 && phoneDigits.startsWith("0")) phoneDigits = phoneDigits.slice(1);
+    if (!/^[6-9]\d{9}$/.test(phoneDigits))
+      return setError("Enter a valid 10-digit mobile number (starting 6–9).");
     if (!form.message.trim()) return setError("Add a quick note so we know how to help.");
 
     // Send to the leads spreadsheet (best-effort) with human-readable labels.
@@ -147,11 +154,11 @@ export default function ContactForm() {
             <p className="text-eyebrow text-clay">Send a message</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Field label="Your name" value={form.name} onChange={(v) => update("name", v)} placeholder="Full name" autoComplete="name" />
-              <Field label="Email" type="email" value={form.email} onChange={(v) => update("email", v)} placeholder="you@example.com" autoComplete="email" />
+              <Field label="Your name" value={form.name} onChange={(v) => update("name", v)} placeholder="Full name" autoComplete="name" required />
+              <Field label="Email" type="email" value={form.email} onChange={(v) => update("email", v)} placeholder="you@example.com" autoComplete="email" required />
             </div>
 
-            <Field label="Phone (optional)" type="tel" value={form.phone} onChange={(v) => update("phone", v)} placeholder="+91 …" autoComplete="tel" />
+            <Field label="Phone" type="tel" value={form.phone} onChange={(v) => update("phone", v)} placeholder="10-digit mobile" autoComplete="tel" inputMode="numeric" required />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <Select
@@ -214,10 +221,11 @@ export default function ContactForm() {
 /* ── Field primitives ──────────────────────────────────────── */
 
 function Field({
-  label, value, onChange, type = "text", placeholder, autoComplete,
+  label, value, onChange, type = "text", placeholder, autoComplete, required, inputMode,
 }: {
   label: string; value: string; onChange: (v: string) => void;
   type?: string; placeholder?: string; autoComplete?: string;
+  required?: boolean; inputMode?: "text" | "tel" | "email" | "numeric";
 }) {
   return (
     <label className="flex flex-col gap-2">
@@ -228,6 +236,9 @@ function Field({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        required={required}
+        aria-required={required}
+        inputMode={inputMode}
         className="rounded-[14px] bg-bone-deep/40 border border-line text-body text-ink p-4 outline-none focus:border-clay transition-colors duration-200"
       />
     </label>

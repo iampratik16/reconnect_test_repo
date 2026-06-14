@@ -98,7 +98,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     heroImage: "/prevent/desk-night.png",
     heroImageAlt: "A late night at the desk — the everyday posture and habits Prevent gets ahead of.",
     heroIcon: SkeletonSvg,
-    signalsImage: "/prevent/desk-back.png",
+    signalsImage: "/prevent-desk-woman.jpg",
     roadmapImage: "/prevent/desk-neck.png",
 
     whoIsItFor: {
@@ -297,7 +297,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     outcomes: [
       {
         label: "Pain down",
-        body: "Most members report meaningful reduction in day-to-day pain scores within the cycle. We track, we don’t guess.",
+        body: "Most members report meaningful reduction in day-to-day pain scores within the cycle.",
       },
       {
         label: "Mobility up",
@@ -374,7 +374,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     pillars: [
       {
         name: "Medical",
-        body: "Doctor led periodic assesments and mecical care ",
+        body: "Doctor-led periodic assessments and medical care.",
       },
       {
         name: "Exercise",
@@ -386,7 +386,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Mind Coaching",
-        body: "Only if we detect a severe issue.",
+        body: "Activated when assessment flags psychological barriers to recovery.",
       },
     ],
 

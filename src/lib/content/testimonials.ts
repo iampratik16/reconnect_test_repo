@@ -37,7 +37,7 @@ export const testimonials: Testimonial[] = [
     metricNumeric: 2,
     metricSuffix: "/10",
     metricIsArrow: false,
-    image: "/testimonial-rajesh.jpg",
+    image: "/old_man3.jpg",
     imageAlt: "Rajesh Sharma, 58, Reconnect member from Mumbai",
   },
   {
@@ -60,7 +60,7 @@ export const testimonials: Testimonial[] = [
     metricNumeric: 80,
     metricSuffix: "%",
     metricIsArrow: false,
-    image: "/testimonial-meera.jpg",
+    image: "/fff.png",
     imageAlt: "Meera Raghavan, 42, Reconnect member from Bengaluru",
   },
   {
@@ -82,7 +82,7 @@ export const testimonials: Testimonial[] = [
     metricLabel: "Bone density gain",
     metricNumeric: undefined,
     metricIsArrow: true,
-    image: "/testimonial-amit.jpg",
+    image: "/old_man2.jpg",
     imageAlt: "Amit Kapoor, 65, Reconnect member from Delhi",
   },
 ];

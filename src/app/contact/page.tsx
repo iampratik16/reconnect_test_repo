@@ -53,11 +53,6 @@ const ways: Way[] = [
   },
 ];
 
-const reassurances = [
-  "Reconnect is non-surgical — surgical cases are referred to orthopaedics.",
-  "We work alongside your existing medication and treating doctor, never instead of them.",
-  "Every program is designed by a rheumatologist; no prescriptions are modified by us.",
-] as const;
 
 
 export default function ContactPage() {
@@ -125,28 +120,6 @@ export default function ContactPage() {
                   </a>
                 ))}
               </div>
-
-              {/* Reassurance block */}
-              <Reveal delay={0.15}>
-                <div className="mt-10 bg-sage-tint rounded-[18px] p-6">
-                  <p className="text-eyebrow text-sage mb-4">Before you write</p>
-                  <ul className="flex flex-col gap-3">
-                    {reassurances.map((r) => (
-                      <li key={r} className="flex items-start gap-3 text-body-sm text-ink">
-                        <svg
-                          width="16" height="16" viewBox="0 0 20 20" fill="none"
-                          stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"
-                          className="shrink-0 text-sage mt-1"
-                          aria-hidden="true"
-                        >
-                          <path d="M4 10l4 4 8-8" />
-                        </svg>
-                        <span>{r}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
             </div>
 
             {/* ── RIGHT: form ────────────────────────────────────── */}

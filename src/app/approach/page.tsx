@@ -98,9 +98,8 @@ const conditionGroups = [
     title: "Strength & Rebuild",
     image: "/conditions/strength.png",
     items: [
-      { name: "helps to treat fibromyalgia", track: "/programs/strengthen" },
       { name: "Deconditioning / sarcopenia", track: "/programs/manage" },
-      { name: "loose weight", track: "/programs/strengthen" },
+      { name: "lose weight", track: "/programs/strengthen" },
       { name: "prolonged immobility", track: "/programs/strengthen" },
     ],
   },
@@ -208,10 +207,10 @@ export default function ApproachPage() {
                       <Button
                         variant="sage-outline"
                         size="md"
-                        href={`/programs/${track.slug}`}
+                        href="/assessment"
                         arrow
                       >
-                        Explore {track.title}
+                        Take the assessment
                       </Button>
                     </div>
                   </div>
