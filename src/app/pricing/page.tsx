@@ -221,6 +221,87 @@ export default function PricingPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
+          6) ADDITIONAL SERVICES — priced per condition / need
+          ═══════════════════════════════════════════════════════ */}
+      <Section bg="bg-bone">
+        <SectionHeader
+          eyebrowNumber="(03)"
+          eyebrow="Specialist & support services"
+          title="Care beyond the core programs."
+          description="Available alongside any plan — priced to your specific condition and the services you need."
+          align="left"
+          className="mb-12"
+        />
+
+        <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Physiotherapist services",
+              items: ["Modalities — given in clinic", "Video consultation", "Home visit"],
+              note: "Prices vary based on the condition and modalities.",
+            },
+            {
+              title: "Psychologist services",
+              items: ["Online screening", "Video consultations", "Clinic consultations"],
+              note: "Prices vary based on the condition and type of service.",
+            },
+            {
+              title: "Other services",
+              items: [
+                "Home blood collection (within 5 km radius)",
+                "Health screening packages",
+                "Radiology imaging",
+              ],
+              note: "Prices vary based on the package and tests.",
+            },
+          ].map((s) => (
+            <div
+              key={s.title}
+              className="bg-calcium rounded-[18px] p-7 hairline flex flex-col gap-4 h-full"
+            >
+              <h3 className="text-h4 font-display text-ink">{s.title}</h3>
+              <ul className="flex flex-col gap-3 flex-1">
+                {s.items.map((it) => (
+                  <li key={it} className="flex items-start gap-3 text-body text-ink-soft">
+                    <Check on={true} />
+                    <span>{it}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-caption text-ink-soft italic border-t border-line pt-4">
+                {s.note}
+              </p>
+            </div>
+          ))}
+        </Stagger>
+
+        {/* Clinic / consultation details */}
+        <Reveal delay={0.15}>
+          <div className="mt-8 bg-calcium rounded-[18px] p-7 md:p-8 hairline grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+            <div className="md:col-span-8">
+              <p className="text-eyebrow text-clay mb-3">Dr. Shruthi consultation clinic</p>
+              <p className="text-h4 font-display text-ink">
+                Spectrum Diagnostics &amp; Health Care
+              </p>
+              <p className="text-body text-ink-soft mt-2 max-w-xl">
+                Tejas Arcade, 9/1, Dr Rajkumar Rd, A Block, Milk Colony, 2nd Stage,
+                Rajajinagar, Bengaluru, Karnataka 560010
+              </p>
+            </div>
+            <div className="md:col-span-4 md:text-right">
+              <p className="text-eyebrow text-ink-soft mb-2">Call to book</p>
+              <a
+                href="tel:08023371555"
+                className="text-h4 font-display text-clay hover:text-clay-dark transition-colors"
+              >
+                080 2337 1555
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* ═══════════════════════════════════════════════════════
           7) FINAL CTA
           ═══════════════════════════════════════════════════════ */}
       <CTASection

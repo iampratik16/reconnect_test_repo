@@ -41,7 +41,7 @@ export const plans: Plan[] = [
     description:
       "Medical consultation, a personalised plan, fitness and nutrition guidance, progress tracking, and mental-health support.",
     features: [
-      "Rheumatologist-led medical assessment",
+      "Doctor-led medical assessment",
       "Personalised strength program",
       "Fitness & nutrition guidance",
       "Progress tracking & monthly check-in",
@@ -49,15 +49,12 @@ export const plans: Plan[] = [
       "Personalized videos designed for your condition",
       "Interactive dashboard & progress tracking",
       "Mobile app access (launching 2026)",
-      "Personalized coach support & weekly check-ins",
-      "Calorie tracker & personalized food suggestions",
+      "Weekly coach support",
     ],
     highlightedFeatures: [
       "Personalized videos designed for your condition",
       "Interactive dashboard & progress tracking",
       "Mobile app access (launching 2026)",
-      "Personalized coach support & weekly check-ins",
-      "Calorie tracker & personalized food suggestions",
     ],
     popular: true,
   },
@@ -66,12 +63,12 @@ export const plans: Plan[] = [
     priceTotal: 40000,
     priceMonthly: 10000,
     months: 4,
-    bestFor: "For complex cases that want maximum guidance.",
+    bestFor: "For those who want hands-on, one-to-one training throughout.",
     description:
-      "Everything in Basic, plus deep psychological input and exclusive 1-on-1 sessions — the full Reconnect experience.",
+      "Everything in Basic, plus one-to-one training sessions with a trainer, three times a week.",
     inheritsFrom: "Basic",
-    features: ["Deep psychological input", "Exclusive 1-on-1 sessions"],
-    highlightedFeatures: ["Deep psychological input", "Exclusive 1-on-1 sessions"],
+    features: ["One-to-one training sessions with trainer (3× per week)"],
+    highlightedFeatures: ["One-to-one training sessions with trainer (3× per week)"],
     popular: false,
   },
 ];
@@ -81,7 +78,7 @@ export const plans: Plan[] = [
    from each plan's cumulative (inherited + own) features. */
 
 export const PLAN_FEATURES = [
-  "Rheumatologist-led medical assessment",
+  "Doctor-led medical assessment",
   "Personalised strength program",
   "Fitness & nutrition guidance",
   "Progress tracking & monthly check-in",
@@ -89,10 +86,8 @@ export const PLAN_FEATURES = [
   "Personalized videos designed for your condition",
   "Interactive dashboard & progress tracking",
   "Mobile app access (launching 2026)",
-  "Personalized coach support & weekly check-ins",
-  "Calorie tracker & personalized food suggestions",
-  "Deep psychological input",
-  "Exclusive 1-on-1 sessions",
+  "Weekly coach support",
+  "One-to-one training sessions with trainer (3× per week)",
 ] as const;
 
 /** Cumulative feature set for a plan (its own features plus anything inherited). */
