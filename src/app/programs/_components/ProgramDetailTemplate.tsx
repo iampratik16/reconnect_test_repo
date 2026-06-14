@@ -314,13 +314,13 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
           <Reveal>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
               <div className="lg:col-span-5">
-                <div className="relative rounded-[20px] overflow-hidden shadow-soft xray-glow-sage">
+                <div className="relative rounded-[20px] overflow-hidden shadow-soft xray-glow-sage aspect-[4/3]">
                   {/* TODO: replace with consented member photo */}
                   <img
                     src={asset(testimonial.image)}
                     alt={testimonial.imageAlt}
                     loading="lazy"
-                    className="w-full h-[360px] md:h-[460px] object-cover"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
                   />
                 </div>
               </div>
