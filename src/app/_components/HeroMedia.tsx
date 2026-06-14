@@ -36,7 +36,7 @@ export default function HeroMedia() {
       muted
       loop
       playsInline
-      preload="auto"
+      preload="metadata"
       aria-hidden="true"
       // `.hero-video` (globals.css) handles object-position + the responsive
       // crop scale: hard 1.85x on desktop to hide baked-in pillarbox bars,

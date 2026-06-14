@@ -435,7 +435,7 @@ export default function MethodSection() {
                         muted
                         loop
                         playsInline
-                        preload={i === activeStep ? "auto" : "none"}
+                        preload={i === activeStep ? "metadata" : "none"}
                         className="absolute inset-0 w-full h-full object-cover object-top"
                       />
                     ) : (
@@ -445,7 +445,7 @@ export default function MethodSection() {
                         fill
                         sizes="260px"
                         className="object-cover object-top"
-                        priority={i === 0}
+                        loading="lazy"
                       />
                     )}
                   </motion.div>

@@ -80,7 +80,7 @@ function ConditionCard({
               ? `object-cover grayscale absolute inset-0 transition-opacity duration-700 ${videoReady ? "opacity-0" : "opacity-100"}`
               : "object-cover grayscale group-hover:grayscale-0 absolute inset-0 transition-[filter] duration-700"
           }
-          priority={index < 4}
+          loading="lazy"
         />
 
         {/* Anatomy video — src set lazily on first hover, visible only once playing. */}
