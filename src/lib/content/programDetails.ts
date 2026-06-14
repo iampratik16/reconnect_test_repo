@@ -337,7 +337,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       "Pain limits what you can do — daily walks, stairs, standing.",
       "You’re post-fracture (often osteoporosis-related) and need to rebuild safely.",
       "Months of inactivity have left you deconditioned — sarcopenia, balance loss.",
-      "Your bone strength propers",
+      "You want to rebuild bone strength.",
     ],
 
     roadmapLead:
