@@ -331,7 +331,7 @@ function StepContent({ step, active }: { step: (typeof STEPS)[number]; active: b
       />
 
       <Link
-        href="/approach#the-journey"
+        href="/approach"
         className="inline-flex w-fit items-center gap-1 text-sm font-medium underline underline-offset-4 transition-opacity hover:opacity-60"
         style={{ color: step.color }}
       >
@@ -551,7 +551,7 @@ export default function MethodSection() {
                   transition={{ duration: 0.4, ease }}
                 >
                   <Link
-                    href="/approach#the-journey"
+                    href="/approach"
                     className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
                     style={{
                       backgroundColor: step.color,

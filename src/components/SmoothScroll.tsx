@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { setLenisInstance } from "@/lib/lenis";
 
@@ -15,6 +16,17 @@ export default function SmoothScroll({
   children: React.ReactNode;
 }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
+  // On client-side navigation to a new page, start at the top. Lenis manages
+  // its own scroll position and bypasses Next's default scroll restoration, so
+  // we reset it explicitly. Skipped when the URL targets an in-page #anchor.
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) return;
+    const lenis = lenisRef.current;
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
