@@ -60,15 +60,17 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
                 </Reveal>
               )}
 
-              <Reveal delay={0.3}>
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {data.whoFor.map((chip) => (
-                    <Pill key={chip} variant="sage">
-                      {chip}
-                    </Pill>
-                  ))}
-                </div>
-              </Reveal>
+              {data.whoFor.length > 0 && (
+                <Reveal delay={0.3}>
+                  <div className="mt-8 flex flex-wrap gap-2">
+                    {data.whoFor.map((chip) => (
+                      <Pill key={chip} variant="sage">
+                        {chip}
+                      </Pill>
+                    ))}
+                  </div>
+                </Reveal>
+              )}
 
               <Reveal delay={0.4}>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -300,7 +302,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
                 <CheckMark />
               </div>
               <h4 className="text-h4 font-display text-ink">{o.label}</h4>
-              <p className="text-body-sm text-ink-soft">{o.body}</p>
+              {o.body && <p className="text-body-sm text-ink-soft">{o.body}</p>}
             </Card>
           ))}
         </Stagger>
@@ -398,7 +400,7 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
           ═══════════════════════════════════════════════════════ */}
       <CTASection
         headline={`Ready to start the ${data.name} track?`}
-        description="Book a consultation with Dr. Shruthi’s team — we’ll confirm the right track and shape the program around your body."
+        description="Book a consultation with Reconnect team — we’ll confirm the right track and shape the program around your body."
         primaryHref="/contact"
         primaryLabel="Book consultation"
         variant="sage"

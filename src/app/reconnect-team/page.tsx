@@ -8,7 +8,7 @@ import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
 import Pill from "@/components/Pill";
 import CTASection from "@/components/CTASection";
-import { SkeletonSvg, KneeSvg, SpineSvg } from "@/components/AnatomicalArt";
+import { SkeletonSvg, SpineSvg } from "@/components/AnatomicalArt";
 
 export const metadata: Metadata = {
   title: "Reconnect Team",
@@ -17,12 +17,6 @@ export const metadata: Metadata = {
 };
 
 /* ── Data ──────────────────────────────────────────────────── */
-
-const tracks = [
-  { name: "Prevent", note: "For 40+, family history, post-menopausal bone health.", href: "/programs/prevent" },
-  { name: "Manage",  note: "For active arthritis, joint pain, back & neck pain, disc bulge.", href: "/programs/manage" },
-  { name: "Strengthen", note: "For post-surgery, severe OA, post-fracture rebuild.", href: "/programs/strengthen" },
-] as const;
 
 const team = [
   {
@@ -201,7 +195,7 @@ export default function ReconnectTeamPage() {
             eyebrowNumber="(01)"
             eyebrow="The wider team"
             title="Five disciplines, one program."
-            description="Family medicine, physiotherapy, strength training, nutrition and psychology then work as one plan — coordinated, integrated."
+            description="Medical team, physiotherapy, strength training, nutrition and psychology then work as one plan — coordinated, integrated."
             align="left"
             className="mb-12 max-w-3xl"
           />
@@ -335,54 +329,11 @@ export default function ReconnectTeamPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          5) WHY BONES & JOINTS — tracks + all-ages framing
-          ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-bone section-py overflow-hidden">
-        <KneeSvg className="watermark text-ink right-[-80px] bottom-[60px] w-[420px] hidden md:block" />
-
-        <div className="container-site relative">
-          <SectionHeader
-            eyebrowNumber="(05)"
-            eyebrow="Why bones & joints"
-            title="The one thing we do, for every age."
-            description="Bone and joint health is not just a problem for the elderly. It is a 30-year arc — and the early years are when you have the most leverage."
-            align="left"
-            className="mb-12 max-w-3xl"
-          />
-
-          <Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
-              {tracks.map((t) => (
-                <a
-                  key={t.name}
-                  href={t.href}
-                  className="group glow-card bg-calcium rounded-[18px] p-6 md:p-7 flex flex-col gap-3 h-full"
-                >
-                  <div className="flex items-baseline justify-between">
-                    <h4 className="text-h3 font-display text-ink">{t.name}</h4>
-                    <span className="text-clay opacity-0 group-hover:opacity-100 transition-opacity duration-200">→</span>
-                  </div>
-                  <p className="text-body-sm text-ink-soft">{t.note}</p>
-                </a>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <p className="text-body-lg text-ink-soft max-w-3xl border-l border-clay pl-6 serif-italic">
-              The same method runs under all three. The assessment decides which one is yours —
-              and exactly how it’s built.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
           7) FINAL CTA
           ═══════════════════════════════════════════════════════ */}
       <CTASection
         headline="Meet the team that builds your plan."
-        description="Book a consultation directly with Dr. Shruthi’s team."
+        description="Book a consultation directly with Reconnect team."
         primaryHref="/contact"
         primaryLabel="Book consultation"
         variant="sage"

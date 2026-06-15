@@ -292,7 +292,7 @@ export default function AboutPage() {
           ═══════════════════════════════════════════════════════ */}
       <CTASection
         headline="Want to talk it through?"
-        description="Book a consultation directly with Dr. Shruthi’s team."
+        description="Book a consultation directly with Reconnect team."
         primaryHref="/contact"
         primaryLabel="Book consultation"
         variant="sage"

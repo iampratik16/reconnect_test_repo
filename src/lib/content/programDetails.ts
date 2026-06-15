@@ -94,7 +94,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     italicWord: "now",
     subhead:
       "For early signs, family history, or age-related risk. A proactive 16-week program to build strength and bone density before problems start. Being protective now prevents future problems.",
-    whoFor: ["Early arthritis signs", "Family history", "Post-menopausal bone health", "Adults 40+"],
+    whoFor: [],
     heroImage: "/prevent/desk-night.png",
     heroImageAlt: "A late night at the desk — the everyday posture and habits Prevent gets ahead of.",
     heroIcon: SkeletonSvg,
@@ -325,7 +325,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     promise: "Rebuild real strength — carefully, with your doctor in the loop.",
     italicWord: "carefully",
     subhead: "",
-    whoFor: ["Post-surgery", "Severe osteoarthritis", "Post-fracture rebuild", "Deconditioning"],
+    whoFor: [],
     heroImage: "/trainer-guided-exercise.jpg",
     heroImageAlt: "TODO: replace with consented Strengthen-track member photo — supervised, doctor-guided strength session.",
     heroIcon: KneeSvg,
@@ -338,8 +338,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       "You want to rebuild bone strength.",
     ],
 
-    roadmapLead:
-      "A 16-week milestone-gated rebuild. Every phase has a checkpoint — we don’t progress until your body and your doctor say we should.",
+    roadmapLead: "",
     roadmap: [
       {
         label: "Weeks 1–4",
@@ -376,7 +375,7 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
       },
       {
         name: "Exercise",
-        body: "Moderate intensity tier, milestone-gated. Nothing progresses without checkpoints. Most personalised programming of any track.",
+        body: "Start moderate and build up. Add heavier weight only once form is solid, focusing on movements that strengthen bone.",
       },
       {
         name: "Nutrition",
@@ -392,19 +391,19 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
     outcomes: [
       {
         label: "Safe range restored",
-        body: "Joint range returns to functional levels within the limits your doctor has set.",
+        body: "",
       },
       {
         label: "Strength rebuilt",
-        body: "Supporting muscle returns — often the difference between depending on aids and walking unaided.",
+        body: "",
       },
       {
         label: "Balance & fall risk",
-        body: "Balance training reduces fall risk, especially important in osteoporosis and post-fracture cases.",
+        body: "",
       },
       {
         label: "Confidence to move",
-        body: "Many members arrive afraid to move. They leave with a routine — and the trust that they can use their body again.",
+        body: "",
       },
     ],
 

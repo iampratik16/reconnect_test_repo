@@ -74,7 +74,7 @@ export default function CaseStudiesPage() {
           ═══════════════════════════════════════════════════════ */}
       <CTASection
         headline="Want to be one of our first stories?"
-        description="Book a consultation to start your own program with Dr. Shruthi’s team."
+        description="Book a consultation to start your own program with Reconnect team."
         primaryHref="/contact"
         primaryLabel="Book consultation"
         variant="sage"

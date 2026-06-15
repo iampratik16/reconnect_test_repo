@@ -35,7 +35,7 @@ const ways: Way[] = [
   },
   {
     label: "WhatsApp / phone",
-    body: "Quickest for short questions — usually answered within a few working hours.",
+    body: "Quickest for short questions.",
     actionLabel: "+91 80889 11265",
     href: "tel:+918088911265",
   },
