@@ -332,10 +332,8 @@ export const programDetails: Record<ProgramDetail["slug"], ProgramDetail> = {
 
     signalsHeadline: "Is this you?",
     signals: [
-      "You’ve had a recent joint replacement or orthopaedic procedure.",
       "You’ve been told strength training is allowed, but you don’t know where to start.",
       "Pain limits what you can do — daily walks, stairs, standing.",
-      "You’re post-fracture (often osteoporosis-related) and need to rebuild safely.",
       "Months of inactivity have left you deconditioned — sarcopenia, balance loss.",
       "You want to rebuild bone strength.",
     ],
