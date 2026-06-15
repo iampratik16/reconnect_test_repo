@@ -284,7 +284,7 @@ function StepList({
 function StepContent({ step, active }: { step: (typeof STEPS)[number]; active: boolean }) {
   return (
     <div
-      className="flex flex-col gap-5 w-full transition-all duration-500 ease-out-expo"
+      className="flex flex-col gap-3 md:gap-5 w-full transition-all duration-500 ease-out-expo"
       style={{
         opacity: active ? 1 : 0,
         transform: `translateY(${active ? 0 : 14}px)`,
@@ -307,7 +307,7 @@ function StepContent({ step, active }: { step: (typeof STEPS)[number]; active: b
       <div className="flex items-baseline gap-3 flex-wrap">
         <span
           className="font-display font-black leading-none"
-          style={{ fontSize: "clamp(3rem, 6vw, 4.5rem)", color: `${step.color}18` }}
+          style={{ fontSize: "clamp(2.25rem, 6vw, 4.5rem)", color: `${step.color}18` }}
         >
           {step.num}
         </span>
@@ -320,7 +320,7 @@ function StepContent({ step, active }: { step: (typeof STEPS)[number]; active: b
       </div>
 
       {/* Body */}
-      <p className="leading-relaxed text-[0.97rem]" style={{ color: "rgba(255,255,255,0.6)" }}>
+      <p className="leading-relaxed text-[0.88rem] md:text-[0.97rem]" style={{ color: "rgba(255,255,255,0.6)" }}>
         {step.body}
       </p>
 
@@ -380,7 +380,7 @@ export default function MethodSection() {
         <div className="container-site w-full relative z-10">
 
           {/* Header */}
-          <div className="text-center mb-6 md:mb-10">
+          <div className="text-center mb-3 md:mb-10">
             <motion.p
               className="text-[11px] font-semibold uppercase tracking-[0.18em] mb-2"
               animate={{ color: step.color }}
@@ -398,7 +398,7 @@ export default function MethodSection() {
           </div>
 
           {/* Three-column layout */}
-          <div className="grid grid-cols-12 gap-6 md:gap-8 items-center">
+          <div className="grid grid-cols-12 gap-3 md:gap-8 items-center">
 
             {/* Left: step list */}
             <div className="hidden md:block col-span-3">
@@ -408,7 +408,7 @@ export default function MethodSection() {
             {/* Centre: glassmorphism card + anatomy */}
             <div className="col-span-12 md:col-span-5 flex justify-center">
               <div
-                className="relative rounded-3xl overflow-hidden w-[180px] sm:w-[220px] md:w-[260px] aspect-[9/16]"
+                className="relative rounded-3xl overflow-hidden w-[130px] sm:w-[180px] md:w-[260px] aspect-[9/16]"
                 style={{
                   background: "rgba(255,255,255,0.04)",
                   backdropFilter: "blur(24px) saturate(180%)",
@@ -493,7 +493,7 @@ export default function MethodSection() {
             </div>
 
             {/* Right: step content — all stacked, crossfade by opacity (smooth on mobile) */}
-            <div className="col-span-12 md:col-span-4 relative min-h-64 md:min-h-75 flex items-center">
+            <div className="col-span-12 md:col-span-4 relative min-h-52 md:min-h-75 flex items-center">
               {STEPS.map((s, i) => (
                 <div
                   key={s.num}
@@ -508,7 +508,7 @@ export default function MethodSection() {
           </div>
 
           {/* Mobile dots */}
-          <div className="flex md:hidden justify-center gap-3 mt-6">
+          <div className="flex md:hidden justify-center gap-3 mt-4">
             {STEPS.map((s, i) => (
               <button
                 key={s.num}
@@ -524,7 +524,7 @@ export default function MethodSection() {
           </div>
 
           {/* Scroll hint / final CTA — aligned under the centre card column */}
-          <div className="mt-6 grid grid-cols-12">
+          <div className="mt-4 md:mt-6 grid grid-cols-12">
             <div className="col-span-12 md:col-start-4 md:col-span-5 flex justify-center">
             <AnimatePresence mode="wait">
               {activeStep < 3 ? (
