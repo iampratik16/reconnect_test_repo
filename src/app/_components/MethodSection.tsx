@@ -527,7 +527,7 @@ export default function MethodSection() {
           <div className="mt-4 md:mt-6 grid grid-cols-12">
             <div className="col-span-12 md:col-start-4 md:col-span-5 flex justify-center">
             <AnimatePresence mode="wait">
-              {activeStep < 3 ? (
+              {activeStep < 3 && (
                 <motion.p
                   key="hint"
                   className="text-[11px] uppercase tracking-widest flex items-center gap-2"
@@ -540,26 +540,6 @@ export default function MethodSection() {
                   Scroll to explore
                   <span className="inline-block w-px h-4 bg-white/20 animate-bounce" />
                 </motion.p>
-              ) : (
-                <motion.div
-                  key="cta"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4, ease }}
-                >
-                  <Link
-                    href="/approach"
-                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
-                    style={{
-                      backgroundColor: step.color,
-                      color: "#080c14",
-                      boxShadow: `0 0 24px ${step.glow}`,
-                    }}
-                  >
-                    See the full method →
-                  </Link>
-                </motion.div>
               )}
             </AnimatePresence>
             </div>
