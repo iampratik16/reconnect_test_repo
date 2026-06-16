@@ -22,14 +22,14 @@ type Way = {
 const ways: Way[] = [
   {
     label: "Book a consultation",
-    body: "A 20-minute call with our clinical team to talk through your situation. The fastest way to know if Reconnect is right for you.",
+    body: "Reconnect's clinical team to talk through your situation.",
     actionLabel: "Open booking →",
     href: "#contact-form",
     primary: true,
   },
   {
     label: "Email",
-    body: "drshruthi@reconnect.health",
+    body: "Best for detailed questions or sharing reports.",
     actionLabel: "drshruthi@reconnect.health",
     href: "mailto:drshruthi@reconnect.health",
   },

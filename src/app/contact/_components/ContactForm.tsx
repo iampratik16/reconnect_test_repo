@@ -193,7 +193,11 @@ export default function ContactForm() {
               <span className="text-ink font-medium">
                 {selectedDate ? formatLongDate(selectedDate) : ""}
               </span>
-              . Complete your payment to confirm.
+              . Complete your payment of{" "}
+              <span className="text-ink font-medium">₹1,000</span> to confirm it.
+              <span className="block mt-2 text-body text-ink-soft">
+                The consultation amount will be adjusted when you join the program.
+              </span>
             </p>
 
             {/* Reconnect-branded UPI QR (brand name + scan label baked into the
