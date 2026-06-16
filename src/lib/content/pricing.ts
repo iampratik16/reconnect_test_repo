@@ -99,6 +99,15 @@ export function cumulativeFeatures(plan: Plan): string[] {
   return [...inherited, ...plan.features];
 }
 
+/** Cumulative highlighted (★) features — its own plus any inherited. */
+export function cumulativeHighlighted(plan: Plan): string[] {
+  const parent = plan.inheritsFrom
+    ? plans.find((p) => p.name === plan.inheritsFrom)
+    : undefined;
+  const inherited = parent ? cumulativeHighlighted(parent) : [];
+  return [...inherited, ...(plan.highlightedFeatures ?? [])];
+}
+
 /** For each feature in PLAN_FEATURES, whether each plan includes it. */
 export function featureMatrix(): { label: string; byPlan: boolean[] }[] {
   return PLAN_FEATURES.map((label) => ({

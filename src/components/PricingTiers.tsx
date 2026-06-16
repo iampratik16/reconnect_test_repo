@@ -13,7 +13,7 @@
 
 import Stagger from "./Stagger";
 import Button from "./Button";
-import { plans, type Plan } from "@/lib/content/pricing";
+import { plans, cumulativeFeatures, cumulativeHighlighted, type Plan } from "@/lib/content/pricing";
 
 interface PricingTiersProps {
   ctaLabel: string;
@@ -136,15 +136,11 @@ function TierCard({
 
       <div className="relative border-t border-line mt-7 mb-6" />
 
-      {/* Additive features — only what you GET */}
-      {plan.inheritsFrom && (
-        <p className="relative self-start inline-flex text-caption font-semibold uppercase tracking-[0.1em] text-clay-dark bg-clay-soft rounded-pill px-3 py-1 mb-4">
-          Everything in {plan.inheritsFrom}, plus —
-        </p>
-      )}
+      {/* Full feature list per plan (cumulative) so every card stands on its own
+          and both tiers render at an equal height. */}
       <ul className="relative flex flex-col gap-3 flex-1">
-        {plan.features.map((f) => {
-          const isHighlighted = plan.highlightedFeatures?.includes(f);
+        {cumulativeFeatures(plan).map((f) => {
+          const isHighlighted = cumulativeHighlighted(plan).includes(f);
           return (
             <li
               key={f}
@@ -181,7 +177,7 @@ function TierCard({
 export default function PricingTiers({ ctaLabel, ctaHref }: PricingTiersProps) {
   return (
     <Stagger
-      className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-[64rem] mx-auto items-start"
+      className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-[64rem] mx-auto items-stretch"
       staggerDelay={0.1}
     >
       {plans.map((plan, i) => (
