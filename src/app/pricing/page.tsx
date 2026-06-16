@@ -4,26 +4,16 @@ import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
 import Reveal from "@/components/Reveal";
 import Stagger from "@/components/Stagger";
-import Button from "@/components/Button";
 import CTASection from "@/components/CTASection";
 import { SkeletonSvg } from "@/components/AnatomicalArt";
 import PricingTiers from "@/components/PricingTiers";
 import FourPillarsShowcase from "@/components/FourPillarsShowcase";
-import { plans, featureMatrix, cumulativeFeatures } from "@/lib/content/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
     "Two monthly plans, both including a medical assessment and a personalised program. Basic (most popular) and Premium, with a minimum 4-month program.",
 };
-
-/* ── Data ──────────────────────────────────────────────────── */
-
-/**
- * Comparison table rows — derived from the canonical feature matrix so the
- * yes/no grid stays in sync with the additive card lists.
- */
-const allFeatures = featureMatrix();
 
 /* ── Page ──────────────────────────────────────────────────── */
 
@@ -85,155 +75,11 @@ export default function PricingPage() {
       </Section>
 
       {/* ═══════════════════════════════════════════════════════
-          5) FEATURE COMPARISON TABLE
-          ═══════════════════════════════════════════════════════ */}
-      <Section bg="bg-bone-deep">
-        <SectionHeader
-          eyebrowNumber="(02)"
-          eyebrow="Compare plans"
-          title="What’s in each plan."
-          align="left"
-          className="mb-12"
-        />
-
-        <Reveal>
-          <div className="bg-calcium rounded-[20px] overflow-hidden shadow-card hairline">
-            {/* Desktop table */}
-            <div className="hidden md:block overflow-x-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-line">
-                    <th className="p-5 lg:p-7 text-eyebrow text-ink-soft w-[34%]">Feature</th>
-                    {plans.map((p) => (
-                      <th key={p.name} className="p-5 lg:p-7">
-                        <div className="flex flex-col gap-1">
-                          <span className="text-eyebrow text-ink-soft">{p.name}</span>
-                          <span className="text-h4 font-display text-ink">
-                            ₹{p.priceMonthly.toLocaleString("en-IN")}
-                            <span className="text-caption text-ink-soft font-normal"> / mo</span>
-                          </span>
-                          <span className="text-caption text-ink-soft font-normal">
-                            ₹{p.priceTotal.toLocaleString("en-IN")} / {p.months} mo total
-                          </span>
-                          {p.popular && (
-                            <span className="text-caption text-clay-dark font-medium">Most chosen</span>
-                          )}
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {allFeatures.map((row, ri) => {
-                    const isHighlighted = plans.some((p) =>
-                      p.highlightedFeatures?.includes(row.label)
-                    );
-                    return (
-                      <tr
-                        key={row.label}
-                        className={ri !== allFeatures.length - 1 ? "border-b border-line" : ""}
-                      >
-                        <td
-                          className={`p-5 lg:p-7 text-body-sm ${
-                            isHighlighted ? "font-bold text-ink" : "text-ink"
-                          }`}
-                        >
-                          <span className="flex items-center justify-between">
-                            <span>{row.label}</span>
-                            {isHighlighted && <span className="ml-2 text-lg" style={{ color: "#D4A574" }}>★</span>}
-                          </span>
-                        </td>
-                        {row.byPlan.map((on, ci) => (
-                          <td key={ci} className="p-5 lg:p-7">
-                            <Check on={on} />
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                  <tr className="border-t border-line bg-bone/40">
-                    <td className="p-5 lg:p-7"></td>
-                    {plans.map((p) => (
-                      <td key={p.name} className="p-5 lg:p-7">
-                        <Button
-                          variant={p.popular ? "clay" : "sage-outline"}
-                          size="md"
-                          href="/assessment"
-                          arrow
-                        >
-                          Choose {p.name}
-                        </Button>
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile stack */}
-            <div className="md:hidden flex flex-col divide-y divide-line">
-              {plans.map((p) => (
-                <div key={p.name} className="p-6 flex flex-col gap-4">
-                  <div className="flex items-baseline justify-between">
-                    <h4 className="text-h4 font-display text-ink">{p.name}</h4>
-                    <div className="text-right">
-                      <p className="text-h4 font-display text-ink">
-                        ₹{p.priceMonthly.toLocaleString("en-IN")}
-                        <span className="text-caption text-ink-soft font-normal"> / mo</span>
-                      </p>
-                      <p className="text-caption text-ink-soft font-normal">
-                        ₹{p.priceTotal.toLocaleString("en-IN")} / {p.months} mo total
-                      </p>
-                    </div>
-                  </div>
-                  {p.popular && (
-                    <span className="self-start text-caption text-clay-dark bg-clay-soft rounded-pill px-3 py-1">
-                      Most chosen
-                    </span>
-                  )}
-                  <ul className="flex flex-col gap-2 pt-2">
-                    {cumulativeFeatures(p).map((f) => {
-                      const isHighlighted = p.highlightedFeatures?.includes(f);
-                      return (
-                        <li
-                          key={f}
-                          className={`flex items-start gap-3 text-body-sm ${
-                            isHighlighted ? "font-bold text-ink" : "text-ink"
-                          }`}
-                        >
-                          <Check on={true} />
-                          <span className="flex-1 flex items-center justify-between">
-                            <span>{f}</span>
-                            {isHighlighted && <span className="ml-2 text-lg" style={{ color: "#D4A574" }}>★</span>}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <div className="pt-2">
-                    <Button
-                      variant={p.popular ? "clay" : "sage-outline"}
-                      size="md"
-                      href="/assessment"
-                      arrow
-                      className="w-full justify-center"
-                    >
-                      Choose {p.name}
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-      </Section>
-
-      {/* ═══════════════════════════════════════════════════════
           6) ADDITIONAL SERVICES — priced per condition / need
           ═══════════════════════════════════════════════════════ */}
       <Section bg="bg-bone">
         <SectionHeader
-          eyebrowNumber="(03)"
+          eyebrowNumber="(01)"
           eyebrow="Specialist & support services"
           title="Care beyond the core programs."
           description="Available alongside any plan — priced to your specific condition and the services you need."
