@@ -58,8 +58,10 @@ export default function PreventionTimeline() {
 
   const go = useCallback(
     (next: number) => {
-      const clamped = (next + STAGES.length) % STAGES.length;
-      setDir(next > index || (index === STAGES.length - 1 && clamped === 0) ? 1 : -1);
+      // Clamp to the ends — the arc stops at the final "turn" card, no wrap-around.
+      const clamped = Math.max(0, Math.min(next, STAGES.length - 1));
+      if (clamped === index) return;
+      setDir(clamped > index ? 1 : -1);
       setIndex(clamped);
     },
     [index],
@@ -76,8 +78,9 @@ export default function PreventionTimeline() {
   };
 
   const stage = STAGES[index];
-  const nextStage = STAGES[(index + 1) % STAGES.length];
   const atEnd = index === STAGES.length - 1;
+  const atStart = index === 0;
+  const nextStage = atEnd ? null : STAGES[index + 1];
   const progress = ((index + 1) / STAGES.length) * 100;
 
   const enter = prefersReduced ? { opacity: 0 } : { opacity: 0, x: dir * 48 };
@@ -103,7 +106,7 @@ export default function PreventionTimeline() {
 
       {/* Stage track: active card + a peek of the next one on the right edge */}
       <div className="relative">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.16fr)] gap-6 items-stretch">
+        <div className={`grid grid-cols-1 gap-6 items-stretch ${atEnd ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,0.16fr)]"}`}>
           {/* ── Active card ───────────────────────────────────────── */}
           <div className="relative overflow-hidden rounded-[24px]">
             <AnimatePresence mode="wait" custom={dir}>
@@ -158,31 +161,33 @@ export default function PreventionTimeline() {
             </AnimatePresence>
           </div>
 
-          {/* ── Peek of the next card (desktop only) ──────────────── */}
-          <button
-            type="button"
-            onClick={() => go(index + 1)}
-            aria-label={`Next: ${nextStage.marker}`}
-            className={`hidden lg:flex relative overflow-hidden rounded-[24px] border text-left p-6 flex-col justify-end transition-colors group ${
-              nextStage.turn
-                ? "border-clay/20 bg-clay-soft/40 hover:bg-clay-soft/70"
-                : "border-ink/10 bg-bone-deep/50 hover:bg-bone-deep"
-            }`}
-          >
-            <span
-              aria-hidden="true"
-              className="pointer-events-none select-none absolute top-2 right-3 font-display leading-none text-ink/[0.05]"
-              style={{ fontSize: "5rem" }}
+          {/* ── Peek of the next card (desktop only) — hidden on the final card ── */}
+          {!atEnd && nextStage && (
+            <button
+              type="button"
+              onClick={() => go(index + 1)}
+              aria-label={`Next: ${nextStage.marker}`}
+              className={`hidden lg:flex relative overflow-hidden rounded-[24px] border text-left p-6 flex-col justify-end transition-colors group ${
+                nextStage.turn
+                  ? "border-clay/20 bg-clay-soft/40 hover:bg-clay-soft/70"
+                  : "border-ink/10 bg-bone-deep/50 hover:bg-bone-deep"
+              }`}
             >
-              {String(((index + 1) % STAGES.length) + 1).padStart(2, "0")}
-            </span>
-            <span className="text-eyebrow text-ink-soft/70 group-hover:text-ink-soft transition-colors">
-              Next
-            </span>
-            <span className="text-body-sm text-ink mt-1 leading-snug">
-              {nextStage.marker}
-            </span>
-          </button>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none select-none absolute top-2 right-3 font-display leading-none text-ink/[0.05]"
+                style={{ fontSize: "5rem" }}
+              >
+                {String(index + 2).padStart(2, "0")}
+              </span>
+              <span className="text-eyebrow text-ink-soft/70 group-hover:text-ink-soft transition-colors">
+                Next
+              </span>
+              <span className="text-body-sm text-ink mt-1 leading-snug">
+                {nextStage.marker}
+              </span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -203,20 +208,18 @@ export default function PreventionTimeline() {
           <button
             type="button"
             onClick={() => go(index - 1)}
+            disabled={atStart}
             aria-label="Previous stage"
-            className="w-11 h-11 rounded-full border border-ink/15 flex items-center justify-center text-ink hover:border-ink/40 hover:bg-ink/[0.03] transition-colors"
+            className="w-11 h-11 rounded-full border border-ink/15 flex items-center justify-center text-ink hover:border-ink/40 hover:bg-ink/[0.03] transition-colors disabled:opacity-30 disabled:pointer-events-none"
           >
             <Arrow dir="left" />
           </button>
           <button
             type="button"
             onClick={() => go(index + 1)}
+            disabled={atEnd}
             aria-label="Next stage"
-            className={`w-11 h-11 rounded-full border flex items-center justify-center transition-colors ${
-              atEnd
-                ? "border-clay/30 text-clay hover:bg-clay-soft"
-                : "border-ink/15 text-ink hover:border-ink/40 hover:bg-ink/[0.03]"
-            }`}
+            className="w-11 h-11 rounded-full border border-ink/15 flex items-center justify-center text-ink hover:border-ink/40 hover:bg-ink/[0.03] transition-colors disabled:opacity-30 disabled:pointer-events-none"
           >
             <Arrow dir="right" />
           </button>

@@ -8,7 +8,6 @@ import Reveal from "@/components/Reveal";
 import Stagger from "@/components/Stagger";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import Pill from "@/components/Pill";
 import CTASection from "@/components/CTASection";
 import {
   KneeSvg,
@@ -194,14 +193,6 @@ export default function ApproachPage() {
                     <h3 className="text-h2 font-display text-ink">{track.title}</h3>
                     <p className="serif-italic text-h4 text-ink-soft">{track.headline}</p>
                     <p className="text-body text-ink-soft">{track.description}</p>
-
-                    <div className="flex flex-wrap gap-2 mt-1">
-                      {track.tags.map((tag) => (
-                        <Pill key={tag} variant="sage">
-                          {tag}
-                        </Pill>
-                      ))}
-                    </div>
 
                     <div className="mt-4">
                       <Button
