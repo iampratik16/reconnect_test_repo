@@ -115,13 +115,16 @@ function TierCard({
         <p className="text-body-sm text-ink-soft mt-2 max-w-[26ch]">{plan.bestFor}</p>
       </div>
 
-      {/* Price block — the monthly cadence leads; total is the smaller sub-line */}
+      {/* Price block — the monthly figure leads big; program length + total are smaller */}
       <div className="relative mt-6">
+        <p className="text-caption text-ink-soft uppercase tracking-[0.08em]">
+          {plan.months}-month program
+        </p>
         <p
-          className="font-display text-ink leading-tight"
-          style={{ fontSize: "clamp(1.5rem, 2.6vw, 2rem)", fontWeight: 500, letterSpacing: "-0.01em" }}
+          className="font-display text-ink leading-tight mt-1"
+          style={{ fontSize: "clamp(1.85rem, 3vw, 2.5rem)", fontWeight: 500, letterSpacing: "-0.02em" }}
         >
-          {plan.months}-month program · {inr(plan.priceMonthly)} / month
+          {inr(plan.priceMonthly)} <span className="font-normal text-ink-soft">/ month</span>
         </p>
         <span
           className="text-ink-soft leading-none block mt-2"
