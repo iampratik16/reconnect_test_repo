@@ -15,7 +15,6 @@ const NAV_LINKS = [
   { href: "/programs/prevent", label: "Prevent" },
   { href: "/approach", label: "Approach" },
   { href: "/reconnect-team", label: "Reconnect Team" },
-  { href: "/case-studies", label: "Case Studies" },
   { href: "/pricing", label: "Pricing" },
 ] as const;
 

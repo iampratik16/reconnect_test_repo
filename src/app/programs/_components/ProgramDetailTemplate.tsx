@@ -330,9 +330,9 @@ export default function ProgramDetailTemplate({ slug }: ProgramDetailTemplatePro
               <div className="lg:col-span-7 text-bone">
                 <p className="text-eyebrow text-clay-soft mb-6">A member on this track</p>
                 <blockquote className="text-h2 font-display leading-tight mb-8">
-                  <span className="serif-italic text-clay-soft">“</span>
+                  <span className="serif-italic text-clay-soft mr-[0.12em]">“</span>
                   {testimonial.quote}
-                  <span className="serif-italic text-clay-soft">”</span>
+                  <span className="serif-italic text-clay-soft ml-[0.08em]">”</span>
                 </blockquote>
 
                 <p className="text-body text-bone/70 mb-8 max-w-xl">{testimonial.story}</p>
