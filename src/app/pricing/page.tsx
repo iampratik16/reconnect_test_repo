@@ -109,8 +109,11 @@ export default function PricingPage() {
                         <div className="flex flex-col gap-1">
                           <span className="text-eyebrow text-ink-soft">{p.name}</span>
                           <span className="text-h4 font-display text-ink">
-                            ₹{p.priceTotal.toLocaleString("en-IN")}
-                            <span className="text-caption text-ink-soft font-normal"> / {p.months} mo</span>
+                            ₹{p.priceMonthly.toLocaleString("en-IN")}
+                            <span className="text-caption text-ink-soft font-normal"> / mo</span>
+                          </span>
+                          <span className="text-caption text-ink-soft font-normal">
+                            ₹{p.priceTotal.toLocaleString("en-IN")} / {p.months} mo total
                           </span>
                           {p.popular && (
                             <span className="text-caption text-clay-dark font-medium">Most chosen</span>
@@ -173,10 +176,15 @@ export default function PricingPage() {
                 <div key={p.name} className="p-6 flex flex-col gap-4">
                   <div className="flex items-baseline justify-between">
                     <h4 className="text-h4 font-display text-ink">{p.name}</h4>
-                    <p className="text-h4 font-display text-ink">
-                      ₹{p.priceTotal.toLocaleString("en-IN")}
-                      <span className="text-caption text-ink-soft font-normal"> / {p.months} mo</span>
-                    </p>
+                    <div className="text-right">
+                      <p className="text-h4 font-display text-ink">
+                        ₹{p.priceMonthly.toLocaleString("en-IN")}
+                        <span className="text-caption text-ink-soft font-normal"> / mo</span>
+                      </p>
+                      <p className="text-caption text-ink-soft font-normal">
+                        ₹{p.priceTotal.toLocaleString("en-IN")} / {p.months} mo total
+                      </p>
+                    </div>
                   </div>
                   {p.popular && (
                     <span className="self-start text-caption text-clay-dark bg-clay-soft rounded-pill px-3 py-1">
