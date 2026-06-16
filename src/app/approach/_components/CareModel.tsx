@@ -52,7 +52,7 @@ const PILLARS: Pillar[] = [
   {
     icon: "psychology",
     title: "Mental and subconscious fitness",
-    image: "/dc3.png",
+    image: "/lady_meditating.png",
     items: [
       "Online Consultation with psychologist",
       "Formulating and designing appropriate plan",

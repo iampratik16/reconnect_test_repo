@@ -6,7 +6,6 @@ import SectionHeader from "@/components/SectionHeader";
 import Eyebrow from "@/components/Eyebrow";
 import Reveal from "@/components/Reveal";
 import Stagger from "@/components/Stagger";
-import Button from "@/components/Button";
 import Card from "@/components/Card";
 import CTASection from "@/components/CTASection";
 import {
@@ -193,17 +192,6 @@ export default function ApproachPage() {
                     <h3 className="text-h2 font-display text-ink">{track.title}</h3>
                     <p className="serif-italic text-h4 text-ink-soft">{track.headline}</p>
                     <p className="text-body text-ink-soft">{track.description}</p>
-
-                    <div className="mt-4">
-                      <Button
-                        variant="sage-outline"
-                        size="md"
-                        href="/assessment"
-                        arrow
-                      >
-                        Take the assessment
-                      </Button>
-                    </div>
                   </div>
                 </article>
               </Reveal>

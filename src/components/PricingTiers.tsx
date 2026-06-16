@@ -115,24 +115,27 @@ function TierCard({
         <p className="text-body-sm text-ink-soft mt-2 max-w-[26ch]">{plan.bestFor}</p>
       </div>
 
-      {/* Price block — program total leads */}
+      {/* Price block — the monthly cadence leads; total is the smaller sub-line */}
       <div className="relative mt-6">
-        <span
-          className="font-display text-ink leading-none block"
-          style={{ fontSize: "clamp(2.25rem, 3.5vw, 3rem)", fontWeight: 300, letterSpacing: "-0.02em" }}
+        <p
+          className="font-display text-ink leading-tight"
+          style={{ fontSize: "clamp(1.5rem, 2.6vw, 2rem)", fontWeight: 500, letterSpacing: "-0.01em" }}
         >
-          {inr(plan.priceTotal)}
-        </span>
-        <p className="text-caption text-ink-soft mt-2">
           {plan.months}-month program · {inr(plan.priceMonthly)} / month
         </p>
+        <span
+          className="text-ink-soft leading-none block mt-2"
+          style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)", fontWeight: 400 }}
+        >
+          {inr(plan.priceTotal)} total
+        </span>
       </div>
 
       <div className="relative border-t border-line mt-7 mb-6" />
 
       {/* Additive features — only what you GET */}
       {plan.inheritsFrom && (
-        <p className="relative text-caption font-semibold uppercase tracking-[0.1em] text-ink mb-4">
+        <p className="relative self-start inline-flex text-caption font-semibold uppercase tracking-[0.1em] text-clay-dark bg-clay-soft rounded-pill px-3 py-1 mb-4">
           Everything in {plan.inheritsFrom}, plus —
         </p>
       )}
